@@ -1,10 +1,7 @@
-const defaultAwesomeFunction = (name) => {
-  const returnStr = `I am the Default Awesome Function, fellow comrade! - ${name}`;
-  return returnStr;
-};
 
-const awesomeFunction = () => 'I am just an Awesome Function';
+import Treble from './treble';
+import useTreble from './treble-hook';
+import updateStore from './update-store';
 
-export default defaultAwesomeFunction;
-
-export { awesomeFunction };
+export {useTreble, updateStore};
+export default Treble;
