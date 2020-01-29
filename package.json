@@ -1,7 +1,7 @@
 {
-  "name": "npm-module-boilerplate",
+  "name": "treble-gsm",
   "version": "1.0.0",
-  "description": "Boilerplate for npm modules with ES6 features and syntax",
+  "description": "Hook based React global state management",
   "main": "./lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flexdinesh/npm-module-boilerplate.git"
+    "url": "git+https://github.com/hjrdave/trebleGSM.git"
   },
   "keywords": [
     "boilerplate",
@@ -33,9 +33,9 @@
   "author": "Dinesh Pandiyan <flexdinesh@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/flexdinesh/npm-module-boilerplate/issues"
+    "url": "https://github.com/hjrdave/trebleGSM/issues"
   },
-  "homepage": "https://github.com/flexdinesh/npm-module-boilerplate#readme",
+  "homepage": "https://github.com/hjrdave/trebleGSM#readme",
   "devDependencies": {
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
