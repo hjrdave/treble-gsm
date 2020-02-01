@@ -30,6 +30,7 @@ import  Treble  from  'treble-gsm';
 import  Store  from  './_store';
 
 const App = () =&gt; {
+
     return (
 		    &lt;Treble store={Store}&gt;
 				{ //components... }
