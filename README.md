@@ -68,7 +68,7 @@ export  default  App;
 <pre><code>updateStore( action, value, dispatch );
 </code></pre>
 <p>The <code>action</code> parameter will take a string that should match the store action you are wanting to update.</p>
-<p>The <code>value</code> parameter will take a string for the new value that will replace the specific store variable.</p>
+<p>The <code>value</code> parameter will take a string, object, array, or boolean value for the new value that will replace the specific store variable.</p>
 <p>The third parameter will take a <code>dispatch</code> function from the <code>useTreble</code> variable.</p>
 <pre><code>const [{ fish, pokemon }, dispatch] = useTreble();
 
