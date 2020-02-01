@@ -75,5 +75,5 @@ export  default  App;
 updateStore(  'updateFish', 'Salmon', dispatch );
 </code></pre>
 <p>When the updateStore function is called with the appropriate parameters it will update the store.</p>
-<p>And tada your app now has global state and you know how to manage it.  Happy Coding!</p>
+<p>And tada your app now has global state and it is easily managed.  Happy Coding!</p>
 
