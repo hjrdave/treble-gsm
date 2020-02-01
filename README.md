@@ -31,8 +31,8 @@
 	state: { fish:  'Goldfish' }
     },
     {
-    action: 'updatePokemon',
-    state: { pokemon: 'Magikarp' }
+	    action: 'updatePokemon',
+	    state: { pokemon: 'Magikarp' }
     }
 ]
 
