@@ -13,7 +13,7 @@
 <li><a href="#create-treble-store">Create Treble Store</a></li>
 </ul>
 </li>
-<li><a href="#accessing-treble-store">Access Treble Store</a></li>
+<li><a href="#accessing-treble-store">Accessing Treble Store</a></li>
 <li><a href="#update-treble-store">Update Treble Store</a></li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
