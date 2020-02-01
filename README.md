@@ -1,40 +1,79 @@
-# TrebleGSM
-A light Hook based React global state management library.
-
-## NPM Module Boilerplate
-
-[![Build Status](https://travis-ci.org/flexdinesh/npm-module-boilerplate.svg?branch=master)](https://travis-ci.org/flexdinesh/npm-module-boilerplate) [![dependencies Status](https://david-dm.org/flexdinesh/npm-module-boilerplate/status.svg)](https://david-dm.org/flexdinesh/npm-module-boilerplate) [![devDependencies Status](https://david-dm.org/flexdinesh/npm-module-boilerplate/dev-status.svg)](https://david-dm.org/flexdinesh/npm-module-boilerplate?type=dev) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
-**Start developing your NPM module in seconds** ✨
-
-Readymade boilerplate setup with all the best practices to kick start your npm/node module development.
-
-Happy hacking =)
-
-# Features
-
-* **ES6/ESNext** - Write _ES6_ code and _Babel_ will transpile it to ES5 for backwards compatibility
-* **Test** - _Mocha_ with _Istanbul_ coverage
-* **Lint** - Preconfigured _ESlint_ with _Airbnb_ config
-* **CI** - _TravisCI_ configuration setup
-* **Minify** - Built code will be minified for performance
-
-# Commands
-- `npm run clean` - Remove `lib/` directory
-- `npm test` - Run tests with linting and coverage results.
-- `npm test:only` - Run tests without linting or coverage.
-- `npm test:watch` - You can even re-run tests on file changes!
-- `npm test:prod` - Run tests with minified code.
-- `npm run test:examples` - Test written examples on pure JS for better understanding module usage.
-- `npm run lint` - Run ESlint with airbnb-config
-- `npm run cover` - Get coverage report for your code.
-- `npm run build` - Babel will transpile ES6 => ES5 and minify the code.
-- `npm run prepublish` - Hook for npm. Do all the checks before publishing your module.
-
-# Installation
-Just clone this repo and remove `.git` folder.
+---
 
 
-# License
+---
 
-MIT © Dinesh Pandiyan
+<p>Version: 1.0</p>
+<h1 id="treblegsm">TrebleGSM</h1>
+<p>A hook-based global state management library for React.js.  Inspired by a <a href="https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c">blog post</a> written by <a href="https://medium.com/@luke.hall">Luke Hall</a>. TrebleGSM’s goal is to provide a simple way to manage global state in your React app by providing an easy setup, little boilerplate, and a straightforward API.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#getting-started">Getting Started</a>
+<ul>
+<li><a href="#create-treble-store">Create Treble Store</a></li>
+</ul>
+</li>
+<li><a href="#access-treble-store">Access Treble Store</a></li>
+<li><a href="#update-treble-store">Update Treble Store</a></li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<p>Install TrebleGSM</p>
+<pre><code>npm install treble-gsm
+</code></pre>
+<h3 id="create-treble-store">Create Treble Store</h3>
+<p>Create a <code>_store.js</code> file in your app.  Structure the file like the example below.</p>
+<pre><code>const Store = [
+    {
+	    action:  'updateFish',
+		state: { fish:  'Goldfish' }
+    },
+    {
+	    action: 'updatePokemon',
+	    state: { pokemon: 'Magikarp' }
+    }
+]
+
+export default Store;
+</code></pre>
+<p>Import <code>Treble</code> component and <code>_store.js</code> into App.js or index.js and wrap it around your components. Pass the <code>Store</code> into the <code>Treble</code> <code>store</code> prop. Your app now has global state management!</p>
+<pre><code>import  React  from  'react';
+import  Treble  from  'treble-gsm';
+import  Store  from  './_store';
+
+const App = () =&gt; {
+    return (
+		    &lt;Treble store={Store}&gt;
+				{ //components... }
+		    &lt;/Treble&gt;
+	    );
+    }
+
+export  default  App;
+</code></pre>
+<h2 id="accessing-treble-store">Accessing Treble Store</h2>
+<p>TrebleGSM has a simple way of accessing state variables from the treble store. Import the useTreble hook.</p>
+<pre><code>import { useTreble } from 'treble-gsm';
+</code></pre>
+<p>Assign the useTreble hook to a destructured variable.</p>
+<pre><code>const [{ fish, pokemon }] = useTreble();
+</code></pre>
+<p>You can now use each store variable in your component.</p>
+<pre><code>&lt;p&gt;{ pokemon } looks like a { fish }&lt;/p&gt;
+</code></pre>
+<h2 id="update-treble-store">Update Treble Store</h2>
+<p>To update the Treble Store you need to import the <code>updateStore()</code> function.</p>
+<pre><code>import { updateStore } from 'treble-gsm';
+</code></pre>
+<p>The updateStore function takes three parameters.</p>
+<pre><code>updateStore( action, value, dispatch );
+</code></pre>
+<p>The <code>action</code> parameter will take a string that should match the store action you are wanting to update.</p>
+<p>The <code>value</code> parameter will take a string for the new value that will replace the specific store variable.</p>
+<p>The third parameter will take a <code>dispatch</code> function from the <code>useTreble</code> variable.</p>
+<pre><code>const [{ fish, pokemon }, dispatch] = useTreble();
+
+updateStore(  'updateFish', 'Salmon', dispatch );
+</code></pre>
+<p>When the updateStore function is called with the appropriate parameters it will update the store.</p>
+<p>And tada your app now has global state and you know how to manage it.  Happy Coding!</p>
+
