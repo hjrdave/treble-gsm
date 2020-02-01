@@ -27,7 +27,7 @@
 <p>Create a <code>_store.js</code> file in your app.  Structure the file like the example below.</p>
 <pre><code>const Store = [
     {
-	    action:  'updateFish',
+		action:  'updateFish',
 		state: { fish:  'Goldfish' }
     },
     {
