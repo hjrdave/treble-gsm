@@ -16,7 +16,7 @@
 <li><a href="#create-treble-store">Create Treble Store</a></li>
 </ul>
 </li>
-<li><a href="#accessing-treble-store">Accessing Treble Store</a></li>
+<li><a href="#subscribing-to-treble-store">Subscribing to Treble Store</a></li>
 <li><a href="#update-treble-store">Update Treble Store</a></li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
@@ -56,8 +56,8 @@ const App = () =&gt; {
 
 export  default  App;
 </code></pre>
-<h2 id="accessing-treble-store">Accessing Treble Store</h2>
-<p>TrebleGSM has a simple way of accessing state variables from the treble store. Import the useTreble hook.</p>
+<h2 id="subscribing-to-treble-store">Subscribing to Treble Store</h2>
+<p>TrebleGSM has a simple way of subscribing to the treble store. Import the useTreble hook.</p>
 <pre><code>import { useTreble } from 'treble-gsm';
 </code></pre>
 <p>Assign the useTreble hook to a destructured array to get access to store variables.</p>
