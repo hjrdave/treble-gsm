@@ -54,7 +54,7 @@ export  default  App;
 <p>TrebleGSM has a simple way of accessing state variables from the treble store. Import the useTreble hook.</p>
 <pre><code>import { useTreble } from 'treble-gsm';
 </code></pre>
-<p>Assign the useTreble hook to a destructured variable.</p>
+<p>Assign the useTreble hook to a destructured array.</p>
 <pre><code>const [{ fish, pokemon }] = useTreble();
 </code></pre>
 <p>You can now use each store variable in your component.</p>
