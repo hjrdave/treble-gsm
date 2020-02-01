@@ -23,6 +23,9 @@
 <p>Install TrebleGSM</p>
 <pre><code>npm install treble-gsm
 </code></pre>
+<p>or</p>
+<pre><code>yarn add treble-gsm
+</code></pre>
 <h3 id="create-treble-store">Create Treble Store</h3>
 <p>Create a <code>_store.js</code> file in your app.  Structure the file like the example below.</p>
 <pre><code>const Store = [
