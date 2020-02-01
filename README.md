@@ -29,11 +29,11 @@ export default Store;
 import  Treble  from  'treble-gsm';
 import  Store  from  './_store';
 
-const App = () =&gt; {
+const App = () = {
     return (
-		    &lt;Treble store={Store}&gt;
-				{ //components... }
-		    &lt;/Treble&gt;
+		    <Treble store={Store}>
+				  { //components... }
+		    </Treble>
 	    );
     }
 
