@@ -6,6 +6,9 @@
 <p>Version: 1.0</p>
 <h1 id="treblegsm">TrebleGSM</h1>
 <p>A hook-based global state management library for React.js.  Inspired by a <a href="https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c">blog post</a> written by <a href="https://medium.com/@luke.hall">Luke Hall</a>. TrebleGSM’s goal is to provide a simple way to manage global state in your React app by providing an easy setup, little boilerplate, and a straightforward API.</p>
+<blockquote>
+<p>Note: Because Treble is a hook based library it will only work with functional components.  Class based components are NOT compatible with Treble.  See React Hook’s <a href="https://reactjs.org/docs/hooks-intro.html">documentation</a>.</p>
+</blockquote>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
 <li><a href="#getting-started">Getting Started</a>
@@ -13,19 +16,22 @@
 <li><a href="#create-treble-store">Create Treble Store</a></li>
 </ul>
 </li>
-<li><a href="#access-treble-store">Access Treble Store</a></li>
+<li><a href="#subscribing-to-treble-store">Subscribing to Treble Store</a></li>
 <li><a href="#update-treble-store">Update Treble Store</a></li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
 <p>Install TrebleGSM</p>
 <pre><code>npm install treble-gsm
 </code></pre>
+<p>or</p>
+<pre><code>yarn add treble-gsm
+</code></pre>
 <h3 id="create-treble-store">Create Treble Store</h3>
 <p>Create a <code>_store.js</code> file in your app.  Structure the file like the example below.</p>
 <pre><code>const Store = [
     {
-	    action:  'updateFish',
-		state: { fish:  'Goldfish' }
+	action:  'updateFish',
+	state: { fish:  'Goldfish' }
     },
     {
 	    action: 'updatePokemon',
@@ -50,11 +56,11 @@ const App = () =&gt; {
 
 export  default  App;
 </code></pre>
-<h2 id="accessing-treble-store">Accessing Treble Store</h2>
-<p>TrebleGSM has a simple way of accessing state variables from the treble store. Import the useTreble hook.</p>
+<h2 id="subscribing-to-treble-store">Subscribing to Treble Store</h2>
+<p>TrebleGSM has a simple way of subscribing to the treble store. Import the useTreble hook.</p>
 <pre><code>import { useTreble } from 'treble-gsm';
 </code></pre>
-<p>Assign the useTreble hook to a destructured variable.</p>
+<p>Assign the useTreble hook to a destructured array to get access to store variables.</p>
 <pre><code>const [{ fish, pokemon }] = useTreble();
 </code></pre>
 <p>You can now use each store variable in your component.</p>
@@ -68,12 +74,12 @@ export  default  App;
 <pre><code>updateStore( action, value, dispatch );
 </code></pre>
 <p>The <code>action</code> parameter will take a string that should match the store action you are wanting to update.</p>
-<p>The <code>value</code> parameter will take a string for the new value that will replace the specific store variable.</p>
-<p>The third parameter will take a <code>dispatch</code> function from the <code>useTreble</code> variable.</p>
+<p>The <code>value</code> parameter will take a string, object, array, or boolean value for the new value that will replace the specific store variable.</p>
+<p>The third parameter will take a <code>dispatch</code> function from the <code>useTreble</code> hook.</p>
 <pre><code>const [{ fish, pokemon }, dispatch] = useTreble();
 
 updateStore(  'updateFish', 'Salmon', dispatch );
 </code></pre>
 <p>When the updateStore function is called with the appropriate parameters it will update the store.</p>
-<p>And tada your app now has global state and you know how to manage it.  Happy Coding!</p>
+<p>And tada your app now has global state and it is easily managed.  Happy Coding!</p>
 
