@@ -18,6 +18,7 @@
 </li>
 <li><a href="#subscribing-to-treble-store">Subscribing to Treble Store</a></li>
 <li><a href="#update-treble-store">Update Treble Store</a></li>
+<li><a href="#scoped-treble">Scoped Treble</a></li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
 <p>Install Treble</p>
@@ -82,4 +83,78 @@ updateStore(  'updateFish', 'Salmon', dispatch );
 </code></pre>
 <p>When the updateStore function is called with the appropriate parameters it will update the store.</p>
 <p>And tada your app now has global state and it is easily managed.  Happy Coding!</p>
+<h2 id="scoped-treble">Scoped Treble</h2>
+<p>There might be some use cases when a scoped <code>Treble</code> component would be more desired for state management.  Examples being ui components that have a lot of nested or children components.  Instead of including all of the component’s state in the global app state you can scope a <code>Treble</code> component to that specific component. Only that component and its children will have access to this scoped global state.</p>
+<p>First create a <code>_store.js</code> in the desired component.</p>
+<pre><code>//_store.js
+
+const  Store = [
+    { 
+	    action:  'updateGame',
+	    state: { game:  'Switch' }
+    }
+]
+
+export default Store;
+</code></pre>
+<p>Now import the <code>useTreble</code> and <code>useScopedTreble</code> hooks.</p>
+<pre><code>import {useTreble, useScopedTreble} from 'treble-gsm';
+</code></pre>
+<p>Assign the <code>useScopedTreble</code> hook to a variable.</p>
+<pre><code>const scopedContext = useScopedTreble();
+</code></pre>
+<p>We will now create a custom hook.  Assign the useTreble hook to a new hook variable. Pass the <code>scopedContext</code> variable to the <code>useTreble</code> hook.</p>
+<pre><code>const  useScopedTreble = () =&gt; useTreble(scopedContext);
+</code></pre>
+<p>Example code below:</p>
+<pre><code>//_store.js
+
+import {useTreble, useScopedTreble} from 'treble-gsm';
+
+const  Store = [
+    { 
+	    action:  'updateGame',
+	    state: { game:  'Switch' }
+    }
+]
+
+const scopedContext = useScopedTreble();
+const useScopedTreble = () =&gt; useTreble(scopedContext);
+
+export { scopedCompContext, useScopedTreble }
+export default Store;
+</code></pre>
+<p>Now import <code>Treble</code> and <code>Store</code> into your component. Assign the <code>Store</code> to the <code>store</code> prop on the <code>Treble</code> component.</p>
+<pre><code>import React from 'react';
+import Treble from 'treble-gsm';
+import Store from './_store.js';
+
+function ScopedComp(){
+    return(
+    &lt;&gt;
+	    &lt;Treble store={Store}&gt;
+		    {...children}
+	    &lt;/Treble&gt;
+    &lt;/&gt;
+    )
+}
+export default ScopedComp;
+</code></pre>
+<p>To scope this <code>Treble</code> component we now need to import the <code>scopedContext</code> variable and pass it to a second <code>Treble</code> prop called <code>scope</code>.</p>
+<pre><code>import React from 'react';
+import Treble from 'treble-gsm';
+import Store, {scopedCompContext} from './_store.js';
+
+function ScopedComp(){
+    return(
+    &lt;&gt;
+	    &lt;Treble store={Store} scope={scopedCompContext}&gt;
+		    {...children}
+	    &lt;/Treble&gt;
+    &lt;/&gt;
+    )
+}
+export default ScopedComp;
+</code></pre>
+<p>Your component now has scoped global state!</p>
 
