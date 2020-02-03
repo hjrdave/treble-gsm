@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hjrdave/trebleGSM.git"
+    "url": "git+https://github.com/hjrdave/treble-gsm.git"
   },
   "keywords": [
     "boilerplate",
@@ -33,9 +33,9 @@
   "author": "David Sanders <dsanders@mediafish.io>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hjrdave/trebleGSM/issues"
+    "url": "https://github.com/hjrdave/treble-gsm/issues"
   },
-  "homepage": "https://github.com/hjrdave/trebleGSM#readme",
+  "homepage": "https://github.com/hjrdave/treble-gsm#readme",
   "devDependencies": {
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
