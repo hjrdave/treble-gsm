@@ -4,8 +4,8 @@
 ---
 
 <p>Version: 1.0</p>
-<h1 id="treblegsm">TrebleGSM</h1>
-<p>A hook-based global state management library for React.js.  Inspired by a <a href="https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c">blog post</a> written by <a href="https://medium.com/@luke.hall">Luke Hall</a>. TrebleGSM’s goal is to provide a simple way to manage global state in your React app by providing an easy setup, little boilerplate, and a straightforward API.</p>
+<h1 id="treble">Treble</h1>
+<p>A hook-based global state management library for React.js.  Inspired by a <a href="https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c">blog post</a> written by <a href="https://medium.com/@luke.hall">Luke Hall</a>. Treble’s goal is to provide a simple way to manage global state in your React app by providing an easy setup, little boilerplate, and a straightforward API.</p>
 <blockquote>
 <p>Note: Because Treble is a hook based library it will only work with functional components.  Class based components are NOT compatible with Treble.  See React Hook’s <a href="https://reactjs.org/docs/hooks-intro.html">documentation</a>.</p>
 </blockquote>
@@ -20,7 +20,7 @@
 <li><a href="#update-treble-store">Update Treble Store</a></li>
 </ul>
 <h2 id="getting-started">Getting Started</h2>
-<p>Install TrebleGSM</p>
+<p>Install Treble</p>
 <pre><code>npm install treble-gsm
 </code></pre>
 <p>or</p>
@@ -57,7 +57,7 @@ const App = () =&gt; {
 export  default  App;
 </code></pre>
 <h2 id="subscribing-to-treble-store">Subscribing to Treble Store</h2>
-<p>TrebleGSM has a simple way of subscribing to the treble store. Import the useTreble hook.</p>
+<p>Treble has a simple way of subscribing to the treble store. Import the useTreble hook.</p>
 <pre><code>import { useTreble } from 'treble-gsm';
 </code></pre>
 <p>Assign the useTreble hook to a destructured array to get access to store variables.</p>
