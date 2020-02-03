@@ -1,10 +1,15 @@
 
 //Custom hook for accessing AppContext in components
-
 import {useContext} from 'react';
 import Context from './context';
 
+const useTreble = (context) => {
+    let scopedContext = context;
+    let defaultContext = Context;
 
-const useTreble = () => useContext(Context);
+    return useContext((context) ? scopedContext : defaultContext);
+};
 
 export default useTreble;
+
+
