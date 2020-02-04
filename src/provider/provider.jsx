@@ -7,8 +7,7 @@ const Provider = ({reducer, data, children, scope}) => {
     const Context = scope;
 
     // useEffect(() => {
-    //     console.log(scope);
-    //     console.log(Context);
+    //     console.log(useReducer);
     // },[])
 
     return(

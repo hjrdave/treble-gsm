@@ -1,12 +1,24 @@
 /*App Reducer*/
-
+import uniqid from 'uniqid';
 
 
 const buildReducer = (store) => {
+
+
   let Reducer = (state, action) => {
+
       let reducerActions = {
         'updateHistory' : () => {
-          return { ...state, history: action.updateHistory }
+          return { 
+            ...state, 
+            history: action.updateHistory
+          }
+        },
+        'updateSubscribeID' : () => {
+          return { 
+            ...state, 
+            subscribeID: action.updateSubscribeID
+          }
         }
       }
 

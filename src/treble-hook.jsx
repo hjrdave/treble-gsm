@@ -6,7 +6,7 @@ import Context from './context';
 const useTreble = (context) => {
     let scopedContext = context;
     let defaultContext = Context;
-
+    
     return useContext((context) ? scopedContext : defaultContext);
 };
 

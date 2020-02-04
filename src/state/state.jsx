@@ -7,7 +7,7 @@ const buildState = (store) => {
   store.map((obj) => {
       state = {...state, ...obj.state}
   });
-  state = {...state, history: {...state}};
+  state = {...state, history: {...state}, subscribeID: 12345};
   return state;
 }
 

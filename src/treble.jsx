@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Provider from './provider';
 import buildState from './state';
 import buildReducer from './reducer';
 import Context from './context';
+import History from './history';
 
 
 
@@ -17,6 +18,7 @@ function Treble(props){
     return(
         <>
             <Provider data={State} reducer={Reducer} scope={(scopedContext) ? scopedContext : defaultContext}>
+                <History data={State}/>
                 {props.children}
             </Provider>
         </>
