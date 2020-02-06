@@ -2,19 +2,25 @@
 
 const updateStore = (action, value, dispatch) => {
     
-    let id = Math.floor(Math.random() * 10000);
 
     dispatch({
         type: action,
         [action]: value
     });
 
-    if(action !== 'updateHistory'){
+    if(action !== 'updateHistory' && action !== 'updateHistoryID'){
+        
         dispatch({
             type: 'updateSubscribeID',
-            updateSubscribeID: id
-        })
+            updateSubscribeID: 0
+        });
+
+        dispatch({
+            type: 'updateStoreID',
+            updateStoreID: 0
+        });
     }
+
 }
 
 export default updateStore;

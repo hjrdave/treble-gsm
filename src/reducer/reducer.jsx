@@ -6,6 +6,10 @@ const buildReducer = (store) => {
 
 
   let Reducer = (state, action) => {
+      
+      let subscribeID = state.subscribeID;    
+      let historyID = state.historyID;
+      let storeID = state.storeID;
 
       let reducerActions = {
         'updateHistory' : () => {
@@ -14,10 +18,22 @@ const buildReducer = (store) => {
             history: action.updateHistory
           }
         },
+        'updateStoreID' : () => {
+          return { 
+            ...state, 
+            storeID: storeID + 1
+          }
+        },
+        'updateHistoryID' : () => {
+          return { 
+            ...state, 
+            historyID: action.updateHistoryID
+          }
+        },
         'updateSubscribeID' : () => {
           return { 
             ...state, 
-            subscribeID: action.updateSubscribeID
+            subscribeID: subscribeID + 1
           }
         }
       }

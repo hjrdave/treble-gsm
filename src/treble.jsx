@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import Provider from './provider';
 import buildState from './state';
 import buildReducer from './reducer';
@@ -9,7 +9,7 @@ import History from './history';
 
 function Treble(props){
 
-    const store = props.store;
+    const store = useMemo(() => props.store, [props.store]);
     const State = buildState(store);
     const Reducer = buildReducer(store);
     const defaultContext = Context;
@@ -18,7 +18,7 @@ function Treble(props){
     return(
         <>
             <Provider data={State} reducer={Reducer} scope={(scopedContext) ? scopedContext : defaultContext}>
-                <History data={State}/>
+                <History {...store}/>
                 {props.children}
             </Provider>
         </>
