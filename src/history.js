@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import useTreble from './treble-hook';
-import updateStore from './update-store';
 
 
 
-function History(props){
+function History(){
 
     const [{subscribeID, historyID, storeID, history}, dispatch] = useTreble();
 

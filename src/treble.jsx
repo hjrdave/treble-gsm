@@ -4,6 +4,7 @@ import buildState from './state';
 import buildReducer from './reducer';
 import Context from './context';
 import History from './history';
+import Persist from './persist';
 
 
 
@@ -18,7 +19,8 @@ function Treble(props){
     return(
         <>
             <Provider data={State} reducer={Reducer} scope={(scopedContext) ? scopedContext : defaultContext}>
-                <History {...store}/>
+                <History {...store} />
+                <Persist store={store} />
                 {props.children}
             </Provider>
         </>
