@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Hook based React global state management",
   "main": "./lib/index.js",
+  "types": "./lib/treble.d.ts",
   "scripts": {
     "clean": "rimraf lib",
     "test": "npm run lint && npm run cover",
@@ -17,7 +18,8 @@
   },
   "files": [
     "lib",
-    "src"
+    "src",
+    "treble.d.ts"
   ],
   "repository": {
     "type": "git",
