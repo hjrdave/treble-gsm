@@ -1,26 +1,27 @@
+/*
+    History
+    Provides previous state and resets state to original store value.
+*/
+
 import {useEffect, useState} from 'react';
-import useTreble from './treble-hook';
-
-
+import {useTreble} from '../hooks';
 
 function History(){
 
-    const [{subscribeID, historyID, storeID, history}, dispatch] = useTreble();
+    const [{subscribeID}, dispatch] = useTreble();
 
-    const state = useTreble()[0];
+    const state: any = useTreble()[0];
 
-    const cleanState = (currentState) => {
+    const cleanState = (currentState: any) => {
         let cleanedState = Object.assign({}, currentState);
         delete cleanedState.subscribeID;
         delete cleanedState.history;
-        delete cleanedState.historyID;
-        delete cleanedState.storeID;
         return cleanedState;
     }
 
     const currentState = cleanState(state);
 
-    const [originalState, setOriginalState] = useState(currentState);
+    const [originalState] = useState(currentState);
     const [prevState, setPrevState] = useState();
     
     const handlePrevState = () => {
@@ -40,17 +41,6 @@ function History(){
         });
  
     },[subscribeID]);
-
-    useEffect(() => {
-
-        if(storeID > 1){
-            dispatch({
-                type: 'updateHistoryID',
-                updateHistoryID: historyID + 1
-            });
-        }
-
-    },[history]);
 
     return null;
 }
