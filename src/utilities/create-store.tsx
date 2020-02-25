@@ -14,7 +14,11 @@ interface ICreateStore {
                 persist?: boolean
             }
         }[],
-        scope?: React.Context<never[]>
+        object?: {
+            options?: {
+                context?: React.Context<never[]>
+            }
+        }
     ): {
         data: {
             action: string,
@@ -25,14 +29,18 @@ interface ICreateStore {
                 persist?: boolean
             }
         }[],
-        scope?: React.Context<never[]>
+        object?: {
+            options?: {
+                context: React.Context<never[]>
+            }
+        }
     }
 }
 
-const createStore: ICreateStore = (storeData, scope) => {
+const createStore: ICreateStore = (storeData, object) => {
     let  store = {
         data: storeData,
-        scope: scope
+        scope: object?.options?.context
     }
     return store
 }
