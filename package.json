@@ -5,6 +5,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
+    "start": "babel src --watch --out-dir lib --extensions '.ts,.tsx' && tsc --emitDeclarationOnly",
     "clean": "rimraf lib",
     "test": "npm run lint && npm run cover",
     "test:prod": "cross-env BABEL_ENV=production npm run test",
@@ -13,9 +14,8 @@
     "test:examples": "node examples/",
     "cover": "nyc --check-coverage npm run test:only",
     "lint": "eslint src test",
-    "build": "cross-env BABEL_ENV=production babel src --out-dir lib",
-    "tbuild": "tsc",
-    "prepublish": "npm run tbuild"
+    "build": "babel src --out-dir lib --extensions '.ts,.tsx' && tsc --emitDeclarationOnly",
+    "prepublish": "npm run build"
   },
   "files": [
     "lib",
@@ -26,7 +26,6 @@
     "url": "git+https://github.com/hjrdave/treble-gsm.git"
   },
   "keywords": [
-    "boilerplate",
     "npm",
     "module",
     "node",
@@ -39,10 +38,11 @@
   },
   "homepage": "https://github.com/hjrdave/treble-gsm#readme",
   "devDependencies": {
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
     "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-polyfill": "^6.26.0",
@@ -60,6 +60,9 @@
     "rimraf": "^2.6.2"
   },
   "dependencies": {
+    
+  },
+  "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   }
