@@ -17,6 +17,7 @@ Treble is a Hook-based global state management container and library for React.j
     - [Scoped Treble](#scoped-treble)
     - [History Object](#history-object)
     - [Persist State](#persist-state)
+- [Support](#support)
 
 
 ### Getting Started
@@ -352,4 +353,10 @@ clearPersist(key: string);
 <button onClick={() => clearPersist('pokemon')}>Clear from Local Storage</button>
 ````
 
+### Support
 
+If you would like to support, contribute, or [submit issues and feature requests](https://github.com/hjrdave/treble-gsm/issues). please do! :)
+
+My hope is to get more community involvement in this project to help grow and maintain it.
+
+For more information about me. Visit my [personal website](https://mediafish.io).
