@@ -8,8 +8,15 @@ Treble is a Hook-based global state management container and library for React.j
 
 ### Table of Contents
 
-- Link
-    - link
+- [Getting Started](#getting-started)
+    - [Create Treble Store](#create-treble-store)
+    - [Table Container Component](#treble-container-component)
+    - [Subscribing to the Treble Store](#subscribing-to-the-treble-store)
+    - [Updating the Treble Store](#updating-the-treble-store)
+- [Advanced Features](#advanced-features)
+    - [Scoped Treble](#scoped-treble)
+    - [History Object](#history-object)
+    - [Persist State](#persist-state)
 
 
 ### Getting Started
