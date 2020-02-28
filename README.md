@@ -1,5 +1,4 @@
 Version: 1.1.0 Docs
-
 ## Treble
 
 Treble is a Hook-based global state management container and library for React.js apps. It is inspired by a [blog post](https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c) by [Luke Hall](https://medium.com/@luke.hall).  Treble's goal is to provide a simple way to manage global state in your React app by providing an easy setup, little boilerplate, and a straight forward API.
@@ -47,7 +46,7 @@ const Store = createStore([
         action: 'updatePokemonGame',
         state: { pokemonGame: 'Pokemon Red' }
     }
-],//optional parameters);
+],/* optional parameters */);
 
 export default Store;
 ```
@@ -263,7 +262,7 @@ If your component is utilizing a scoped Treble there still might be a case where
 ```javascript
 import React, {useEffect} from 'react';
 import {useTreble} from 'treble-gsm';
-import {useTestCompTreble} from './_store';
+import {useNewTreble} from './_store';
 
 function NestedComp(){
 
