@@ -14,12 +14,16 @@ yarn.lock
 
 # project files
 src
-test
-examples
-CHANGELOG.md
+
+# environment configurations
+.babelrc
 .editorconfig
 .eslintignore
 .eslintrc
-.babelrc
 .gitignore
+.npmignore
+.npmrc
+.travis.yml
 tsconfig.json
+.vscode
+
