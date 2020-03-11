@@ -1,5 +1,5 @@
 
-<p style='text-align: center;'><img src='https://hjrdave.github.io/get-treble-gsm/static/cf495e86c4599dafc995eb620997dffb/31987/logo-treble-gsm.png' width='150' /></p>
+<div style='display: flex; justify-content: center'><img src='https://hjrdave.github.io/get-treble-gsm/static/cf495e86c4599dafc995eb620997dffb/31987/logo-treble-gsm.png' width='175' /></div>
 
 Version: 1.1.0 Docs
 ## Treble
