@@ -2,6 +2,7 @@
   buildReducer
   Consumes treble store and dynamically builds global state reducer.
 */
+import middleware from '../middleware';
 
 interface IBuildReducer {
   (
@@ -11,7 +12,8 @@ interface IBuildReducer {
           [key: string]: any;
       };
       features?: {
-          persist?: boolean
+          persist?: boolean,
+          call?: () => void;
       }
     }[]
   ): any
@@ -33,6 +35,7 @@ const buildReducer: IBuildReducer = (store) => {
       [key: string]: any
     }
   }
+
   let Reducer:IReducer = (state, action) => {
       
       let subscribeID = state.subscribeID;  
@@ -64,7 +67,10 @@ const buildReducer: IBuildReducer = (store) => {
         reducerActions = {
           ...reducerActions,
           [item.action] : () => {
-              return { ...state, [objectProp] : actionName }
+              if(middleware(item, actionName) === true){
+                return { ...state, [objectProp] : actionName };
+              }
+              return { ...state };
           }
         }
       })
