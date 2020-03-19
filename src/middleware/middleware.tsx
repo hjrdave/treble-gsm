@@ -11,29 +11,40 @@ interface IMiddleware {
             [key: string]: any;
         };
         features?: {
-            call?: () => void;
+            call?: (state: any) => void;
             check?: (state: any) => boolean
+            convert?: (state: any) => any,
+            persist?: boolean
         }
       },
-      actionName: any
+      dispatchValue: any,
+      returnValueOnly: boolean
     ): any
   }
 
-const middleware: IMiddleware = (item, actionName) => {
-    let call = item.features?.call || null;
-    let check = item.features?.check || null;
-    let dispatchValue = actionName;
+const middleware: IMiddleware = (item, dispatchValue, returnValueOnly) => {
+    let call = item?.features?.call || null;
+    let check = item?.features?.check || null;
+    let convert = item?.features?.convert || null;
 
-    //calls a specified function before reducer updates state
-    if(call !== null){
-        call();
-    }
+    if(returnValueOnly !== true){
 
-    //checks to see if the dispatched value meets specified criteria then returns boolean
-    if(check !== null){
-        return check(dispatchValue);
+        //calls a specified function before reducer updates state
+        if(call !== null){
+            call(dispatchValue);
+        }
+
+        //checks to see if the dispatched value meets specified criteria then returns boolean
+        if(check !== null){
+            return check(dispatchValue);
+        }
+
+        return true;
     }
-    return true
+    if(convert !== null){
+        return convert(dispatchValue);
+    }
+    return dispatchValue;
 }
 
 export default middleware;

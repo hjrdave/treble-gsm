@@ -8,9 +8,10 @@ import {useTreble} from '../hooks';
 
 function History(){
 
+ 
     const [{subscribeID}, dispatch] = useTreble();
 
-    const state: any = useTreble()[0];
+    const state: any[] = useTreble()[0];
 
     const cleanState = (currentState: any) => {
         let cleanedState = Object.assign({}, currentState);
@@ -35,8 +36,8 @@ function History(){
         dispatch({
             type: 'updateHistory',
             updateHistory: {
-                reset: {...originalState}, 
-                prev: {...prevState}
+                reset: Object.assign({}, originalState), 
+                prev: Object.assign({}, prevState)
             }
         });
  

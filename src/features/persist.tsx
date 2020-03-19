@@ -74,13 +74,19 @@ function Persist({store}: Props) {
     }
     const updateStateFromLocalStorage: IUpdateStateFromLocalStorage = (store, state) => {
         if (typeof (Storage) !== "undefined") {
-            store.forEach((item, index) => {
+            store.forEach((item) => {
                 let persist = item.features?.persist;
+
+                //Checks if features.persist is set to true
                 if (persist === true) {
                     let key = Object.keys(item.state)[0];
                     let value = localStorage.getItem(key) || state[0][key];
                     let action = item.action;
-                    updateStore(action, value, dispatch);
+
+                    //updateStore false parameter disables middleware pipeline
+                    updateStore(action, value, dispatch, {
+                        enableMiddleware: false
+                    });
                 }
             })
         }

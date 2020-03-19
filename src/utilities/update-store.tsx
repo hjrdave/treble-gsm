@@ -10,17 +10,24 @@ interface IUpdateStore {
         dispatch: (
             object: {
                 type: string,
-                [action: string]: any
+                [action: string]: any,
+                options?: {
+                    enableMiddleware?: boolean
+                } | false
             }
-            ) => object
+        ) => object,
+        options?: {
+            enableMiddleware?: boolean
+        }
     ): void
 }
 
-const updateStore: IUpdateStore = (action, value, dispatch) => {
+const updateStore: IUpdateStore = (action, value, dispatch, options) => {
     
     dispatch({
         type: action,
-        [action]: value
+        [action]: value,
+        options: options || false
     });
 
     //if history state is updating the subscribeID will not update
@@ -28,7 +35,8 @@ const updateStore: IUpdateStore = (action, value, dispatch) => {
         
         dispatch({
             type: 'updateSubscribeID',
-            updateSubscribeID: 0
+            updateSubscribeID: 0,
+            options: options || false
         });
         
     }
