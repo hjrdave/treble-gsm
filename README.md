@@ -1,7 +1,9 @@
 
 <div><img src='https://hjrdave.github.io/get-treble-gsm/static/bd3520df0df3356f8a53c4588b0b285c/f3583/banner-readme.png' /></div>
 <p>&nbsp;</p>
+
 Version: 1.1 Docs
+
 ## Treble
 
 Treble is a Hook-based global state management container and library for React.js apps. It is inspired by a [blog post](https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c) by [Luke Hall](https://medium.com/@luke.hall).  Treble's goal is to provide a simple way to manage global state in your React app by providing an easy setup, little boilerplate, and a straight forward API.
