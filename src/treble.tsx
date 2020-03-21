@@ -9,6 +9,7 @@ import buildState from './state';
 import buildReducer from './reducer';
 import Context from './context';
 import { History, Persist } from './features';
+import trebleDebug from './treble-debug';
 
 interface Props {
     children: JSX.Element | JSX.Element[];
@@ -35,6 +36,11 @@ function Treble({ children, store }: Props) {
         Reducer = buildReducer(trebleStore), // builds reducer from treble store
         defaultContext = Context, // default context for non scoped Treble
         scopedContext = store?.scope; // optional passed scoped context
+
+    //runs treble debugger
+    useEffect(() => {
+        trebleDebug(store);
+    },[store]);
 
     return (
         <>
