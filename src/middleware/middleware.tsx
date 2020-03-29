@@ -44,6 +44,7 @@ const middleware: IMiddleware = (item, dispatchValue, returnValueOnly) => {
     if(convert !== null){
         return convert(dispatchValue);
     }
+    
     return dispatchValue;
 }
 
