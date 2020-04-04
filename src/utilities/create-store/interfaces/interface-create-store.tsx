@@ -1,9 +1,8 @@
 /*
-    createStore
-    This is imported into app to create new store and provide proper typings.
+    interface for createStore and error-handling
 */
 
-interface ICreateStore {
+export default interface ICreateStore {
     (
         storeData:  {
             action: string,
@@ -33,17 +32,6 @@ interface ICreateStore {
             options?: {
                 context: React.Context<never[]>
             }
-        }
+        } 
     }
 }
-
-const createStore: ICreateStore = (storeData, object) => {
-    let  store = {
-        data: storeData,
-        scope: object?.options?.context
-    }
-    return store
-}
-
-export default createStore;
-

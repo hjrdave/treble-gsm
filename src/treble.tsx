@@ -38,9 +38,9 @@ function Treble({ children, store }: Props) {
         scopedContext = store?.scope; // optional passed scoped context
 
     //runs treble debugger
-    useEffect(() => {
-        trebleDebug(store);
-    },[store]);
+    // useEffect(() => {
+    //     trebleDebug(store);
+    // },[store]);
 
     return (
         <>
