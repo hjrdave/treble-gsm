@@ -2,7 +2,7 @@
   buildReducer
   Consumes treble store and dynamically builds global state reducer.
 */
-import middleware from '../middleware';
+import middleware from '../features/middleware';
 
 interface IBuildReducer {
   (

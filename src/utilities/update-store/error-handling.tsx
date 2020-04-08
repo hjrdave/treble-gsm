@@ -19,7 +19,7 @@ const errorHandling: IErrorHandling = (action, value, dispatch, options) => {
         }
 
         //options
-        let optionsList = ['enableMiddleware']
+        let optionsList = ['enableMiddleware', 'toggle']
         if(options){
             if(typeof options !== 'object'){
                 throw new TypeError(`updateStore parameter options must be an object`);
@@ -31,12 +31,23 @@ const errorHandling: IErrorHandling = (action, value, dispatch, options) => {
                     throw new Error(`updateStore options property ${key} is not a valid property.`);
                 }
             });
-
-            //check options property types
-            if(typeof options.enableMiddleware !== 'boolean'){
+            
+            //check enableMiddleware type
+            if(typeof options.enableMiddleware !== 'boolean' && options.enableMiddleware !== undefined){
                 throw new TypeError(`updateStore parameter options.enableMiddleware must be a boolean`);
             }
 
+            //check toggle type
+            if(typeof options.toggle !== 'boolean' && options.toggle !== undefined){
+                throw new TypeError(`updateStore parameter options.toggle must be a boolean`);
+            }
+
+            //makes sure value is a boolean if options.toggle is set to true
+            if(options.toggle){
+                if(typeof value !== 'boolean'){
+                    throw new TypeError(`updateStore parameter value must be a boolean when options.toggle is set to true.`)
+                }
+            }
         }
 
     }catch(error){

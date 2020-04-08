@@ -10,9 +10,20 @@ const updateStore: IUpdateStore = (action, value, dispatch, options) => {
     
     errorHandling(action, value, dispatch, options);
 
+    //does value conversions based on options
+    const handleValue = (value: any) => {
+
+        //if toggle is enabled will return the opposite of current boolean
+        if(options?.toggle){
+            return (value) ? false : true;
+        }
+        return value;
+        
+    }
+
     dispatch({
         type: action,
-        [action]: value,
+        [action]: handleValue(value),
         options: options || false
     });
     

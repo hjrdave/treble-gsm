@@ -82,9 +82,13 @@ function Persist({store}: Props) {
                     let key = Object.keys(item.state)[0];
                     let value = localStorage.getItem(key) || state[0][key];
                     let action = item.action;
-
+                    
+                    //makes sure boolean values are not returned as strings
+                    let handleBooleanValue = (value: any) => {
+                        return (value === 'true') ? true : (value === 'false') ? false : value
+                    }
                     //updateStore false parameter disables middleware pipeline
-                    updateStore(action, value, dispatch, {
+                    updateStore(action, handleBooleanValue(value), dispatch, {
                         enableMiddleware: false
                     });
                 }
@@ -93,7 +97,7 @@ function Persist({store}: Props) {
     }
 
     useEffect(() => {
-        updateStateFromLocalStorage(store, state);
+       updateStateFromLocalStorage(store, state);
     }, [dispatch])
 
     useEffect(() => {

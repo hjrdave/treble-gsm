@@ -7,11 +7,13 @@ export default interface IErrorHandling{
             [action: string]: any;
             type: string;
             options?: false | {
-                enableMiddleware?: boolean | undefined;
+                enableMiddleware?: boolean | undefined,
+                toggle?: boolean
             } | undefined;
         }) => object,
         options?:{
-            enableMiddleware?: boolean
+            enableMiddleware?: boolean,
+            toggle?: boolean
         }
     ) : void
 }

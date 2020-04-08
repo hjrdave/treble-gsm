@@ -8,12 +8,14 @@ export default interface IUpdateStore {
                 type: string,
                 [action: string]: any,
                 options?: {
-                    enableMiddleware?: boolean
+                    enableMiddleware?: boolean,
+                    toggle?: boolean
                 } | false
             }
         ) => object,
         options?: {
-            enableMiddleware?: boolean
+            enableMiddleware?: boolean,
+            toggle?: boolean
         }
     ): void
 }
