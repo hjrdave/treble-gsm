@@ -1,3 +1,9 @@
+/*
+  withTreble.jsx
+  This is a higher order function that wraps a class component 
+  so the component can get access to the treble Store.
+*/
+
 import React from 'react';
 import useTreble from '../hooks/treble-hook';
 

@@ -14,8 +14,17 @@ interface IUseTreble {
 
 const useTreble: IUseTreble = (context) => {
 
-    let trebleContext = (context !== undefined) ? context : defaultContext;
+    try{
+        if(context){
+            if(typeof context !== 'object'){
+                throw new TypeError('useTreble hook must only accept React.Context.')
+            }
+        }
+    }catch(error){
+        throw error
+    }
 
+    let trebleContext = (context !== undefined) ? context : defaultContext;
     return useContext(trebleContext);
 };
 
