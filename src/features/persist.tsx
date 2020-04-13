@@ -84,6 +84,7 @@ function Persist({store}: Props) {
                     let action = item.action;
                     
                     //makes sure boolean values are not returned as strings
+                    //This might cause issues down the road.  If it becomes an issue, will seek alternative
                     let handleBooleanValue = (value: any) => {
                         return (value === 'true') ? true : (value === 'false') ? false : value
                     }

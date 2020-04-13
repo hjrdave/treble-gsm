@@ -4,7 +4,7 @@
 */
 
 import {IUpdateStore} from './interfaces';
-import errorHandling from '../update-store/error-handling';
+import errorHandling from './error-handling';
 
 const updateStore: IUpdateStore = (action, value, dispatch, options) => {
     
