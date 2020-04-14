@@ -24,3 +24,4 @@ steps:
   inputs:
     command: 'publish'
     workingDir: 'treble-gsm'
+  displayName: 'Publish package'
