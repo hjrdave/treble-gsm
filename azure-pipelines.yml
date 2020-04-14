@@ -28,9 +28,30 @@ steps:
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.tgz package.json README.md LICENSE'
+    contents: '*.tgz'
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy package files'
+  displayName: 'Copy npm package'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'package.json'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy package.json'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'README.md'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy README.md'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'LICENSE'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy LICENSE'
 
 - task: PublishBuildArtifacts@1
   inputs:
