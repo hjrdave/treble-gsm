@@ -20,8 +20,6 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- task: Npm@1
-  inputs:
-    command: 'publish'
-    workingDir: 'treble-gsm'
+- script: |
+  npm publish
   displayName: 'Publish package'
