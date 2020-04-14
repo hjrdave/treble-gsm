@@ -28,7 +28,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.tgz, package.json, README.md, LICENSE' 
+    contents: ['*.tgz', 'package.json', 'README.md', 'LICENSE'] 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy package files'
 
