@@ -27,7 +27,7 @@ steps:
 
 - powershell: |
     $snapshot = (Get-Content $(System.DefaultWorkingDirectory)\package.json | ConvertFrom-Json)
-    $snapshot.version = $(version)
+    $snapshot.version = $Env:version
     $snapshot | ConvertTo-Json -depth 32 | set-content '$(System.DefaultWorkingDirectory)\package.json'
 
 - task: Npm@1
@@ -41,40 +41,47 @@ steps:
    customcommand: run build
   displayName: 'build'
 
-- script: |
-    npm pack
-  displayName: 'Package for npm release'
-
-- task: CopyFiles@2
+- task: Npm@1
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.tgz'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy npm package'
+    command: publish
+    publishRegistry: useFeed
+    publishFeed: Default
+  displayName: 'publish'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'package.json'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy package.json'
+# - script: |
+#     npm pack
+#   displayName: 'Package for npm release'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'README.md'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy README.md'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: '*.tgz'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy npm package'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'LICENSE'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy LICENSE'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'package.json'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy package.json'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-    artifactName: npm
-  displayName: 'Publish npm artifact'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'README.md'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy README.md'
+
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'LICENSE'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy LICENSE'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
+#     artifactName: npm
+#   displayName: 'Publish npm artifact'
