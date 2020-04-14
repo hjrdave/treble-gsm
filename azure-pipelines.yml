@@ -45,7 +45,7 @@ steps:
   inputs:
     command: publish
     publishRegistry: useFeed
-    publishFeed: Default
+    publishFeed: treble-gsm-package
   displayName: 'publish'
 
 # - script: |
