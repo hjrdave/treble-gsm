@@ -3,7 +3,9 @@
 <p>&nbsp;</p>
 
 <div style='display: flex; justify-content: flex-end'>
+
 [![Build Status](https://mediafish.visualstudio.com/Treble-GSM/_apis/build/status/hjrdave.treble-gsm?branchName=master)](https://mediafish.visualstudio.com/Treble-GSM/_build/latest?definitionId=5&branchName=master)
+
 [![npm version](https://badge.fury.io/js/treble-gsm.svg)](https://badge.fury.io/js/treble-gsm)
 </div>
 
