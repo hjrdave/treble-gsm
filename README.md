@@ -2,7 +2,7 @@
 <div><img src='https://hjrdave.github.io/get-treble-gsm/static/bd3520df0df3356f8a53c4588b0b285c/f3583/banner-readme.png' /></div>
 <p>&nbsp;</p>
 
-Version: 1.1 Docs
+[![Build Status](https://mediafish.visualstudio.com/Treble-GSM/_apis/build/status/hjrdave.treble-gsm?branchName=master)](https://mediafish.visualstudio.com/Treble-GSM/_build/latest?definitionId=5&branchName=master)
 
 ## Treble Global State Management
 
