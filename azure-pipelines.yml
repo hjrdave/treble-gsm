@@ -2,6 +2,7 @@
 # Build a Node.js project that uses React.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# https://www.aaron-powell.com/posts/2019-02-18-releasing-to-npm-from-azure-devops/
 
 trigger:
 - master
