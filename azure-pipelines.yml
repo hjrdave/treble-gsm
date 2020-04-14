@@ -22,4 +22,4 @@ steps:
 
 - script: |
   npm publish
-  displayName: 'Publish package'
+displayName: 'Publish package'
