@@ -28,12 +28,18 @@ steps:
 - powershell: |
     $snapshot = (Get-Content $(System.DefaultWorkingDirectory)\package.json | ConvertFrom-Json)
     $snapshot.version = $Env:version
-    $snapshot | ConvertTo-Json -depth 32| set-content '$(System.DefaultWorkingDirectory)\package.json'
+    $snapshot | ConvertTo-Json -depth 32 | set-content '$(System.DefaultWorkingDirectory)\package.json'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: Npm@1
+  inputs:
+    command: install
+  displayName: 'install'
+
+- task: Npm@1
+  inputs:
+   command: custom
+   customcommand: run build
+  displayName: 'build'
 
 - script: |
     npm pack
