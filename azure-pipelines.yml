@@ -25,6 +25,11 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
+- powershell: |
+    $snapshot = (Get-Content $(System.DefaultWorkingDirectory)\package.json | ConvertFrom-Json)
+    $snapshot.version = $Env:version
+    $snapshot | ConvertTo-Json -depth 32| set-content '$(System.DefaultWorkingDirectory)\package.json'
+
 - script: |
     npm install
     npm run build
