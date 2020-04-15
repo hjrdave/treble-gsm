@@ -27,7 +27,7 @@ steps:
 
 - powershell: |
     $snapshot = (Get-Content $(System.DefaultWorkingDirectory)\package.json | ConvertFrom-Json)
-    $snapshot.version = $Env:version
+    $snapshot.version = 1.0.1
     $snapshot | ConvertTo-Json -depth 32 | set-content '$(System.DefaultWorkingDirectory)\package.json'
 
 - script: |
