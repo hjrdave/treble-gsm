@@ -30,58 +30,40 @@ steps:
     $snapshot.version = $Env:version
     $snapshot | ConvertTo-Json -depth 32 | set-content '$(System.DefaultWorkingDirectory)\package.json'
 
-- task: Npm@1
+- script: |
+    npm pack
+  displayName: 'Package for npm release'
+
+- task: CopyFiles@2
   inputs:
-    command: install
-  displayName: 'install'
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: '*.tgz'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy npm package'
 
-- task: Npm@1
+- task: CopyFiles@2
   inputs:
-   command: custom
-   customcommand: run build
-  displayName: 'build'
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'package.json'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy package.json'
 
-- task: Npm@1
+- task: CopyFiles@2
   inputs:
-    command: publish
-    publishRegistry: useFeed
-    publishFeed: treble-gsm-package
-  displayName: 'publish'
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'README.md'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy README.md'
 
-# - script: |
-#     npm pack
-#   displayName: 'Package for npm release'
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'LICENSE'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy LICENSE'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: '*.tgz'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy npm package'
-
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'package.json'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy package.json'
-
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'README.md'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy README.md'
-
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'LICENSE'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy LICENSE'
-
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-#     artifactName: npm
-#   displayName: 'Publish npm artifact'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
+    artifactName: npm
+  displayName: 'Publish npm artifact'
