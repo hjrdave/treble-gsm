@@ -27,7 +27,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm version patch -m "Bump version to $(version)"
+    NPM_PACKAGE_VERSION = $(version)
   displayName: 'Bump package.json version'
 
 - script: |
