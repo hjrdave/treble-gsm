@@ -16,7 +16,7 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- bash: |
+- bash: 
         # get package name from package.json file
         packageName=$(jq -r ".name" package.json)
         
