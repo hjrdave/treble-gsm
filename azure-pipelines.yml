@@ -17,7 +17,7 @@ variables:
   # semanticVersion counter is automatically incremented by one in each execution of pipeline
   # second parameter is seed value to reset to every time the referenced majorMinorVersion is changed
   semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
-  version: $(majorMinorVersion).$(semanticVersion)
+  version: $(majorMinorVersion).$(semanticVersion).0
 
 steps:
 - task: NodeTool@0
@@ -27,7 +27,7 @@ steps:
 
 - powershell: |
     $snapshot = (Get-Content $(System.DefaultWorkingDirectory)\package.json | ConvertFrom-Json)
-    $snapshot.version = 1.0.1
+    $snapshot.version = $Env:version
     $snapshot | ConvertTo-Json -depth 32 | set-content '$(System.DefaultWorkingDirectory)\package.json'
 
 - script: |
