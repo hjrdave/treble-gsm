@@ -26,9 +26,9 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- bash: |
-    NPM_PACKAGE_VERSION = $(version)
-  displayName: 'Bump package.json version'
+# - script: |
+#     NPM_PACKAGE_VERSION = $(version)
+#   displayName: 'Bump package.json version'
 
 - script: |
     npm pack
