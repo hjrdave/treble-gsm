@@ -1,69 +1,69 @@
-# Node.js with React
-# Build a Node.js project that uses React.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-# https://www.aaron-powell.com/posts/2019-02-18-releasing-to-npm-from-azure-devops/
+# # Node.js with React
+# # Build a Node.js project that uses React.
+# # Add steps that analyze code, save build artifacts, deploy, and more:
+# # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# # https://www.aaron-powell.com/posts/2019-02-18-releasing-to-npm-from-azure-devops/
 
-trigger:
-- master
+# trigger:
+# - master
 
-# $(rev:r) # NOTE: rev resets when the default retention period expires
-# name: $(majorMinorVersion).$(semanticVersion)
+# # $(rev:r) # NOTE: rev resets when the default retention period expires
+# # name: $(majorMinorVersion).$(semanticVersion)
 
-pool:
-  vmImage: 'ubuntu-latest'
+# pool:
+#   vmImage: 'ubuntu-latest'
 
-# variables:
-#   majorMinorVersion: 1.1
-#   # semanticVersion counter is automatically incremented by one in each execution of pipeline
-#   # second parameter is seed value to reset to every time the referenced majorMinorVersion is changed
-#   semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
-#   version: $(majorMinorVersion).$(semanticVersion)
+# # variables:
+# #   majorMinorVersion: 1.1
+# #   # semanticVersion counter is automatically incremented by one in each execution of pipeline
+# #   # second parameter is seed value to reset to every time the referenced majorMinorVersion is changed
+# #   semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
+# #   version: $(majorMinorVersion).$(semanticVersion)
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+# steps:
+# - task: NodeTool@0
+#   inputs:
+#     versionSpec: '10.x'
+#   displayName: 'Install Node.js'
+
+# # - script: |
+# #     npm version --no-git-tag-version $(version) && npm pack
+# #   displayName: 'Package for npm release'
 
 # - script: |
-#     npm version --no-git-tag-version $(version) && npm pack
+#     npm pack
 #   displayName: 'Package for npm release'
 
-- script: |
-    npm pack
-  displayName: 'Package for npm release'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: '*.tgz'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy npm package'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.tgz'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy npm package'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'package.json'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy package.json'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'package.json'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy package.json'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'README.md'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy README.md'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'README.md'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy README.md'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'LICENSE'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy LICENSE'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'LICENSE'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy LICENSE'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-    artifactName: npm
-  displayName: 'Publish npm artifact'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
+#     artifactName: npm
+#   displayName: 'Publish npm artifact'
