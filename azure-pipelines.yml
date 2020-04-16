@@ -27,11 +27,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm version --no-git-tag-version $(version)
-  displayName: 'Bump package.json version'
-
-- script: |
-    npm pack
+    npm version --no-git-tag-version $(version) && npm pack
   displayName: 'Package for npm release'
 
 - task: CopyFiles@2
@@ -41,26 +37,26 @@ steps:
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy npm package'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'package.json'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy package.json'
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'package.json'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy package.json'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'README.md'version patch -m "Bump version to %s [skip ci]" --force
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy README.md'
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'README.md'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy README.md'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'LICENSE'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy LICENSE'
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'LICENSE'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy LICENSE'
 
 - task: PublishBuildArtifacts@1
   inputs:
