@@ -5,13 +5,13 @@
 import {ICreateStore} from './interfaces';
 import errorHandling from './error-handling';
 
-const createStore: ICreateStore = (storeData, object) => {
+const createStore: ICreateStore = (storeData, options) => {
     
     errorHandling(storeData);
     
     let  store = {
         data: storeData,
-        scope: object?.options?.context
+        scope: options?.context
     }
     return store
 }
