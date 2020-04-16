@@ -8,17 +8,17 @@ trigger:
 - master
 
 # $(rev:r) # NOTE: rev resets when the default retention period expires
-name: $(majorMinorVersion).$(semanticVersion)
+# name: $(majorMinorVersion).$(semanticVersion)
 
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  majorMinorVersion: 1.1
-  # semanticVersion counter is automatically incremented by one in each execution of pipeline
-  # second parameter is seed value to reset to every time the referenced majorMinorVersion is changed
-  semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
-  version: $(majorMinorVersion).$(semanticVersion)
+# variables:
+#   majorMinorVersion: 1.1
+#   # semanticVersion counter is automatically incremented by one in each execution of pipeline
+#   # second parameter is seed value to reset to every time the referenced majorMinorVersion is changed
+#   semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
+#   version: $(majorMinorVersion).$(semanticVersion)
 
 steps:
 - task: NodeTool@0
@@ -26,9 +26,13 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
+# - script: |
+#     npm version --no-git-tag-version $(version) && npm pack
+#   displayName: 'Package for npm release'
+
 - script: |
-    npm version --no-git-tag-version $(version) && npm pack
-  displayName: 'Package for npm release'
+    npm pack
+  displayName: 'Package for npm releas
 
 - task: CopyFiles@2
   inputs:
