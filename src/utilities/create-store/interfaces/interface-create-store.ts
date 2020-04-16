@@ -13,10 +13,8 @@ export default interface ICreateStore {
                 persist?: boolean
             }
         }[],
-        object?: {
-            options?: {
-                context?: React.Context<never[]>
-            }
+        options?: {
+            context?: React.Context<never[]>
         }
     ): {
         data: {
@@ -28,10 +26,8 @@ export default interface ICreateStore {
                 persist?: boolean
             }
         }[],
-        object?: {
-            options?: {
+        options?: {
                 context: React.Context<never[]>
             }
         } 
     }
-}
