@@ -5,32 +5,19 @@
 */
 
 import React from 'react';
-import useTreble from '../hooks/treble-hook';
-import Treble from '../treble';
+import useTreble from '../../hooks/treble-hook';
+import Treble from '../../treble';
+import {IWithTreble} from './interfaces';
+import errorHandling from './error-handling';
 
-interface IWithTreble {
-  (Component: any,
-    options?: {
-      reactClass?: boolean,
-      store?:
-        {
-          data: {
-              action: string,
-              state: {
-                  [key: string]: any
-              },
-              features?: {
-                  persist?: boolean
-              }
-          }[],
-          scope?: React.Context<never[]>
-      }
-    }): void
-}
+
 export const withTreble: IWithTreble = (Component, options) => {
+  
+  //handle errors
+  errorHandling(Component, options);
 
   //returns a class component with getTreble props if reactClass is set to true
-  if (options?.reactClass === true) {
+  if (Component.prototype instanceof React.Component) {
     return function ClassComponent(props: any) {
       const store = useTreble()[0];
       const dispatch = useTreble()[1];
@@ -41,12 +28,13 @@ export const withTreble: IWithTreble = (Component, options) => {
       return <Component {...props} getTreble={getTreble} />;
     }
   }
-  //returns functional component
+
+  //returns functional by default
   return function FunctionalComponent(props: any) {
     return (
       <>
         {
-          (options?.store !== undefined) ?
+          (options?.store !== undefined && options?.reactClass !== true) ?
             <Treble store={options?.store}>
               <Component {...props}/>
             </Treble>

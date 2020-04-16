@@ -23,12 +23,11 @@ interface Props {
             }
         }[],
         scope?: React.Context<never[]>
-
     }
 }
 
 function Treble({ children, store }: Props) {
-
+    
     try{
         if(typeof store !== 'object'){
             throw new TypeError('Treble store prop must be an array.');
