@@ -13,7 +13,9 @@ interface IBuildReducer {
       };
       features?: {
         persist?: boolean,
-        call?: () => void;
+        call?: (state: any) => void,
+        check?: (state: any) => boolean,
+        convert?: (state: any) => any
       }
     }[]
   ): any
@@ -42,7 +44,6 @@ const buildReducer: IBuildReducer = (store) => {
   let Reducer: IReducer = (state, action) => {
 
     let subscribeID = state?.subscribeID;
-    let enableMiddleware = state?.enableMiddleware;
 
     type TReducerActions = {
       'updateHistory': () => object,

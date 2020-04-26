@@ -21,13 +21,14 @@ const updateStore: IUpdateStore = (action, value, dispatch, options) => {
         
     }
 
-    dispatch({
-        type: action,
-        [action]: handleValue(value),
-        options: options || false
-    });
+    if(!(options?.hold)){
+        dispatch({
+            type: action,
+            [action]: handleValue(value),
+            options: options || false
+        });
+    }
     
-
     //if history state is updating the subscribeID will not update
     if(action !== 'updateHistory'){
         

@@ -8,12 +8,16 @@ export default interface IErrorHandling{
             type: string;
             options?: false | {
                 enableMiddleware?: boolean | undefined,
-                toggle?: boolean
+                toggle?: boolean,
+                currentValue?: any,
+                hold?: boolean
             } | undefined;
         }) => object,
         options?:{
             enableMiddleware?: boolean,
-            toggle?: boolean
+            toggle?: boolean,
+            currentValue?: any,
+            hold?: boolean
         }
     ) : void
 }

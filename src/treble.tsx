@@ -19,7 +19,10 @@ interface Props {
                 [key: string]: any
             },
             features?: {
-                persist?: boolean
+                persist?: boolean,
+                call?: (state: any) => void,
+                check?: (state: any) => boolean,
+                convert?: (state: any) => any
             }
         }[],
         scope?: React.Context<never[]>

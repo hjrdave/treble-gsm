@@ -34,7 +34,7 @@ export const withTreble: IWithTreble = (Component, options) => {
     return (
       <>
         {
-          (options?.store !== undefined && options?.reactClass !== true) ?
+          (options?.store !== undefined) ?
             <Treble store={options?.store}>
               <Component {...props}/>
             </Treble>
