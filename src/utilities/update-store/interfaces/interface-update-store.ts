@@ -10,16 +10,16 @@ export default interface IUpdateStore {
                 options?: {
                     enableMiddleware?: boolean,
                     toggle?: boolean,
-                    currentValue?: any,
-                    hold?: boolean
+                    hold?: boolean,
+                    append?: boolean
                 } | false
             }
         ) => object,
         options?: {
             enableMiddleware?: boolean,
             toggle?: boolean,
-            currentValue?: any,
-            hold?: boolean
+            hold?: boolean,
+            append?:boolean
         }
     ): void
 }

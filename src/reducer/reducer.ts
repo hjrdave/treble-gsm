@@ -3,55 +3,16 @@
   Consumes treble store and dynamically builds global state reducer.
 */
 import middleware from '../features/middleware';
+import {IReducer, IBuildReducer, IReducerActions} from './interfaces';
 
-interface IBuildReducer {
-  (
-    store: {
-      action: string;
-      state: {
-        [key: string]: any,
-      };
-      features?: {
-        persist?: boolean,
-        call?: (state: any) => void,
-        check?: (state: any) => boolean,
-        convert?: (state: any) => any
-      }
-    }[]
-  ): any
-}
 
 const buildReducer: IBuildReducer = (store) => {
-
-  interface IReducer {
-    (
-      state: {
-        [key: string]: any,
-        subscribeID: number
-      },
-      action: {
-        type: string,
-        [key: string]: any,
-        options?: {
-          enableMiddleware?: boolean
-        }
-      }
-    ): {
-      [key: string]: any
-    }
-  }
 
   let Reducer: IReducer = (state, action) => {
 
     let subscribeID = state?.subscribeID;
 
-    type TReducerActions = {
-      'updateHistory': () => object,
-      'updateSubscribeID': () => object,
-      [key: string]: any | undefined
-    }
-
-    let reducerActions: TReducerActions = {
+    let reducerActions: IReducerActions = {
       'updateHistory': () => {
         return {
           ...state,
@@ -66,27 +27,29 @@ const buildReducer: IBuildReducer = (store) => {
       }
     }
 
-    store.map((item) => {
-      let objectProp = Object.keys(item.state)[0];
-      let dispatchValue = action[item.action];
-
+    store.map((storeItem) => {
+      let objectProp = Object.keys(storeItem.state)[0];
+      let dispatchValue = action[storeItem.action];
+      let enableMiddleware = action.options?.enableMiddleware;
       reducerActions = {
         ...reducerActions,
-        [item.action]: () => {
+        [storeItem.action]: () => {
 
-          //if updateStore passes an enableMiddleware false then the middleware pipeline is byepassed
-          let enableMiddleware = action.options?.enableMiddleware;
-
-          //middleware will return true unless a check function returns false
-          if (enableMiddleware !== false) {
-            if (middleware(item, dispatchValue, false) === true) {
+          //if middleware is enabled dispatchValue will go through middleware pipeline
+          if(enableMiddleware !== false){
+            let middlewareValue = middleware(dispatchValue, storeItem, state, action?.options);
+            
+            //makes sure dispatchValue passes check middleware
+            if(middlewareValue !== null){
               return {
                 ...state,
-                [objectProp]: middleware(item, dispatchValue, true)
+                [objectProp]: middlewareValue
               };
             }
-            return { ...state };
+            return { ...state }
           }
+
+          //if middleware is not enabled dispatchValue middleware pipeline will be bypassed
           return {
             ...state,
             [objectProp]: dispatchValue

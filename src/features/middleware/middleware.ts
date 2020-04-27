@@ -2,50 +2,80 @@
     Middleware
     Note: Middleware function runs before state gets to Reducer.
 */
+import manageList from './manage-list';
 
 interface IMiddleware {
     (
-      store: {
-        action: string;
+      dispatchValue: any,
+      storeItem: {
+        action: string,
         state: {
-            [key: string]: any;
+            [key: string]: any
         };
         features?: {
-            call?: (state: any) => void;
-            check?: (state: any) => boolean
+            call?: (state: any) => void,
+            check?: (state: any) => boolean,
             convert?: (state: any) => any,
             persist?: boolean
         }
       },
-      dispatchValue: any,
-      returnValueOnly: boolean
+      state: {
+        [key: string]: any;
+        subscribeID: number;
+     },
+      actionOptions?: {
+        append?:boolean,
+        limit?: number
+      }
+      
     ): any
   }
 
-const middleware: IMiddleware = (item, dispatchValue, returnValueOnly) => {
-    let call = item?.features?.call || null;
-    let check = item?.features?.check || null;
-    let convert = item?.features?.convert || null;
+const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions) => {
+    //store features middleware
+    let call = storeItem?.features?.call || null;
+    let check = storeItem?.features?.check || null;
+    let convert = storeItem?.features?.convert || null;
 
-    if(returnValueOnly !== true){
+    //action options middleware
+    let append = actionOptions?.append;
 
-        //calls a specified function before reducer updates state
-        if(call !== null){
-            call(dispatchValue);
-        }
-
-        //checks to see if the dispatched value meets specified criteria then returns boolean
+    //checks state agianst criteria then returns boolean
+    let doesStatePass = (dispatchValue: any) => {
+        //runs dispatched state agianst check middlware if it exists
         if(check !== null){
             return check(dispatchValue);
         }
-
         return true;
     }
-    if(convert !== null){
-        return convert(dispatchValue);
+
+    //calls a specified function before reducer updates state
+    if(call !== null){
+        call(dispatchValue);
     }
-    
-    return dispatchValue;
+
+    //Makes sure state passes check and then will continue middleware pipeline and then return a value
+    if(doesStatePass(dispatchValue) === true){
+
+        /*manage lists*/
+        //append list item to state array
+        if(append){
+            //allows convert to be ran on dispatchValue before outputed to list
+            if(convert !== null){
+                return manageList(convert(dispatchValue), storeItem, state, actionOptions);
+            }
+            return manageList(dispatchValue, storeItem, state, actionOptions)
+        }
+
+        //returns an augmented dispatchValue
+        if(convert !== null){
+            return convert(dispatchValue);
+        }
+        
+        return dispatchValue
+    }
+
+    return null
 }
 
 export default middleware;

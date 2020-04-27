@@ -19,7 +19,7 @@ const errorHandling: IErrorHandling = (action, value, dispatch, options) => {
         }
 
         //options
-        let optionsList = ['enableMiddleware', 'toggle', 'hold']
+        let optionsList = ['enableMiddleware', 'toggle', 'hold', 'append', 'limit']
         if(options){
             if(typeof options !== 'object'){
                 throw new TypeError(`updateStore parameter options must be an object`);

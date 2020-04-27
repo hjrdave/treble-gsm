@@ -9,15 +9,15 @@ export default interface IErrorHandling{
             options?: false | {
                 enableMiddleware?: boolean | undefined,
                 toggle?: boolean,
-                currentValue?: any,
-                hold?: boolean
+                hold?: boolean,
+                append?:boolean
             } | undefined;
         }) => object,
         options?:{
             enableMiddleware?: boolean,
             toggle?: boolean,
-            currentValue?: any,
-            hold?: boolean
+            hold?: boolean,
+            append?: boolean
         }
     ) : void
 }
