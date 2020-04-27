@@ -1,7 +1,7 @@
 /*
-    middleware for handling lists when updateStore list options are set
+   Middleware module for handling lists
 */
-interface IManageList{
+interface IListManagement{
     (
         dispatchValue: any,
         storeItem: {
@@ -20,7 +20,7 @@ interface IManageList{
     ):any
 }
 
-const manageList: IManageList = (dispatchValue, storeItem, state, actionOptions) => {
+const listManagement: IListManagement = (dispatchValue, storeItem, state, actionOptions) => {
     let objectProp = Object.keys(storeItem.state)[0];
     let limit = actionOptions?.limit;
     let append = actionOptions?.append;
@@ -41,4 +41,4 @@ const manageList: IManageList = (dispatchValue, storeItem, state, actionOptions)
     }
     return dispatchValue;
 }
-export default manageList;
+export default listManagement;

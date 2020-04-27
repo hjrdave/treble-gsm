@@ -2,7 +2,7 @@
     Middleware
     Note: Middleware function runs before state gets to Reducer.
 */
-import manageList from './manage-list';
+import listManagement from './list-management';
 
 interface IMiddleware {
     (
@@ -62,9 +62,9 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
         if(append){
             //allows convert to be ran on dispatchValue before outputed to list
             if(convert !== null){
-                return manageList(convert(dispatchValue), storeItem, state, actionOptions);
+                return listManagement(convert(dispatchValue), storeItem, state, actionOptions);
             }
-            return manageList(dispatchValue, storeItem, state, actionOptions)
+            return listManagement(dispatchValue, storeItem, state, actionOptions)
         }
 
         //returns an augmented dispatchValue
