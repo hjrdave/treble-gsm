@@ -25,7 +25,8 @@ interface IMiddleware {
      },
       actionOptions?: {
         append?:boolean,
-        limit?: number
+        limit?: number,
+        remove?: boolean
       }
       
     ): any
@@ -39,27 +40,27 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
 
     //action options middleware
     let append = actionOptions?.append;
-
+    let remove = actionOptions?.remove;
+    
     //checks state agianst criteria then returns boolean
     let doesStatePass = (dispatchValue: any) => {
         //runs dispatched state agianst check middlware if it exists
-        if(check !== null){
+        if(check !== null && dispatchValue !== null){
             return check(dispatchValue);
         }
         return true;
     }
 
     //calls a specified function before reducer updates state
-    if(call !== null){
+    if(call !== null && dispatchValue !== null){
         call(dispatchValue);
     }
 
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
     if(doesStatePass(dispatchValue) === true){
 
-        /*manage lists*/
-        //append list item to state array
-        if(append){
+        //list management middleware
+        if(append || remove){
             //allows convert to be ran on dispatchValue before outputed to list
             if(convert !== null){
                 return listManagement(convert(dispatchValue), storeItem, state, actionOptions);

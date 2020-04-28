@@ -2,7 +2,7 @@
   buildReducer
   Consumes treble store and dynamically builds global state reducer.
 */
-import middleware from '../features/middleware';
+import middleware from '../middleware';
 import {IReducer, IBuildReducer, IReducerActions} from './interfaces';
 
 
@@ -34,7 +34,7 @@ const buildReducer: IBuildReducer = (store) => {
       reducerActions = {
         ...reducerActions,
         [storeItem.action]: () => {
-
+          
           //if middleware is enabled dispatchValue will go through middleware pipeline
           if(enableMiddleware !== false){
             let middlewareValue = middleware(dispatchValue, storeItem, state, action?.options);
