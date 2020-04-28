@@ -45,8 +45,40 @@ const errorHandling: IErrorHandling = (action, value, dispatch, options) => {
             //makes sure value is a boolean if options.toggle is set to true
             if(options.toggle){
                 if(typeof value !== 'boolean'){
-                    throw new TypeError(`updateStore parameter value must be a boolean when options.toggle is set to true.`)
+                    throw new TypeError(`updateStore parameter value must be a boolean when options.toggle is set to true.`);
                 }
+            }
+
+            //check append
+            if(options.append){
+                //check type
+                if(typeof options.append !== 'boolean' && options.append !== undefined){
+                    throw new TypeError('updateStore parameter options.append must be a boolean');
+                }
+
+                //make sure only valid option props are used with append
+                let validOptionProps = ['limit', 'append'];
+                Object.keys(options).forEach((key) => {
+                    if(!(validOptionProps.includes(key))){
+                        throw new Error(`updateStore parameter options.append may only be used with valid option props. Valid Props: ${validOptionProps.toString()}`)
+                    }
+                })   
+            }
+
+            //check remove
+            if(options.remove){
+                //check type
+                if(typeof options.remove !== 'boolean' && options.remove !== undefined){
+                    throw new TypeError('updateStore parameter options.remove must be a boolean');
+                }
+
+                //make sure only valid option props are used with append
+                let validOptionProps = ['remove'];
+                Object.keys(options).forEach((key) => {
+                    if(!(validOptionProps.includes(key))){
+                        throw new Error(`updateStore parameter options.remove can not be used with other option props.`)
+                    }
+                })   
             }
         }
 

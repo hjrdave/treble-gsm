@@ -17,7 +17,8 @@ export default interface IErrorHandling{
             enableMiddleware?: boolean,
             toggle?: boolean,
             hold?: boolean,
-            append?: boolean
+            append?: boolean,
+            remove?: boolean
         }
     ) : void
 }
