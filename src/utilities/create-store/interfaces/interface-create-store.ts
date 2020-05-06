@@ -1,39 +1,14 @@
 /*
     interface for createStore and error-handling
 */
+import {IStoreItem, IStoreOptions} from '../../../interfaces';
 
 export default interface ICreateStore {
     (
-        storeData:  {
-            action: string,
-            state: {
-                [key:string]: any
-            },
-            features?: {
-                persist?: boolean,
-                call?: (state: any) => void,
-                check?: (state: any) => boolean,
-                convert?: (state: any) => any
-            }
-        }[],
-        options?: {
-            context?: React.Context<never[]>
-        }
+        storeData: IStoreItem[],
+        options?: IStoreOptions
     ): {
-        data: {
-            action: string,
-            state: {
-                [key:string]: any
-            },
-            features?: {
-                persist?: boolean,
-                call?: (state: any) => void,
-                check?: (state: any) => boolean,
-                convert?: (state: any) => any
-            }
-        }[],
-        options?: {
-                context: React.Context<never[]>
-            }
+        data: IStoreItem[],
+        options?: IStoreOptions
         } 
     }

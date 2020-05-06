@@ -15,5 +15,5 @@ export default interface IWithTreble {
             }[],
             scope?: React.Context<never[]>
         }
-      }): React.ComponentClass | React.FunctionComponent | undefined
+      }): React.ComponentClass | React.FunctionComponent
   }

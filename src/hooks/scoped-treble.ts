@@ -5,6 +5,6 @@
 
 import {createContext} from 'react';
 
-const useScopedTreble = () => createContext([]);
+const useScopedTreble: any = () => createContext([]);
 
 export default useScopedTreble;
