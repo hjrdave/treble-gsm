@@ -12,22 +12,19 @@ const createStore: ICreateStore = (storeData, options) => {
 
     //handle extendStore array
     const handleExtendStore = (extendStoreProp: any) => {
-        
-        
+        //created multidimensional array from extendStore property array
         let array = extendStoreProp.map((data: any) => {
             return data;
         });
+        //flattens array so it can be passed to store.data prop
         let flattenedArray:any = array.reduce((arr: any, elem: any) => [...arr, ...elem.data],[]);
         return flattenedArray;
     }
 
-    //Checks to see if extendStore option exists and combines them wi
+    //Checks to see if extendStore option exists and then processes it so it can be added to store.data prop
     let extendedStoreData = (options?.extendStore) ? handleExtendStore(options?.extendStore) : false;
 
-    // let extendedStoreData = (options?.extendStore) ? options?.extendStore[0].data?.map((stateItem) => {
-    //     return stateItem
-    // }) : false;
-
+    //store object that will be used by Treble
     let  store = {
         data: (extendedStoreData) ? [...storeData, ...extendedStoreData] : storeData,
         scope: options?.context
