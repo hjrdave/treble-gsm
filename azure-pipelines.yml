@@ -30,9 +30,9 @@ steps:
 #     npm install
 #   displayName: 'Install dependencies'
 
-- script: |
-    npm run-script build
-  displayName: 'Build npm package'
+# - script: |
+#     npm run-script build
+#   displayName: 'Build npm package'
 
 - script: |
     npm pack
