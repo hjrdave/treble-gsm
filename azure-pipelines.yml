@@ -26,10 +26,6 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-# - script: |
-#     npm version --no-git-tag-version $(version) && npm pack
-#   displayName: 'Package for npm release'
-
 - script: |
     npm install
   displayName: 'Install dependencies'
@@ -42,9 +38,16 @@ steps:
     npm pack
   displayName: 'Package for npm release'
 
-- script: |
-    npm publish
-  displayName: 'Publish package to npm'
+- task: Npm@1
+  inputs:
+    command: publish
+    publishEndpoint: 'treble-gsm-package'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
+    artifactName: npm
+  displayName: 'Publish npm artifact'
 
 # - task: CopyFiles@2
 #   inputs:
@@ -81,8 +84,4 @@ steps:
 #     targetFolder: $(Build.ArtifactStagingDirectory)/npm
 #   displayName: 'Copy LICENSE'
 
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-#     artifactName: npm
-#   displayName: 'Publish npm artifact'
+
