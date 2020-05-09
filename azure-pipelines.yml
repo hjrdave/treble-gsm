@@ -38,6 +38,7 @@ steps:
   inputs:
     command: install # Options: install, publish, custom
     publishPackageMetadata: true # Optional
+    customRegistry: 'https://registry.npmjs.org'
     publishEndpoint: 'treble-gsm-package'
     displayName: 'Install Dependencies'
 
