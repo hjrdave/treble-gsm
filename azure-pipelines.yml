@@ -54,12 +54,12 @@ steps:
     npm pack
   displayName: 'Create npm package'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.tgz'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy npm package'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: '*.tgz'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy npm package'
 
 - task: Npm@1
   inputs:
@@ -67,40 +67,12 @@ steps:
     publishEndpoint: 'treble-gsm-package'
     displayName: 'Create build artifact'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-    artifactName: npm
-    displayName: 'Publish build artifact to npm'
-
-
-
-# - task: CopyFiles@2
+# - task: PublishBuildArtifacts@1
 #   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'lib'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy lib'
+#     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
+#     artifactName: npm
+#     displayName: 'Publish build artifact to npm'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'package.json'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy package.json'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'README.md'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy README.md'
-
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: 'LICENSE'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy LICENSE'
 
 
