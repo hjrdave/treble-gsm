@@ -26,9 +26,9 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-  displayName: 'Install dependencies'
+# - script: |
+#     npm install
+#   displayName: 'Install dependencies'
 
 - script: |
     npm run-script build
@@ -37,6 +37,13 @@ steps:
 - script: |
     npm pack
   displayName: 'Package for npm release'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: '*.tgz'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy npm package'
 
 - task: Npm@1
   inputs:
@@ -49,12 +56,7 @@ steps:
     artifactName: npm
   displayName: 'Publish npm artifact'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: '*.tgz'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy npm package'
+
 
 # - task: CopyFiles@2
 #   inputs:
