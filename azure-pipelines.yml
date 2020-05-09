@@ -29,6 +29,9 @@ steps:
 # - script: |
 #     npm version --no-git-tag-version $(version) && npm pack
 #   displayName: 'Package for npm release'
+- script: |
+    npm build
+  displayName: 'Build npm Package'
 
 - script: |
     npm pack
