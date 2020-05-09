@@ -44,6 +44,13 @@ steps:
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'lib'
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy lib'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
     contents: 'package.json'
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy package.json'
