@@ -31,18 +31,22 @@ steps:
 #   displayName: 'Package for npm release'
 - script: |
     npm build
-  displayName: 'Build npm Package'
+  displayName: 'Build npm package'
 
 - script: |
     npm pack
   displayName: 'Package for npm release'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.tgz'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy npm package'
+- script: |
+    npm publish
+  displayName: 'Publish package to npm'
+
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: '*.tgz'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy npm package'
 
 # - task: CopyFiles@2
 #   inputs:
@@ -72,8 +76,8 @@ steps:
 #     targetFolder: $(Build.ArtifactStagingDirectory)/npm
 #   displayName: 'Copy LICENSE'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-    artifactName: npm
-  displayName: 'Publish npm artifact'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
+#     artifactName: npm
+#   displayName: 'Publish npm artifact'
