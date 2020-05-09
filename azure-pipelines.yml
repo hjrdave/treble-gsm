@@ -34,9 +34,24 @@ steps:
 #     npm run-script build
 #   displayName: 'Build npm package'
 
+- task: Npm@1
+  inputs:
+    command: 'install' # Options: install, publish, custom
+    publishPackageMetadata: true # Optional
+    publishEndpoint: 'treble-gsm-package'
+    displayName: 'Install Dependencies'
+
+- task: Npm@1
+  inputs:
+    command: custom
+    customCommand: run-script build
+    publishPackageMetadata: true # Optional
+    publishEndpoint: 'treble-gsm-package'
+    displayName: 'Compile Source'
+
 - script: |
     npm pack
-  displayName: 'Package for npm release'
+  displayName: 'Create npm package'
 
 - task: CopyFiles@2
   inputs:
@@ -49,12 +64,13 @@ steps:
   inputs:
     command: publish
     publishEndpoint: 'treble-gsm-package'
+    displayName: 'Create build artifact'
 
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
     artifactName: npm
-  displayName: 'Publish npm artifact'
+    displayName: 'Publish build artifact to npm'
 
 
 
