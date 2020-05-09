@@ -36,7 +36,7 @@ steps:
 
 - task: Npm@1
   inputs:
-    command: 'install' # Options: install, publish, custom
+    command: install # Options: install, publish, custom
     publishPackageMetadata: true # Optional
     publishEndpoint: 'treble-gsm-package'
     displayName: 'Install Dependencies'
