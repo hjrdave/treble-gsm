@@ -41,33 +41,33 @@ steps:
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy npm package'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'lib'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy lib'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'lib'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy lib'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'package.json'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy package.json'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'package.json'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy package.json'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'README.md'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy README.md'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'README.md'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy README.md'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'LICENSE'
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy LICENSE'
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: 'LICENSE'
+#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
+#   displayName: 'Copy LICENSE'
 
 - task: PublishBuildArtifacts@1
   inputs:
