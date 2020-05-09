@@ -30,7 +30,7 @@ steps:
 #     npm version --no-git-tag-version $(version) && npm pack
 #   displayName: 'Package for npm release'
 - script: |
-    npm build
+    npm run-script build
   displayName: 'Build npm package'
 
 - script: |
