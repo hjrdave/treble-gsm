@@ -7,32 +7,14 @@
 trigger:
 - master
 
-# $(rev:r) # NOTE: rev resets when the default retention period expires
-# name: $(majorMinorVersion).$(semanticVersion)
-
 pool:
   vmImage: 'ubuntu-latest'
-
-# variables:
-#   majorMinorVersion: 1.1
-#   # semanticVersion counter is automatically incremented by one in each execution of pipeline
-#   # second parameter is seed value to reset to every time the referenced majorMinorVersion is changed
-#   semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
-#   version: $(majorMinorVersion).$(semanticVersion)
 
 steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
-
-# - script: |
-#     npm install
-#   displayName: 'Install dependencies'
-
-# - script: |
-#     npm run-script build
-#   displayName: 'Build npm package'
 
 - task: Npm@1
   inputs:
@@ -54,24 +36,12 @@ steps:
     npm pack
   displayName: 'Create npm package'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: '*.tgz'
-#     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-#   displayName: 'Copy npm package'
-
 - task: Npm@1
   inputs:
     command: publish
     publishEndpoint: 'treble-gsm-package'
     displayName: 'Create build artifact'
 
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
-#     artifactName: npm
-#     displayName: 'Publish build artifact to npm'
 
 
 
