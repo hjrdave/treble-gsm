@@ -12,7 +12,8 @@ export default interface IErrorHandling{
                 hold?: boolean,
                 append?:boolean,
                 prepend?: boolean,
-                remove?: boolean
+                remove?: boolean,
+                limit?: number
             } | undefined;
         }) => object,
         options?:{
@@ -21,7 +22,8 @@ export default interface IErrorHandling{
             hold?: boolean,
             append?: boolean,
             prepend?: boolean,
-            remove?: boolean
+            remove?: boolean,
+            limit?: number
         }
     ) : void
 }

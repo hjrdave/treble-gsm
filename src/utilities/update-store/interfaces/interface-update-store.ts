@@ -12,7 +12,8 @@ export default interface IUpdateStore {
                     toggle?: boolean,
                     hold?: boolean,
                     append?: boolean,
-                    prepend?: boolean
+                    prepend?: boolean,
+                    limit?: number
                 } | false
             }
         ) => object,
@@ -21,7 +22,8 @@ export default interface IUpdateStore {
             toggle?: boolean,
             hold?: boolean,
             append?:boolean,
-            prepend?: boolean
+            prepend?: boolean,
+            limit?: number
         }
     ): void
 }
