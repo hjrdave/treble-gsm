@@ -10,7 +10,9 @@ export default interface IErrorHandling{
                 enableMiddleware?: boolean | undefined,
                 toggle?: boolean,
                 hold?: boolean,
-                append?:boolean
+                append?:boolean,
+                prepend?: boolean,
+                remove?: boolean
             } | undefined;
         }) => object,
         options?:{
@@ -18,6 +20,7 @@ export default interface IErrorHandling{
             toggle?: boolean,
             hold?: boolean,
             append?: boolean,
+            prepend?: boolean,
             remove?: boolean
         }
     ) : void

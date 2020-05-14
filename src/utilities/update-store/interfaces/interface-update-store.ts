@@ -11,7 +11,8 @@ export default interface IUpdateStore {
                     enableMiddleware?: boolean,
                     toggle?: boolean,
                     hold?: boolean,
-                    append?: boolean
+                    append?: boolean,
+                    prepend?: boolean
                 } | false
             }
         ) => object,
@@ -19,7 +20,8 @@ export default interface IUpdateStore {
             enableMiddleware?: boolean,
             toggle?: boolean,
             hold?: boolean,
-            append?:boolean
+            append?:boolean,
+            prepend?: boolean
         }
     ): void
 }

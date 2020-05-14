@@ -19,7 +19,7 @@ const errorHandling: IErrorHandling = (action, value, dispatch, options) => {
         }
 
         //options
-        let optionsList = ['enableMiddleware', 'toggle', 'hold', 'append', 'limit', 'remove']
+        let optionsList = ['enableMiddleware', 'toggle', 'hold', 'append', 'prepend', 'limit', 'remove', 'orderBy']
         if(options){
             if(typeof options !== 'object'){
                 throw new TypeError(`updateStore parameter options must be an object`);
@@ -47,6 +47,22 @@ const errorHandling: IErrorHandling = (action, value, dispatch, options) => {
                 if(typeof value !== 'boolean'){
                     throw new TypeError(`updateStore parameter value must be a boolean when options.toggle is set to true.`);
                 }
+            }
+
+            //check append
+            if(options.prepend){
+                //check type
+                if(typeof options.prepend !== 'boolean' && options.append !== undefined){
+                    throw new TypeError('updateStore parameter options.prepend must be a boolean');
+                }
+
+                //make sure only valid option props are used with append
+                let validOptionProps = ['limit', 'prepend'];
+                Object.keys(options).forEach((key) => {
+                    if(!(validOptionProps.includes(key))){
+                        throw new Error(`updateStore parameter options.prepend may only be used with valid option props. Valid Props: ${validOptionProps.toString()}`)
+                    }
+                })   
             }
 
             //check append

@@ -24,9 +24,11 @@ interface IMiddleware {
         subscribeID: number;
      },
       actionOptions?: {
+        prepend?: boolean,
         append?:boolean,
         limit?: number,
-        remove?: boolean
+        remove?: boolean,
+        orderBy?: 'asc' | 'desc'
       }
       
     ): any
@@ -39,8 +41,10 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
     let convert = storeItem?.features?.convert || null;
 
     //action options middleware
+    let prepend = actionOptions?.prepend;
     let append = actionOptions?.append;
     let remove = actionOptions?.remove;
+    let orderBy = actionOptions?.orderBy;
     
     //checks state agianst criteria then returns boolean
     let doesStatePass = (dispatchValue: any) => {
@@ -60,7 +64,7 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
     if(doesStatePass(dispatchValue) === true){
 
         //list management middleware
-        if(append || remove){
+        if(prepend || append || remove || orderBy){
             //allows convert to be ran on dispatchValue before outputed to list
             if(convert !== null){
                 return listManagement(convert(dispatchValue), storeItem, state, actionOptions);
