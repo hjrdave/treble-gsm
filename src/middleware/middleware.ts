@@ -15,7 +15,7 @@ interface IMiddleware {
         features?: {
             call?: (state: any) => void,
             check?: (state: any) => boolean,
-            convert?: (state: any) => any,
+            process?: (state: any) => any,
             persist?: boolean
         }
       },
@@ -38,7 +38,7 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
     //store features middleware
     let call = storeItem?.features?.call || null;
     let check = storeItem?.features?.check || null;
-    let convert = storeItem?.features?.convert || null;
+    let process = storeItem?.features?.process || null;
 
     //action options middleware
     let prepend = actionOptions?.prepend;
@@ -65,16 +65,16 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
 
         //list management middleware
         if(prepend || append || remove || orderBy){
-            //allows convert to be ran on dispatchValue before outputed to list
-            if(convert !== null){
-                return listManagement(convert(dispatchValue), storeItem, state, actionOptions);
+            //allows process to be ran on dispatchValue before outputed to list
+            if(process !== null){
+                return listManagement(process(dispatchValue), storeItem, state, actionOptions);
             }
             return listManagement(dispatchValue, storeItem, state, actionOptions)
         }
 
         //returns an augmented dispatchValue
-        if(convert !== null){
-            return convert(dispatchValue);
+        if(process !== null){
+            return process(dispatchValue);
         }
         
         return dispatchValue

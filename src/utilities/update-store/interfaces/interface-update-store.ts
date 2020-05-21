@@ -13,6 +13,7 @@ export default interface IUpdateStore {
                     hold?: boolean,
                     append?: boolean,
                     prepend?: boolean,
+                    remove?: boolean,
                     limit?: number
                 } | false
             }
@@ -23,6 +24,7 @@ export default interface IUpdateStore {
             hold?: boolean,
             append?:boolean,
             prepend?: boolean,
+            remove?: boolean,
             limit?: number
         }
     ): void

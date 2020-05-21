@@ -10,7 +10,7 @@ export interface IStoreItem{
         persist?: boolean,
         call?: (state: any) => void,
         check?: (state: any) => boolean,
-        convert?: (state: any) => any
+        process?: (state: any) => any
     }
 }
 

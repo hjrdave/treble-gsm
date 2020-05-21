@@ -6,7 +6,7 @@ import {IErrorHandling} from './interfaces';
 const errorHandling: IErrorHandling = (storeData) => {
     
     //features prop list so error handling can make sure features prop exists
-    const featuresList = ['persist', 'call', 'check', 'convert'];
+    const featuresList = ['persist', 'call', 'check', 'process'];
 
      //Iterates through each Store object and checks for errors
     storeData.forEach((storeItem, index) => { 
@@ -74,9 +74,9 @@ const errorHandling: IErrorHandling = (storeData) => {
                 throw new TypeError(`Store[${index}].features.check must be a function.`);
             } 
 
-            //checks property convert
-            if(typeof storeItem.features.convert !== 'function' && storeItem.features.convert !== undefined){
-                throw new TypeError(`Store[${index}].features.convert must be a function.`);
+            //checks property process
+            if(typeof storeItem.features.process !== 'function' && storeItem.features.process !== undefined){
+                throw new TypeError(`Store[${index}].features.process must be a function.`);
             } 
         }
 
