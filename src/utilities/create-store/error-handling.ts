@@ -6,7 +6,7 @@ import {IErrorHandling} from './interfaces';
 const errorHandling: IErrorHandling = (storeData) => {
     
     //features prop list so error handling can make sure features prop exists
-    const featuresList = ['persist', 'call', 'check', 'process'];
+    const featuresList = ['persist', 'call', 'check', 'process', 'callback'];
 
      //Iterates through each Store object and checks for errors
     storeData.forEach((storeItem, index) => { 

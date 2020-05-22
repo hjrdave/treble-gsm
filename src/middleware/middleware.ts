@@ -16,6 +16,7 @@ interface IMiddleware {
             call?: (state: any) => void,
             check?: (state: any) => boolean,
             process?: (state: any) => any,
+            callback?: (state:any) => void
             persist?: boolean
         }
       },
@@ -39,6 +40,7 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
     let call = storeItem?.features?.call || null;
     let check = storeItem?.features?.check || null;
     let process = storeItem?.features?.process || null;
+    let callback = storeItem?.features?.callback || null;
 
     //action options middleware
     let prepend = actionOptions?.prepend;
@@ -72,9 +74,19 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
             return listManagement(dispatchValue, storeItem, state, actionOptions)
         }
 
-        //returns an augmented dispatchValue
+        //returns a processed dispatchValue
         if(process !== null){
-            return process(dispatchValue);
+            let processedValue = process(dispatchValue);
+            //runs callback if it exists with processedValue
+            if(callback !== null){
+                callback(processedValue);
+            }
+            return processedValue;
+        }
+
+        //runs callback
+        if(callback !== null){
+            callback(dispatchValue);
         }
         
         return dispatchValue

@@ -60,6 +60,7 @@ const buildReducer: IBuildReducer = (store) => {
 
     return reducerActions[action.type]();
   };
+  
   return Reducer;
 }
 export default buildReducer;
