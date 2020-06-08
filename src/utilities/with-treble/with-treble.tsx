@@ -16,7 +16,7 @@ export const withTreble: IWithTreble = (Component, options) => {
   //handle errors
   errorHandling(Component, options);
 
-  //returns a class component with getTreble props if reactClass is set to true
+  //checks to see if passed component is a class component
   if (Component.prototype instanceof React.Component) {
     return function ClassComponent(props: any) {
       const store = useTreble()[0];
@@ -25,7 +25,11 @@ export const withTreble: IWithTreble = (Component, options) => {
         store,
         dispatch
       ]
-      return <Component {...props} getTreble={getTreble} />;
+      return(
+        <>
+          <Component {...props} getTreble={getTreble} />
+        </>
+      );
     }
   }
 

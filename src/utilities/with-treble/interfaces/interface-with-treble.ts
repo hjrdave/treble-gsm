@@ -1,5 +1,5 @@
 export default interface IWithTreble {
-    (Component: React.ComponentClass | React.FunctionComponent,
+    (Component: React.ComponentClass | React.FunctionComponent | any,
       options?: {
         reactClass?: boolean,
         store?:
@@ -15,5 +15,7 @@ export default interface IWithTreble {
             }[],
             scope?: React.Context<never[]>
         }
-      }): React.ComponentClass | React.FunctionComponent
+      }): any
   }
+
+  //React.ComponentClass | React.FunctionComponent

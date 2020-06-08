@@ -1,6 +1,8 @@
 /*
    Middleware module for handling lists
 */
+import React from 'react';
+import {useTreble} from '../../hooks'
 interface IListManagement{
     (
         dispatchValue: any,
@@ -18,7 +20,7 @@ interface IListManagement{
             prepend?: boolean, 
             limit?: number,
             remove?: boolean,
-            orderBy?: 'asc' | 'desc'
+            orderBy?: 'asc' | 'desc' | 'reset'
         }
     ):any
 }
@@ -65,6 +67,11 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
         return filteredStateArray;
     }
     //order items from array and return new array
+
+    /****Test Code */
+    
+    /***END TEST CODE */
+
     // - for some reason orderBy change will not trigger useEffect, need to look into this...
     if(orderBy){
         if(orderBy === 'asc'){

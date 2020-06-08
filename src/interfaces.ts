@@ -17,5 +17,6 @@ export interface IStoreItem{
 
 export interface IStoreOptions{
     context?: React.Context<never[]>,
-    extendStore?: {data: IStoreItem[]}[]
+    extendStore?: {data: IStoreItem[]}[],
+    modules?: any[]
 }

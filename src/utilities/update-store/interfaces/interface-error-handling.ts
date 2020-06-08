@@ -13,7 +13,8 @@ export default interface IErrorHandling{
                 append?:boolean,
                 prepend?: boolean,
                 remove?: boolean,
-                limit?: number
+                limit?: number,
+                orderBy?: string | boolean
             } | undefined;
         }) => object,
         options?:{
@@ -23,7 +24,8 @@ export default interface IErrorHandling{
             append?: boolean,
             prepend?: boolean,
             remove?: boolean,
-            limit?: number
+            limit?: number,
+            orderBy?: string | boolean
         }
     ) : void
 }

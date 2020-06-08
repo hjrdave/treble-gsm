@@ -14,7 +14,8 @@ export default interface IUpdateStore {
                     append?: boolean,
                     prepend?: boolean,
                     remove?: boolean,
-                    limit?: number
+                    limit?: number,
+                    orderBy?: string | boolean
                 } | false
             }
         ) => object,
@@ -25,7 +26,8 @@ export default interface IUpdateStore {
             append?:boolean,
             prepend?: boolean,
             remove?: boolean,
-            limit?: number
+            limit?: number,
+            orderBy?: string | boolean
         }
     ): void
 }

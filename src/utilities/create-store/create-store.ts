@@ -28,7 +28,8 @@ const createStore: ICreateStore = (storeData, options) => {
     //store object that will be used by Treble
     let  store = {
         data: (extendedStoreData) ? [...storeData, ...extendedStoreData] : storeData,
-        scope: options?.context
+        scope: options?.context,
+        modules: options?.modules
     }
     return store
 }
