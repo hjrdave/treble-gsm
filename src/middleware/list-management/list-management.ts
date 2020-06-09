@@ -74,18 +74,19 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
 
     // - for some reason orderBy change will not trigger useEffect, need to look into this...
     if(orderBy){
+        let currentState = [...state[objectProp]];
         if(orderBy === 'asc'){
             //if dispatch value is null it will evaluate as a string array
-            let orderedStateArray = (dispatchValue !== null) ? state[objectProp].sort(
+            let orderedStateArray = (dispatchValue !== null) ? currentState.sort(
                 (a:any, b:any) => a[dispatchValue].toString().localeCompare(b[dispatchValue].toString(), undefined, {numeric: true})
-                ): state[objectProp].sort((a:any, b:any) => a.toString().localeCompare(b.toString(), undefined, {numeric: true}));
+                ): currentState.sort((a:any, b:any) => a.toString().localeCompare(b.toString(), undefined, {numeric: true}));
             return orderedStateArray;
         }
         else if(orderBy === 'desc'){
             //if dispatch value is null it will evaluate as a string array
-            let orderedStateArray = (dispatchValue !== null) ? state[objectProp].sort(
+            let orderedStateArray = (dispatchValue !== null) ? currentState.sort(
                 (a:any, b:any) => b[dispatchValue].toString().localeCompare(a[dispatchValue].toString(), undefined, {numeric: true})
-                ) : state[objectProp].sort((a:any, b:any) => b.toString().localeCompare(a.toString(), undefined, {numeric: true}));
+                ) : currentState.sort((a:any, b:any) => b.toString().localeCompare(a.toString(), undefined, {numeric: true}));
             return orderedStateArray;
         }
     }

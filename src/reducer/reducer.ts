@@ -61,7 +61,7 @@ const buildReducer: IBuildReducer = (store) => {
       return reducerActions[action.type]();
     }
     catch(err){
-      throw Error(`'${action.type}' action does not exist in Store.`);
+      throw Error(`Store Action: ${action.type} - ${err}`);
     }
   };
   
