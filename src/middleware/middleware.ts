@@ -69,9 +69,9 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
         if(prepend || append || remove || orderBy){
             //allows process to be ran on dispatchValue before outputed to list
             if(process !== null){
-                return listManagement(process(dispatchValue), storeItem, state, actionOptions);
+                return process(listManagement(dispatchValue, storeItem, state, actionOptions));
             }
-            return listManagement(dispatchValue, storeItem, state, actionOptions)
+            return listManagement(dispatchValue, storeItem, state, actionOptions);
         }
 
         //returns a processed dispatchValue
