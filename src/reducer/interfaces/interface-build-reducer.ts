@@ -13,7 +13,8 @@ export default interface IBuildReducer {
         persist?: boolean,
         call?: (state: any) => void,
         check?: (state: any) => boolean,
-        process?: (state: any) => any
+        process?: (state: any) => any,
+        callback?: (state: any) => void
       }
     }[]
   ): any
