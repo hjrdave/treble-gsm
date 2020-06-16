@@ -9,7 +9,7 @@ interface IListManagement{
         storeItem: {
             state: {
                 [key: string]: any;
-            };
+            }
         },
         state: {
             [key: string]: any,
