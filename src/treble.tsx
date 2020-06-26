@@ -8,8 +8,7 @@ import Provider from './provider';
 import buildState from './state';
 import buildReducer from './reducer';
 import Context from './context';
-import { History, Persist } from './features';
-import uniqid from 'uniqid';
+import { Persist } from './features';
 
 interface Props {
     children: JSX.Element | JSX.Element[];
@@ -49,24 +48,11 @@ function Treble({ children, store }: Props) {
         scopedContext = store?.scope, // optional passed scoped context
         modules = store?.modules; // TrebleGSM modules for extending funtionality
 
-    const handleModules = () => {
-        //let levels = modules?.length;
-        return(
-            <>
-            {children}
-            </>
-        )
-    }
 
     return (
         <>
             <Provider data={State} reducer={Reducer} scope={(scopedContext !== undefined) ? scopedContext : defaultContext}>
                 <Persist store={trebleStore} />
-                {/* <History/> */}
-                {/* {
-                    (modules) ?
-                    handleModules() : {children}
-                } */}
                 {children}
             </Provider>
         </>
@@ -74,13 +60,3 @@ function Treble({ children, store }: Props) {
 }
 
 export default Treble;
-
-// modules.map((Component) => {
-//     return(
-//         <React.Fragment key={uniqid()}>
-//             <Component store={store}>
-//                 {children}
-//             </Component>
-//         </React.Fragment>
-//     )
-// }) : {children}

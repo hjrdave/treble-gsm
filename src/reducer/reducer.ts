@@ -13,12 +13,6 @@ const buildReducer: IBuildReducer = (store) => {
     let subscribeID = state?.subscribeID;
 
     let reducerActions: IReducerActions = {
-      'updateHistory': () => {
-        return {
-          ...state,
-          history: action.updateHistory
-        }
-      },
       'updateSubscribeID': () => {
         return ({
           ...state,
@@ -26,7 +20,6 @@ const buildReducer: IBuildReducer = (store) => {
         })
       }
     }
-
     store.map((storeItem) => {
       let objectProp = Object.keys(storeItem.state)[0];
       let dispatchValue = action[storeItem.action];

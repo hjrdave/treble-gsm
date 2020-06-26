@@ -20,10 +20,6 @@ interface IBuildState {
     }[]
   ): {
     subscribeID: number;
-    history: {
-      reset: {},
-      prev: {}
-    };
     [key: string]: any
   }
 }
@@ -33,29 +29,11 @@ const buildState: IBuildState = (store) => {
  let state = {};
 
   store.map((obj) => {
-    //sets the initial value for a queryed state if feature is set.
-    if(obj.features?.query){
-        let stateKey = Object.keys(obj.state)[0];
-        let stateValue = [...obj.state[stateKey]];
-        console.log(stateKey);
-        obj.state[stateKey] = {
-          raw: stateValue,
-          query: stateValue,
-          storeQuery: null
-        }
-
-      state = {...state, ...obj.state};
-    }else{
-      state = {...state, ...obj.state};
-    }
+    state = {...state, ...obj.state};
   });
-
+  
   let initialState = {
     subscribeID: 0,
-    history: {
-      reset: {},
-      prev: {}
-    }, 
     ...state
   };
 
