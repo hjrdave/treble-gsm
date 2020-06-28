@@ -5,7 +5,6 @@
 
 import { useEffect } from 'react';
 import {useTreble} from '../hooks';
-import {updateStore} from '../utilities';
 
 interface Props {
     store: {
@@ -22,7 +21,7 @@ interface Props {
 function Persist({store}: Props) {
 
     const state = useTreble();
-    const [{ }, dispatch] = useTreble();
+    const [{ }, dispatch, Store] = useTreble();
 
     //set to local storage
     interface ISetLocalStorage {
@@ -117,8 +116,8 @@ function Persist({store}: Props) {
                         return value
                     }
                     //updateStore false parameter disables middleware pipeline
-                    updateStore(action, handleValue(value), dispatch, {
-                        enableMiddleware: false
+                    Store.update(action, handleValue(value), {
+                        disableMiddleware: true
                     });
                 }
             })

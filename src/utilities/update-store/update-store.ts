@@ -13,6 +13,8 @@ const updateStore: IUpdateStore = (action, value, dispatch, options) => {
     //does value conversions based on options
     const handleValue = (value: any) => {
 
+        console.warn('Warning: updateStore will be deprecated in the next treble-gsm release. Please use the new SubscribeAPI, go to treblegsm.org for more info.');
+
         //if toggle is enabled will return the opposite of current boolean
         if(options?.toggle){
             return (value) ? false : true;

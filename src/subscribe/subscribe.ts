@@ -5,12 +5,15 @@
 import React from 'react';
 
 const subscribeAPI = (dispatch: any) => {
-    
-    let update = (action: string, dispatchValue: any) => {
+
+    let update = (action: string, dispatchValue: any, options?: { disableMiddleware?: boolean }) => {
         dispatch({
             type: action,
             [action]: dispatchValue,
-            subscribeType: 'update'
+            subscribeType: 'update',
+            options: {
+                disableMiddleware: (options?.disableMiddleware === true) ? true : false
+            }
         })
     }
 
@@ -33,49 +36,51 @@ const subscribeAPI = (dispatch: any) => {
         })
     }
 
-    let append = (action: string, dispatchValue: any) => {
+    let append = (action: string, dispatchValue: any, options?: { limit?: number}) => {
         dispatch({
             type: action,
             [action]: dispatchValue,
             subscribeType: 'append',
             options: {
-                append: true
+                append: true,
+                limit: (options?.limit) ? options?.limit : false
             }
         })
     }
 
-    let prepend = (action: string, dispatchValue: any) => {
+    let prepend = (action: string, dispatchValue: any, options?: { limit?: number}) => {
         dispatch({
             type: action,
             [action]: dispatchValue,
             subscribeType: 'prepend',
             options: {
-                prepend: true
+                prepend: true,
+                limit: (options?.limit) ? options?.limit : false
             }
         })
     }
 
-    let sort = (action: string, targetProp: string, sortType: 'asc' | 'desc') => {
+    let orderBy = (action: string, targetProp: string, orderType: 'asc' | 'desc') => {
         dispatch({
             type: action,
             [action]: targetProp,
-            subscribeType: 'sort',
-            sortType: sortType,
+            subscribeType: 'orderBy',
+            orderType: orderType,
             options: {
-                orderBy: sortType
+                orderBy: orderType
             }
         })
     }
 
     let subscribeMethods = {
-        update: (action: string, dispatchValue: any) => update(action, dispatchValue),
+        update: (action: string, dispatchValue: any, options: any) => update(action, dispatchValue, options),
         remove: (action: string, targetValue: any) => remove(action, targetValue),
         toggle: (action: string, toggleValue: boolean) => toggle(action, toggleValue),
-        append: (action: string, dispatchValue: any) => append(action, dispatchValue),
-        prepend: (action: string, dispatchValue: any) => prepend(action, dispatchValue),
-        sort: (action: string, targetProp: string, sortType: 'asc' | 'desc') => sort(action, targetProp, sortType)
+        append: (action: string, dispatchValue: any, options: any) => append(action, dispatchValue, options),
+        prepend: (action: string, dispatchValue: any, options: any) => prepend(action, dispatchValue, options),
+        orderBy: (action: string, targetProp: string, sortType: 'asc' | 'desc') => orderBy(action, targetProp, sortType)
     };
-   
+
     return subscribeMethods
 }
 

@@ -30,7 +30,7 @@ const buildReducer: IBuildReducer = (store) => {
           
           //if middleware is enabled dispatchValue will go through middleware pipeline
           if(enableMiddleware !== false){
-            let middlewareValue = middleware(dispatchValue, storeItem, state, action?.options);
+            let middlewareValue = middleware(dispatchValue, storeItem, state, action as any);
             
             //makes sure dispatchValue passes check middleware
             if(middlewareValue !== null){

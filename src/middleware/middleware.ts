@@ -24,18 +24,22 @@ interface IMiddleware {
             [key: string]: any;
             subscribeID: number;
         },
-        actionOptions?: {
-            prepend?: boolean,
-            append?: boolean,
-            limit?: number,
-            remove?: boolean,
-            orderBy?: 'asc' | 'desc'
+        action: {
+            options?: {
+                prepend?: boolean,
+                append?: boolean,
+                limit?: number,
+                remove?: boolean,
+                orderBy?: 'asc' | 'desc'
+            },
+            subscribeType: 'remove' | 'orderBy' | 'append' | 'prepend',
+            orderType?: 'asc' | 'desc'
         }
 
     ): any
 }
 
-const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions) => {
+const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     //store features middleware
     let call = storeItem?.features?.call || null;
     let check = storeItem?.features?.check || null;
@@ -43,10 +47,10 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
     let callback = storeItem?.features?.callback || null;
 
     //action options middleware
-    let prepend = actionOptions?.prepend;
-    let append = actionOptions?.append;
-    let remove = actionOptions?.remove;
-    let orderBy = actionOptions?.orderBy;
+    let prepend = action?.options?.prepend;
+    let append = action?.options?.append;
+    let remove = action?.options?.remove;
+    let orderBy = action?.options?.orderBy;
 
     //checks state agianst criteria then returns boolean
     let doesStatePass = (dispatchValue: any) => {
@@ -66,12 +70,12 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, actionOptions)
     if (doesStatePass(dispatchValue) === true) {
 
         //list management middleware
-        if (prepend || append || remove || orderBy) {
+        if (prepend || append || remove || orderBy || ['prepend', 'remove', 'orderBy', 'append'].includes(action.subscribeType)) {
             //allows process to be ran on dispatchValue before outputed to list
             if (process !== null) {
-                return process(listManagement(dispatchValue, storeItem, state, actionOptions));
+                return process(listManagement(dispatchValue, storeItem, state, action));
             }
-            return listManagement(dispatchValue, storeItem, state, actionOptions);
+            return listManagement(dispatchValue, storeItem, state, action);
         }
 
         //returns a processed dispatchValue

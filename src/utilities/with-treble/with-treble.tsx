@@ -21,9 +21,11 @@ export const withTreble: IWithTreble = (Component, options) => {
     return function ClassComponent(props: any) {
       const store = useTreble()[0];
       const dispatch = useTreble()[1];
+      const Store = useTreble()[2];
       const getTreble = [
         store,
-        dispatch
+        dispatch,
+        Store
       ]
       return(
         <>
