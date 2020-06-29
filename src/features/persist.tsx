@@ -21,7 +21,7 @@ interface Props {
 function Persist({store}: Props) {
 
     const state = useTreble();
-    const [{ }, dispatch, Store] = useTreble();
+    const [{ }, Store] = useTreble();
 
     //set to local storage
     interface ISetLocalStorage {
@@ -126,7 +126,7 @@ function Persist({store}: Props) {
 
     useEffect(() => {
        updateStateFromLocalStorage(store, state);
-    }, [dispatch])
+    }, [Store])
 
     useEffect(() => {
         setLocalStorage(store, state);

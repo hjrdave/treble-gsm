@@ -12,8 +12,7 @@ export default interface IReducer {
       type: string,
       [key: string]: any,
       options?: {
-        enableMiddleware?: boolean,
-        append?: boolean,
+        disableMiddleware?: boolean,
         limit?: number
       }
     }

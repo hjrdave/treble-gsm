@@ -26,11 +26,7 @@ interface IMiddleware {
         },
         action: {
             options?: {
-                prepend?: boolean,
-                append?: boolean,
-                limit?: number,
-                remove?: boolean,
-                orderBy?: 'asc' | 'desc'
+                limit?: number
             },
             subscribeType: 'remove' | 'orderBy' | 'append' | 'prepend',
             orderType?: 'asc' | 'desc'
@@ -46,11 +42,8 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     let process = storeItem?.features?.process || null;
     let callback = storeItem?.features?.callback || null;
 
-    //action options middleware
-    let prepend = action?.options?.prepend;
-    let append = action?.options?.append;
-    let remove = action?.options?.remove;
-    let orderBy = action?.options?.orderBy;
+    //subscribeAPI type
+    let subscribeType = action?.subscribeType;
 
     //checks state agianst criteria then returns boolean
     let doesStatePass = (dispatchValue: any) => {
@@ -70,7 +63,7 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     if (doesStatePass(dispatchValue) === true) {
 
         //list management middleware
-        if (prepend || append || remove || orderBy || ['prepend', 'remove', 'orderBy', 'append'].includes(action.subscribeType)) {
+        if (['prepend', 'remove', 'orderBy', 'append'].includes(action.subscribeType)) {
             //allows process to be ran on dispatchValue before outputed to list
             if (process !== null) {
                 return process(listManagement(dispatchValue, storeItem, state, action));

@@ -2,83 +2,91 @@
     Subscribe API
     New experimental api for subscribing to store.
 */
-import React from 'react';
+
+import {update, remove, toggle, append, prepend, orderBy} from './methods';
+
+interface ISubscribeMethods{
+
+    update: (
+         action: string,
+         dispatchValue: any,
+         options?:{
+             disableMiddleware?: boolean
+         }
+     ) => void,
+     
+     remove: (
+         action: string,
+         targetValue: any,
+         options?:{
+             disableMiddleware?: boolean
+         }
+     ) => void,
+
+     toggle: (
+         action: string,
+         toggleValue: boolean,
+         options?:{
+            disableMiddleware?: boolean
+         }
+     ) => void,
+
+     append: (
+         action: string,
+         dispatchValue: any,
+         options?:{
+             disableMiddleware?: boolean
+         }
+     ) => void,
+
+     prepend: (
+         action: string,
+         dispatchValue: any,
+         options?:{
+            disableMiddleware?: boolean
+         }
+     ) => void,
+
+     orderBy: (
+         action: string,
+         dispatchValue: any,
+         sortType: 'asc' | 'desc',
+         options?:{
+             disableMiddleware?: boolean
+         }
+     ) => void,
+
+     dispatch: any
+
+
+ }
 
 const subscribeAPI = (dispatch: any) => {
 
-    let update = (action: string, dispatchValue: any, options?: { disableMiddleware?: boolean }) => {
-        dispatch({
-            type: action,
-            [action]: dispatchValue,
-            subscribeType: 'update',
-            options: {
-                disableMiddleware: (options?.disableMiddleware === true) ? true : false
-            }
-        })
-    }
+    
+    //subscribeAPI methods
+    let subscribeMethods: ISubscribeMethods = {
 
-    let remove = (action: string, targetValue: any) => {
-        dispatch({
-            type: action,
-            [action]: targetValue,
-            subscribeType: 'remove',
-            options: {
-                remove: true
-            }
-        })
-    }
+        //updates store value with new value
+        update: (action, dispatchValue, options) => update(action, dispatchValue, options, dispatch),
 
-    let toggle = (action: string, toggleValue: boolean) => {
-        dispatch({
-            type: action,
-            [action]: (toggleValue) ? false : true,
-            subscribeType: 'toggle'
-        })
-    }
+        //targets a list item in Store and removes it from the list
+        remove: (action, targetValue, options) => remove(action, targetValue, options, dispatch),
 
-    let append = (action: string, dispatchValue: any, options?: { limit?: number}) => {
-        dispatch({
-            type: action,
-            [action]: dispatchValue,
-            subscribeType: 'append',
-            options: {
-                append: true,
-                limit: (options?.limit) ? options?.limit : false
-            }
-        })
-    }
+        //toggles a boolean Store value
+        toggle: (action, toggleValue, options) => toggle(action, toggleValue, options, dispatch),
 
-    let prepend = (action: string, dispatchValue: any, options?: { limit?: number}) => {
-        dispatch({
-            type: action,
-            [action]: dispatchValue,
-            subscribeType: 'prepend',
-            options: {
-                prepend: true,
-                limit: (options?.limit) ? options?.limit : false
-            }
-        })
-    }
+        //appends a state item to a Store list
+        append: (action, dispatchValue, options) => append(action, dispatchValue, options, dispatch),
 
-    let orderBy = (action: string, targetProp: string, orderType: 'asc' | 'desc') => {
-        dispatch({
-            type: action,
-            [action]: targetProp,
-            subscribeType: 'orderBy',
-            orderType: orderType,
-            options: {
-                orderBy: orderType
-            }
-        })
-    }
+        //prepends a state item to a Store list
+        prepend: (action, dispatchValue, options) => prepend(action, dispatchValue, options, dispatch),
 
-    let subscribeMethods = {
-        update: (action: string, dispatchValue: any, options: any) => update(action, dispatchValue, options),
-        remove: (action: string, targetValue: any) => remove(action, targetValue),
-        toggle: (action: string, toggleValue: boolean) => toggle(action, toggleValue),
-        append: (action: string, dispatchValue: any, options: any) => append(action, dispatchValue, options),
-        prepend: (action: string, dispatchValue: any, options: any) => prepend(action, dispatchValue, options),
-        orderBy: (action: string, targetProp: string, sortType: 'asc' | 'desc') => orderBy(action, targetProp, sortType)
+        //orders a Store list by descending or ascending order
+        orderBy: (action, targetProp, sortType, options) => orderBy(action, targetProp, sortType, options, dispatch),
+
+        //pure dispatch function that can be use for extending the subsribeAPI
+        dispatch: (object: any) => dispatch(object)
     };
 
     return subscribeMethods

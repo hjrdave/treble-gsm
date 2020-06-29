@@ -14,7 +14,7 @@ const Provider = ({reducer, data, children, scope}: any) => {
 
     return(
         <>
-            <Context.Provider value={[store, dispatch, subscribeAPI(dispatch)]}>
+            <Context.Provider value={[store, subscribeAPI(dispatch)]}>
                 {children}
             </Context.Provider>
         </>
