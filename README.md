@@ -10,6 +10,9 @@
 
 Treble is a Hook-based global state management container and library for React.js apps. It is inspired by a [blog post](https://medium.com/simply/state-management-with-react-hooks-and-context-api-at-10-lines-of-code-baf6be8302c) by [Luke Hall](https://medium.com/@luke.hall).  Treble's goal is to provide a simple way to manage global state in your React app by providing an easy setup, little boilerplate, and a straight forward API.
 
+### Version 2
+>TrebleGSM is about to be updated to V2 which will include a new breaking change called SubscribeAPI. `updateStore` will be deprecated and removed in favor of `Store.update` and other subscribe and helper methods. This is very exciting in that it will clean up the API and allow for better error handling, scalibility, and newer features. You can check it out by going [here](https://treblegsm.org/api/subscribe-api). TrebleGSM V1.3.0 has SubscribeAPI as an experimental feature.
+
 ### Getting Started
 
 Install Treble
