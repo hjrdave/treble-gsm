@@ -63,7 +63,6 @@ interface ISubscribeMethods{
 
 const subscribeAPI = (dispatch: any) => {
 
-    
     //subscribeAPI methods
     let subscribeMethods: ISubscribeMethods = {
 
