@@ -3,6 +3,7 @@
     Note: Middleware function runs before state gets to Reducer.
 */
 import listManagement from './list-management';
+import staticKeys from './static-keys';
 
 interface IMiddleware {
     (
@@ -16,7 +17,8 @@ interface IMiddleware {
                 call?: (state: any) => void,
                 check?: (state: any) => boolean,
                 process?: (state: any) => any,
-                callback?: (state: any) => void
+                callback?: (state: any) => void,
+                keys?: boolean,
                 persist?: boolean
             }
         },
@@ -41,6 +43,7 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     let check = storeItem?.features?.check || null;
     let process = storeItem?.features?.process || null;
     let callback = storeItem?.features?.callback || null;
+    let keys = storeItem?.features?.keys || null;
 
     //subscribeAPI type
     let subscribeType = action?.subscribeType;
@@ -63,27 +66,42 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     if (doesStatePass(dispatchValue) === true) {
 
         //list management middleware
-        if (['prepend', 'remove', 'orderBy', 'append'].includes(action.subscribeType)) {
+        if (['prepend', 'remove', 'orderBy', 'append'].includes(subscribeType)) {
             //allows process to be ran on dispatchValue before outputed to list
             if (process !== null) {
-                return process(listManagement(dispatchValue, storeItem, state, action));
+                let processedState = process(listManagement(dispatchValue, storeItem, state, action));
+                return processedState;
             }
             return listManagement(dispatchValue, storeItem, state, action);
         }
 
         //returns a processed dispatchValue
         if (process !== null) {
-            let processedValue = process(dispatchValue);
+            let processedState = process(dispatchValue);
+
             //runs callback if it exists with processedValue
             if (callback !== null) {
-                callback(processedValue);
+                callback(processedState);
             }
-            return processedValue;
+
+            //if feature.keys are set to true returns state with keys
+            if(keys){
+                let stateWithKeys = staticKeys(processedState);
+                return stateWithKeys;
+            }
+
+            return processedState;
         }
 
         //runs callback
         if (callback !== null) {
             callback(dispatchValue);
+        }
+
+        //gives static keys to objects in list if keys feature is set to true
+        if(keys){
+            let stateWithKeys = staticKeys(dispatchValue);
+            return stateWithKeys;
         }
 
         return dispatchValue
