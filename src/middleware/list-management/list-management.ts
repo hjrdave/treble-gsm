@@ -19,7 +19,7 @@ interface IListManagement {
                 limit?: number
             },
             orderType?: 'asc' | 'desc',
-            subscribeType: 'append' | 'prepend' | 'remove' |'orderBy'
+            subscribeType: 'append' | 'prepend' | 'remove' |'orderBy' | 'edit'
         }
     ): any
 }
@@ -63,12 +63,8 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
         let filteredStateArray = state[objectProp].filter((item: any) => { return item !== dispatchValue });
         return filteredStateArray;
     }
+
     //order items from array and return new array
-
-    /****Test Code */
-
-    /***END TEST CODE */
-
     // - for some reason orderBy change will not trigger useEffect, need to look into this...
     if (subscribeType === 'orderBy') {
         let currentState = [...state[objectProp]];
@@ -86,6 +82,18 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
             ) : currentState.sort((a: any, b: any) => b.toString().localeCompare(a.toString(), undefined, { numeric: true }));
             return orderedStateArray;
         }
+    }
+
+    //targets Store item property and allows for property value to be changed and then returns edited Store List
+    if (subscribeType === 'edit') {
+        let currentState = [...state[objectProp]];
+        let editedState = currentState?.map((item) => {
+            if(dispatchValue.trebleKey === item.trebleKey){
+                return dispatchValue;
+            }
+            return item;
+        })
+        return editedState;
     }
 
     return dispatchValue;

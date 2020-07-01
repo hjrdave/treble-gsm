@@ -4,6 +4,7 @@
 */
 
 import {update, remove, toggle, append, prepend, orderBy} from './methods';
+import edit from './methods/edit';
 
 interface ISubscribeMethods{
 
@@ -56,6 +57,15 @@ interface ISubscribeMethods{
          }
      ) => void,
 
+     edit: (
+        action: string,
+        dispatchValue: any,
+        options?:{
+            disableMiddleware?: boolean
+        },
+        dispatch?: any,
+    ) => void
+
      dispatch: any
 
 
@@ -83,6 +93,9 @@ const subscribeAPI = (dispatch: any) => {
 
         //orders a Store list by descending or ascending order
         orderBy: (action, targetProp, sortType, options) => orderBy(action, targetProp, sortType, options, dispatch),
+
+        //allows for a Store list item to be edited and then resaved to the Store with the rest intact. Features.keys must be set to true.
+        edit: (action, targetValue, options) => edit(action, targetValue, options, dispatch),
 
         //pure dispatch function that can be use for extending the subsribeAPI
         dispatch: (object: any) => dispatch(object)

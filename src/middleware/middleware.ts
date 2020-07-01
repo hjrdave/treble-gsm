@@ -66,7 +66,7 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     if (doesStatePass(dispatchValue) === true) {
 
         //list management middleware
-        if (['prepend', 'remove', 'orderBy', 'append'].includes(subscribeType)) {
+        if (['prepend', 'remove', 'orderBy', 'append', 'edit'].includes(subscribeType)) {
             //allows process to be ran on dispatchValue before outputed to list
             if (process !== null) {
                 let processedState = process(listManagement(dispatchValue, storeItem, state, action));
