@@ -1,13 +1,16 @@
 /*
    Middleware module for handling lists
 */
-
+import staticKeys from '../static-keys';
 interface IListManagement {
     (
         dispatchValue: any,
         storeItem: {
             state: {
                 [key: string]: any;
+            },
+            features?: {
+                keys?: boolean
             }
         },
         state: {
@@ -29,11 +32,14 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
     let limit = action?.options?.limit;
     let orderType = action?.orderType;
     let subscribeType = action?.subscribeType;
+    let keys = storeItem?.features?.keys || null;
 
     //prepend state to list array
     if (subscribeType === 'prepend') {
+        //creates new array with appended state. If features.keys is set to true will create a static key for each
+        let prependedStateArray = (keys) ? staticKeys([dispatchValue, ...state[objectProp]]) : [dispatchValue, ...state[objectProp]];
+
         //check list limit and remove items from top of list
-        let prependedStateArray = [dispatchValue, ...state[objectProp]];
         if (limit) {
             //makes sure all but the specified limit is removed
             if (prependedStateArray.length > limit) {
@@ -41,13 +47,17 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
             }
             return prependedStateArray
         }
+        
         return prependedStateArray;
     }
 
     //append state to list array
     if (subscribeType === 'append') {
+        
+        //creates new array with prepended state. If features.keys is set to true will create a static key for each
+        let appendedStateArray = (keys) ? staticKeys([...state[objectProp], dispatchValue]) : [dispatchValue, ...state[objectProp]];
+
         //check list limit and remove items from top of list
-        let appendedStateArray = [...state[objectProp], dispatchValue];
         if (limit) {
             //when a new element is appended the first element will be removed to keep within the specified limit
             if (appendedStateArray.length > limit) {
