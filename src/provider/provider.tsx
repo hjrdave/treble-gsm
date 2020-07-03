@@ -5,16 +5,16 @@
 import React, {useReducer} from 'react';
 import subscribeAPI from '../subscribe';
 
-const Provider = ({reducer, data, children, scope}: any) => {
+const Provider = ({reducer, data, children, scope, store}: any) => {
 
     const Context = scope;
     let trebleStore = useReducer(reducer, data);
-    let store = trebleStore[0];
+    let storeItems = trebleStore[0];
     let dispatch = trebleStore[1];
 
     return(
         <>
-            <Context.Provider value={[store, subscribeAPI(dispatch)]}>
+            <Context.Provider value={[storeItems, subscribeAPI(dispatch, store)]}>
                 {children}
             </Context.Provider>
         </>

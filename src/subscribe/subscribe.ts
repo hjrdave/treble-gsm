@@ -3,7 +3,7 @@
     New experimental api for subscribing to store.
 */
 
-import {update, remove, toggle, append, prepend, orderBy} from './methods';
+import {update, remove, toggle, append, prepend, orderBy, reset} from './methods';
 import edit from './methods/edit';
 
 interface ISubscribeMethods{
@@ -64,14 +64,19 @@ interface ISubscribeMethods{
             disableMiddleware?: boolean
         },
         dispatch?: any,
-    ) => void
+    ) => void,
+
+    reset: (
+        action: string,
+        dispatch?: any
+    ) => void,
 
      dispatch: any
 
 
  }
 
-const subscribeAPI = (dispatch: any) => {
+const subscribeAPI = (dispatch: any, store: any) => {
 
     //subscribeAPI methods
     let subscribeMethods: ISubscribeMethods = {
@@ -96,6 +101,9 @@ const subscribeAPI = (dispatch: any) => {
 
         //allows for a Store list item to be edited and then resaved to the Store with the rest intact. Features.keys must be set to true.
         edit: (action, targetValue, options) => edit(action, targetValue, options, dispatch),
+
+        //resets the Store item to its initial value
+        reset: (action) => reset(action, dispatch, store),
 
         //pure dispatch function that can be use for extending the subsribeAPI
         dispatch: (object: any) => dispatch(object)
