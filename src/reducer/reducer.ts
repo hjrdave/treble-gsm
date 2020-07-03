@@ -20,16 +20,19 @@ const buildReducer: IBuildReducer = (store) => {
         })
       }
     }
+    //dynamically builds reducer
     store.map((storeItem) => {
+
       let objectProp = Object.keys(storeItem.state)[0];
       let dispatchValue = action[storeItem.action];
-      let enableMiddleware = action.options?.enableMiddleware;
+      let disableMiddleware = action.options?.disableMiddleware;
+
       reducerActions = {
         ...reducerActions,
         [storeItem.action]: () => {
           
-          //if middleware is enabled dispatchValue will go through middleware pipeline
-          if(enableMiddleware !== false){
+          //makes sure middleware is not disabled by subscribeAPI and then lets the dispatchValue go through middleware pipeline
+          if(disableMiddleware !== true){
             let middlewareValue = middleware(dispatchValue, storeItem, state, action as any);
             
             //makes sure dispatchValue passes check middleware
@@ -42,7 +45,7 @@ const buildReducer: IBuildReducer = (store) => {
             return { ...state }
           }
 
-          //if middleware is not enabled dispatchValue middleware pipeline will be bypassed
+          //if middleware is disabled dispatchValue middleware pipeline will be bypassed
           return {
             ...state,
             [objectProp]: dispatchValue
@@ -50,6 +53,7 @@ const buildReducer: IBuildReducer = (store) => {
         }
       }
     })
+    //checks to makes sure action key exists and throws error if it doesnt
     try{
       return reducerActions[action.type]();
     }

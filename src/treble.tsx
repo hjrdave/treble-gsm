@@ -51,7 +51,7 @@ function Treble({ children, store }: Props) {
 
     return (
         <>
-            <Provider data={State} reducer={Reducer} scope={(scopedContext !== undefined) ? scopedContext : defaultContext}>
+            <Provider data={State} reducer={Reducer} scope={(scopedContext !== undefined) ? scopedContext : defaultContext} store={trebleStore}>
                 <Persist store={trebleStore} />
                 {children}
             </Provider>

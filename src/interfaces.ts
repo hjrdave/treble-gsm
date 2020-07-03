@@ -8,6 +8,7 @@ export interface IStoreItem{
     },
     features?: {
         persist?: boolean,
+        keys?: boolean,
         call?: (state: any) => void,
         check?: (state: any) => boolean,
         process?: (state: any) => any,
