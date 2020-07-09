@@ -1,5 +1,5 @@
 /*
-  withTreble.jsx
+  withTreble
   This is a higher order function that wraps a class component 
   so the component can get access to the treble Store.
 */
@@ -19,12 +19,10 @@ export const withTreble: IWithTreble = (Component, options) => {
   //checks to see if passed component is a class component
   if (Component.prototype instanceof React.Component) {
     return function ClassComponent(props: any) {
-      const store = useTreble()[0];
-      const dispatch = useTreble()[1];
-      const Store = useTreble()[2];
+      const storeItems = useTreble()[0];
+      const Store = useTreble()[1];
       const getTreble = [
-        store,
-        dispatch,
+        storeItems,
         Store
       ]
       return(

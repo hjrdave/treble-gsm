@@ -1,19 +1,22 @@
 /*
     Shared Interfaces
 */
+
+export interface IStoreFeatures{
+    persist?: boolean,
+    keys?: boolean,
+    call?: (state: any) => void,
+    check?: (state: any) => boolean,
+    process?: (state: any) => any,
+    callback?: (state:any) => void
+}
+
 export interface IStoreItem{
     action: string,
     state: {
         [key:string]: any
     },
-    features?: {
-        persist?: boolean,
-        keys?: boolean,
-        call?: (state: any) => void,
-        check?: (state: any) => boolean,
-        process?: (state: any) => any,
-        callback?: (state:any) => void
-    }
+    features?: IStoreFeatures
 }
 
 export interface IStoreOptions{

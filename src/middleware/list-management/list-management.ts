@@ -22,7 +22,7 @@ interface IListManagement {
                 limit?: number
             },
             orderType?: 'asc' | 'desc',
-            subscribeType: 'append' | 'prepend' | 'remove' |'orderBy' | 'edit'
+            subscribeType: 'append' | 'prepend' | 'remove' |'orderBy' | 'edit' | 'removeBatch'
         }
     ): any
 }
@@ -71,6 +71,16 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
     //remove item from array and return new array
     if (subscribeType === 'remove') {
         let filteredStateArray = state[objectProp].filter((item: any) => { return item !== dispatchValue });
+        return filteredStateArray;
+    }
+
+    //remove batch items from array and return new array
+    if (subscribeType === 'removeBatch') {
+        let filteredStateArray = state[objectProp].filter((item: any) => { 
+            if(!(dispatchValue.includes(item))){
+                return item
+            }
+        });
         return filteredStateArray;
     }
 

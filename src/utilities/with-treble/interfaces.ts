@@ -1,4 +1,5 @@
-export default interface IWithTreble {
+
+export interface IWithTreble {
     (Component: React.ComponentClass | React.FunctionComponent | any,
       options?: {
         reactClass?: boolean,
@@ -17,5 +18,3 @@ export default interface IWithTreble {
         }
       }): any
   }
-
-  //React.ComponentClass | React.FunctionComponent

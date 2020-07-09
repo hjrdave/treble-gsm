@@ -6,7 +6,8 @@
 
 import { createContext } from 'react';
 
-const defaultValue: [] = [];
-const Context = createContext(defaultValue);
+
+const defaultValue: any[] = [];
+const Context = createContext<{[key:string]:any}>(defaultValue);
 
 export default Context;

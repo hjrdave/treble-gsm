@@ -3,83 +3,13 @@
     New experimental api for subscribing to store.
 */
 
-import {update, remove, toggle, append, prepend, orderBy, reset} from './methods';
-import edit from './methods/edit';
+import {ICreateSubscribeAPI, ISubscribeAPI} from './interfaces';
+import {update, remove, toggle, append, prepend, orderBy, reset, getActions, edit, getStateKeys, removeBatch} from './methods';
 
-interface ISubscribeMethods{
-
-    update: (
-         action: string,
-         dispatchValue: any,
-         options?:{
-             disableMiddleware?: boolean
-         }
-     ) => void,
-     
-     remove: (
-         action: string,
-         targetValue: any,
-         options?:{
-             disableMiddleware?: boolean
-         }
-     ) => void,
-
-     toggle: (
-         action: string,
-         toggleValue: boolean,
-         options?:{
-            disableMiddleware?: boolean
-         }
-     ) => void,
-
-     append: (
-         action: string,
-         dispatchValue: any,
-         options?:{
-             disableMiddleware?: boolean
-         }
-     ) => void,
-
-     prepend: (
-         action: string,
-         dispatchValue: any,
-         options?:{
-            disableMiddleware?: boolean
-         }
-     ) => void,
-
-     orderBy: (
-         action: string,
-         dispatchValue: any,
-         sortType: 'asc' | 'desc',
-         options?:{
-             disableMiddleware?: boolean
-         }
-     ) => void,
-
-     edit: (
-        action: string,
-        dispatchValue: any,
-        options?:{
-            disableMiddleware?: boolean
-        },
-        dispatch?: any,
-    ) => void,
-
-    reset: (
-        action: string,
-        dispatch?: any
-    ) => void,
-
-     dispatch: any
-
-
- }
-
-const subscribeAPI = (dispatch: any, store: any) => {
-
+const subscribeAPI: ICreateSubscribeAPI = (dispatch, store) => {
+    
     //subscribeAPI methods
-    let subscribeMethods: ISubscribeMethods = {
+    let subscribeMethods: ISubscribeAPI = {
 
         //updates store value with new value
         update: (action, dispatchValue, options) => update(action, dispatchValue, options, dispatch),
@@ -104,6 +34,15 @@ const subscribeAPI = (dispatch: any, store: any) => {
 
         //resets the Store item to its initial value
         reset: (action) => reset(action, dispatch, store),
+
+        //removes a group of list items at one time
+        removeBatch: (action, targetBatch, options) => removeBatch(action, targetBatch, options, dispatch),
+
+        //returns and array of store actions
+        getActions: () => getActions(store),
+
+        //returns and array of store state keys
+        getStateKeys: () => getStateKeys(store),
 
         //pure dispatch function that can be use for extending the subsribeAPI
         dispatch: (object: any) => dispatch(object)

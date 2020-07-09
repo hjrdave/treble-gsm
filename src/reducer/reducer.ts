@@ -18,7 +18,17 @@ const buildReducer: IBuildReducer = (store) => {
           ...state,
           subscribeID: subscribeID + 1
         })
-      }
+      },
+      // 'currentDispatch': () => {
+      //   return({
+      //     ...state,
+      //     currentDispatch: () => {
+      //       store?.filter((item) => {
+      //         if(item.state[0] === action)
+      //       })
+      //     }
+      //   })
+      // }
     }
     //dynamically builds reducer
     store.map((storeItem) => {

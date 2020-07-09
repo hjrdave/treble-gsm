@@ -3,7 +3,7 @@
     Container component that wraps around components that will consume global state.
 */
 
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import Provider from './provider';
 import buildState from './state';
 import buildReducer from './reducer';
@@ -45,8 +45,8 @@ function Treble({ children, store }: Props) {
         State = buildState(trebleStore), // builds state from treble store
         Reducer = buildReducer(trebleStore), // builds reducer from treble store
         defaultContext = Context, // default context for non scoped Treble
-        scopedContext = store?.scope, // optional passed scoped context
-        modules = store?.modules; // TrebleGSM modules for extending funtionality
+        scopedContext = store?.scope; // optional passed scoped context
+        //modules = store?.modules; // TrebleGSM modules for extending funtionality
 
 
     return (

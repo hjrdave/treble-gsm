@@ -2,9 +2,9 @@
     error handling for withTreble higher-order component
 */
 
-import {IErrorHandling} from './interfaces';
+import {IWithTreble} from './interfaces';
 
-const errorHandling: IErrorHandling = (Component, options) => {
+const errorHandling: IWithTreble = (Component, options) => {
     
     try{
         //does component prop exist
