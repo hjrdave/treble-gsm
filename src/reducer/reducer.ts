@@ -3,7 +3,7 @@
   Consumes treble store and dynamically builds global state reducer.
 */
 import middleware from '../middleware';
-import {IReducer, IBuildReducer, IReducerActions} from './interfaces';
+import {IBuildReducer, IReducer, IReducerActions} from '../interfaces';
 
 
 const buildReducer: IBuildReducer = (store) => {
@@ -18,17 +18,7 @@ const buildReducer: IBuildReducer = (store) => {
           ...state,
           subscribeID: subscribeID + 1
         })
-      },
-      // 'currentDispatch': () => {
-      //   return({
-      //     ...state,
-      //     currentDispatch: () => {
-      //       store?.filter((item) => {
-      //         if(item.state[0] === action)
-      //       })
-      //     }
-      //   })
-      // }
+      }
     }
     //dynamically builds reducer
     store.map((storeItem) => {

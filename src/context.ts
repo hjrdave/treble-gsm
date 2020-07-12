@@ -5,9 +5,8 @@
 */
 
 import { createContext } from 'react';
+import {IContext} from './interfaces';
 
-
-const defaultValue: any[] = [];
-const Context = createContext<{[key:string]:any}>(defaultValue);
+const Context = createContext<IContext | null>(null);
 
 export default Context;

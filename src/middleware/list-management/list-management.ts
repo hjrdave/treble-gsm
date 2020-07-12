@@ -14,8 +14,7 @@ interface IListManagement {
             }
         },
         state: {
-            [key: string]: any,
-            subscribeID: number
+            [key: string]: any
         },
         action?: {
             options?: {

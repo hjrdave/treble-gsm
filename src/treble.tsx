@@ -1,6 +1,6 @@
 /*
-    Treble Container
-    Container component that wraps around components that will consume global state.
+    Treble ProviderContainer
+    Provider component that wraps around components that will consume global state.
 */
 
 import React, { useMemo } from 'react';
@@ -9,45 +9,36 @@ import buildState from './state';
 import buildReducer from './reducer';
 import Context from './context';
 import { Persist } from './features';
+import {ITreble} from './interfaces';
 
-interface Props {
-    children: JSX.Element | JSX.Element[];
-    store: {
-        data: {
-            action: string,
-            state: {
-                [key: string]: any
-            },
-            features?: {
-                persist?: boolean,
-                call?: (state: any) => void,
-                check?: (state: any) => boolean,
-                process?: (state: any) => any
-            }
-        }[],
-        scope?: React.Context<never[]>,
-        modules?: any[]
-    }
-}
-
-function Treble({ children, store }: Props) {
+function Treble({ children, store }: ITreble) {
     
     try{
         if(typeof store !== 'object'){
-            throw new TypeError('Treble store prop must be an array.');
+            throw new TypeError('TrebleGSM: Treble store prop must be an array.');
         }
     }catch(error){
         throw error;
     }
 
     const
-        trebleStore = useMemo(() => store.data, [store.data]), //passed treble store
-        State = buildState(trebleStore), // builds state from treble store
-        Reducer = buildReducer(trebleStore), // builds reducer from treble store
-        defaultContext = Context, // default context for non scoped Treble
-        scopedContext = store?.scope; // optional passed scoped context
-        //modules = store?.modules; // TrebleGSM modules for extending funtionality
+        //passed treble store
+        trebleStore = useMemo(() => store.data, [store.data]),
 
+        // builds state from treble store
+        State = buildState(trebleStore),
+
+        // builds reducer from treble store
+        Reducer = buildReducer(trebleStore),
+
+        // default context for non scoped Treble
+        defaultContext = Context,
+
+        // optional passed scoped context
+        scopedContext = store?.scope;
+
+        // TrebleGSM modules for extending 
+        //modules = store?.modules; 
 
     return (
         <>

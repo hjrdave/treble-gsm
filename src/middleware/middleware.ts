@@ -4,38 +4,7 @@
 */
 import listManagement from './list-management';
 import staticKeys from './static-keys';
-
-interface IMiddleware {
-    (
-        dispatchValue: any,
-        storeItem: {
-            action: string,
-            state: {
-                [key: string]: any
-            };
-            features?: {
-                call?: (state: any) => void,
-                check?: (state: any) => boolean,
-                process?: (state: any) => any,
-                callback?: (state: any) => void,
-                keys?: boolean,
-                persist?: boolean
-            }
-        },
-        state: {
-            [key: string]: any;
-            subscribeID: number;
-        },
-        action: {
-            options?: {
-                limit?: number
-            },
-            subscribeType: 'remove' | 'orderBy' | 'append' | 'prepend',
-            orderType?: 'asc' | 'desc'
-        }
-
-    ): any
-}
+import {IMiddleware} from '../interfaces';
 
 const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     //store features middleware

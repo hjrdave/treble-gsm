@@ -5,20 +5,7 @@
 
 import {useContext} from 'react';
 import defaultContext from '../context';
-import { ISubscribeAPI} from '../subscribe/interfaces';
-
-
-interface IUseTreble {
-    (
-        context?: React.Context<{[key:string]:any}>
-    ): any
-}
-
-interface IUseTrebleSubscribe<P>{
-    (
-        context?: IUseTreble
-    ): [any, ISubscribeAPI]
-}
+import {IUseTreble, IUseTrebleSubscribe} from '../interfaces';
 
 const useTrebleHook: IUseTreble = (context) => {
 
@@ -33,6 +20,7 @@ const useTrebleHook: IUseTreble = (context) => {
     }
 
     let trebleContext = (context !== undefined) ? context : defaultContext;
+
     return useContext(trebleContext);
 };
 

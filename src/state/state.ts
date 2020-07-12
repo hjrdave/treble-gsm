@@ -3,26 +3,9 @@
   Consumes the treble store and dynamically builds out the global state based off of store.state.
 */
 
-interface IBuildState {
-  (
-    store: {
-      action: string;
-      state: {
-          [key: string]: any;
-      };
-      features?: {
-          persist?: boolean,
-          call?: (state: any) => void,
-          check?: (state: any) => boolean,
-          process?: (state: any) => any,
-          callback?: (state: any) => void
-      }
-    }[]
-  ): {
-    subscribeID: number;
-    [key: string]: any
-  }
-}
+import {IBuildState} from '../interfaces';
+
+
 
 const buildState: IBuildState = (store) => {
 
@@ -33,7 +16,6 @@ const buildState: IBuildState = (store) => {
   });
   
   let initialState = {
-    subscribeID: 0,
     ...state
   };
 

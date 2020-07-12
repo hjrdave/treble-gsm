@@ -2,14 +2,14 @@
     createStore
     This is imported into app to create new store and provide proper typings.
 */
-import {ICreateStore} from './interfaces';
+import {ICreateStore} from '../../interfaces';
 import errorHandling from './error-handling';
 import {IStoreItem} from '../../interfaces';
 
 const createStore: ICreateStore = (storeData, options) => {
     
     //error handles storeItems
-    errorHandling(storeData);
+    //errorHandling(storeData);
 
     //handle extendStore array
     const handleExtendStore = (extendStoreProp: {data: IStoreItem[]}[]) => {
