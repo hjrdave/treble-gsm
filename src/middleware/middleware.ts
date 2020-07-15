@@ -6,7 +6,10 @@ import listManagement from './list-management';
 import staticKeys from './static-keys';
 import {IMiddleware} from '../interfaces';
 
+
+
 const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
+    
     //store features middleware
     let call = storeItem?.features?.call || null;
     let check = storeItem?.features?.check || null;
@@ -26,9 +29,9 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
         return true;
     }
 
-    //calls a specified function before reducer updates state
+    //calls a non-blocking function as soon as valuse is dispatched to Store
     if (call !== null && dispatchValue !== null) {
-        call(dispatchValue);
+        setTimeout(() => {(call !== null) ? call(dispatchValue) : null}, 0);
     }
 
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
@@ -45,26 +48,29 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
         }
 
         //returns a processed dispatchValue
-        if (process !== null) {
-            let processedState = process(dispatchValue);
+        
+            if (process !== null) {
+                
+                const processedState = process(dispatchValue);
 
-            //runs callback if it exists with processedValue
-            if (callback !== null) {
-                callback(processedState);
-            }
+                //runs callback if it exists with processedValue
+                if (callback !== null) {
+                    setTimeout(() => {(callback !== null) ? callback(dispatchValue) : null}, 0);
+                }
+    
+                //if feature.keys are set to true returns state with keys
+                if(keys){
+                    let stateWithKeys = staticKeys(processedState);
+                    return stateWithKeys;
+                }
 
-            //if feature.keys are set to true returns state with keys
-            if(keys){
-                let stateWithKeys = staticKeys(processedState);
-                return stateWithKeys;
-            }
-
-            return processedState;
+                return processedState;
         }
+       
 
-        //runs callback
+        //runs a non-blocking callback function as soon as other middleware runs
         if (callback !== null) {
-            callback(dispatchValue);
+            setTimeout(() => {(callback !== null) ? callback(dispatchValue) : null}, 0);
         }
 
         //gives static keys to objects in list if keys feature is set to true

@@ -5,8 +5,8 @@
 */
 
 import React from 'react';
-import useTreble from '../../hooks/treble-hook';
-import Treble from '../../treble';
+import useTreble from '../hooks/treble-hook';
+import Treble from '../treble';
 import {IWithTreble} from './interfaces';
 import errorHandling from './error-handling';
 

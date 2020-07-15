@@ -1,5 +1,5 @@
 /*
-    Treble ProviderContainer
+    Treble Provider Container
     Provider component that wraps around components that will consume global state.
 */
 
@@ -10,9 +10,13 @@ import buildReducer from './reducer';
 import Context from './context';
 import { Persist } from './features';
 import {ITreble} from './interfaces';
+import processWorker from './middleware/process-worker';
+import { useWorker } from "@koale/useworker";
+
 
 function Treble({ children, store }: ITreble) {
-    
+
+    //error handling
     try{
         if(typeof store !== 'object'){
             throw new TypeError('TrebleGSM: Treble store prop must be an array.');
@@ -22,28 +26,30 @@ function Treble({ children, store }: ITreble) {
     }
 
     const
-        //passed treble store
-        trebleStore = useMemo(() => store.data, [store.data]),
+        //passed store
+        Store = useMemo(() => store.data, [store.data]),
 
-        // builds state from treble store
-        State = buildState(trebleStore),
+        //builds state from treble store
+        State = buildState(Store),
 
-        // builds reducer from treble store
-        Reducer = buildReducer(trebleStore),
+        //builds reducer from treble store
+        Reducer = buildReducer(Store),
 
-        // default context for non scoped Treble
+        //the main context used by TrebleGSM
         defaultContext = Context,
 
-        // optional passed scoped context
+        //optional passed scoped context (substitutes default context. Used for scoped Treble Providers)
         scopedContext = store?.scope;
 
-        // TrebleGSM modules for extending 
+        //TrebleGSM modules for extending 
         //modules = store?.modules; 
 
     return (
         <>
-            <Provider data={State} reducer={Reducer} scope={(scopedContext !== undefined) ? scopedContext : defaultContext} store={trebleStore}>
-                <Persist store={trebleStore} />
+            {/**Treble Provider */}
+            <Provider data={State} reducer={Reducer} store={Store} scope={(scopedContext !== undefined) ? scopedContext : defaultContext}>
+                
+                <Persist store={Store} />
                 {children}
             </Provider>
         </>

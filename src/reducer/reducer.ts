@@ -9,8 +9,8 @@ import {IBuildReducer, IReducer, IReducerActions} from '../interfaces';
 const buildReducer: IBuildReducer = (store) => {
 
   let Reducer: IReducer = (state, action) => {
-
-    let subscribeID = state?.subscribeID;
+   
+      let subscribeID = state?.subscribeID;
 
     let reducerActions: IReducerActions = {
       'updateSubscribeID': () => {
@@ -60,6 +60,8 @@ const buildReducer: IBuildReducer = (store) => {
     catch(err){
       throw Error(`Store Action: ${action.type} - ${err}`);
     }
+
+    
   };
   
   return Reducer;
