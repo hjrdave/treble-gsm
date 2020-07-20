@@ -8,11 +8,8 @@ import Provider from './provider';
 import buildState from './state';
 import buildReducer from './reducer';
 import Context from './context';
-import { Persist } from './features';
+import { Persist } from './persist';
 import {ITreble} from './interfaces';
-import processWorker from './middleware/process-worker';
-import { useWorker } from "@koale/useworker";
-
 
 function Treble({ children, store }: ITreble) {
 
@@ -24,7 +21,7 @@ function Treble({ children, store }: ITreble) {
     }catch(error){
         throw error;
     }
-
+    
     const
         //passed store
         Store = useMemo(() => store.data, [store.data]),
@@ -43,12 +40,11 @@ function Treble({ children, store }: ITreble) {
 
         //TrebleGSM modules for extending 
         //modules = store?.modules; 
-
+        
     return (
         <>
             {/**Treble Provider */}
             <Provider data={State} reducer={Reducer} store={Store} scope={(scopedContext !== undefined) ? scopedContext : defaultContext}>
-                
                 <Persist store={Store} />
                 {children}
             </Provider>

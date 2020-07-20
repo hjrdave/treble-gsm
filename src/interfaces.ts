@@ -1,8 +1,7 @@
 /*
     Shared Interfaces
 */
-
-import defaultContext from './context';
+import React from 'react';
 import {ISubscribeAPI} from './subscribe/interfaces';
 
 // #region Shared Interfaces 
@@ -36,10 +35,6 @@ export interface IStoreOptions {
     modules?: any[]
 }
 
-//Context Model
-export interface IContext{
-    context: [any[], React.Dispatch<any>]
-}
 // #endregion 
 
 // #region Provider Interfaces 
@@ -142,23 +137,17 @@ export interface IMiddleware {
 //#endregion
 
 //#region Hooks
-
-//useTreble Hook Interface
-export interface IUseTreble {
+export interface IUseTreble{
   (
-      context?: typeof defaultContext
-  ): any
+      context?: React.Context<Partial<{[key:string]:any} | null>>
+  ): [{[key:string]:any}, ISubscribeAPI]
 }
 
 //#endregion
 
-//test
-export interface IUseTrebleSubscribe<P>{
-  (
-      context?: IUseTreble
-  ): [any, ISubscribeAPI]
-}
+//#region User Exported Interfaces and Types
 
-/**SubscribeAPI */
+//useTreble hook type (used to get state intelisense)
+export type TUseTreble<State> = [State, ISubscribeAPI];
 
-
+//#endregion

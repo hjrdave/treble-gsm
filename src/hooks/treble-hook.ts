@@ -5,9 +5,10 @@
 
 import {useContext} from 'react';
 import defaultContext from '../context';
-import {IUseTreble, IUseTrebleSubscribe} from '../interfaces';
+import {IUseTreble} from '../interfaces';
+import {ISubscribeAPI} from '../subscribe/interfaces';
 
-const useTrebleHook: IUseTreble = (context) => {
+const useTreble: IUseTreble = (context) => {
 
     try{
         if(context){
@@ -19,12 +20,16 @@ const useTrebleHook: IUseTreble = (context) => {
         throw error
     }
 
-    let trebleContext = (context !== undefined) ? context : defaultContext;
+    //assigns the default context or passed scoped context
+    const trebleContext = (context !== undefined) ? context : defaultContext;
 
-    return useContext(trebleContext);
+    //would like to figure out how to type trebleContext something other then 'any' without breaking everything
+    const StoreSubscription: [{[key:string]:any}, ISubscribeAPI] = useContext(trebleContext as any);
+
+    //returns an Array [StoreItems (Global state object), StoreMethods (SubscribeAPI methods to interact with Store)]
+    return [StoreSubscription[0], StoreSubscription[1]];
+    
 };
-
-const useTreble: IUseTrebleSubscribe<IUseTreble> = (context) => (useTrebleHook(context as any));
 
 export default useTreble;
 

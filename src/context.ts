@@ -5,8 +5,8 @@
 */
 
 import { createContext } from 'react';
-import {IContext} from './interfaces';
+import { ISubscribeAPI } from './subscribe/interfaces';
 
-const Context = createContext<IContext | null>(null);
+const DefaultContext = createContext<Partial<[any, ISubscribeAPI]> | null>(null);
 
-export default Context;
+export default DefaultContext;
