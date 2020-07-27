@@ -2,7 +2,7 @@
     error handling for withTreble higher-order component
 */
 
-import {IWithTreble} from './interfaces';
+import {IWithTreble} from '../interfaces';
 
 const errorHandling: IWithTreble = (Component, options) => {
     

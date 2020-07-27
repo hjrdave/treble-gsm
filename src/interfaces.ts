@@ -1,6 +1,7 @@
 /*
     Shared Interfaces
 */
+
 import React from 'react';
 import {ISubscribeAPI} from './subscribe/interfaces';
 
@@ -149,5 +150,22 @@ export interface IUseTreble{
 
 //useTreble hook type (used to get state intelisense)
 export type TUseTreble<State> = [State, ISubscribeAPI];
+
+//#endregion
+
+//#region Higher Order Functions
+
+//withTreble
+
+export interface IWithTreble {
+  (Component: React.ComponentClass | React.FunctionComponent | any,
+    options?: {
+      store?:
+        {
+          data: IStoreItem[],
+          scope?: React.Context<never[]>
+      }
+    }): any
+}
 
 //#endregion

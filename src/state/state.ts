@@ -3,23 +3,20 @@
   Consumes the treble store and dynamically builds out the global state based off of store.state.
 */
 
-import {IBuildState} from '../interfaces';
-
-
+import { IBuildState } from "../interfaces";
 
 const buildState: IBuildState = (store) => {
-
- let state = {};
+  let state = {};
 
   store.map((obj) => {
-    state = {...state, ...obj.state};
+    state = { ...state, ...obj.state };
   });
-  
+
   let initialState = {
-    ...state
+    ...state,
   };
 
   return initialState;
-}
+};
 
-  export default buildState;
+export default buildState;

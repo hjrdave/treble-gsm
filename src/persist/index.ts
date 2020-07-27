@@ -1,3 +1,4 @@
 import Persist from './persist';
+import clearPersist from './clear-persist'
 
-export {Persist};
+export {Persist, clearPersist};
