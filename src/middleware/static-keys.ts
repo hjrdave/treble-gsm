@@ -4,12 +4,14 @@
     - Assigns the property trebleKey with a index value
 */
 
-const staticKeys = (dispatchValue: {[key: string]: any}[]) => {
-    //add list key
-    let arrayObjectsWithTrebleKey = dispatchValue.map((stateItem: any, index: number) => {
-      return {...stateItem, trebleKey: index}
-    })
-    return arrayObjectsWithTrebleKey;
-  }
+const staticKeys = (dispatchValue: { [key: string]: any }[]) => {
+  //add list key
+  let arrayObjectsWithTrebleKey = dispatchValue?.map(
+    (stateItem: any, index: number) => {
+      return { ...stateItem, trebleKey: index };
+    }
+  );
+  return arrayObjectsWithTrebleKey;
+};
 
-  export default staticKeys;
+export default staticKeys;
