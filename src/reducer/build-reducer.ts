@@ -12,11 +12,12 @@ const buildReducer: IBuildReducer = (store) => {
 
   let Reducer: IReducer = (state, action) => {
 
+    //built in reducer actions
     let reducerActions: IReducerActions = {
       ...coreActions
     }
 
-    //dynamically builds reducer
+    //dynamically builds reducer actions
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
@@ -31,7 +32,6 @@ const buildReducer: IBuildReducer = (store) => {
     catch (err) {
       throw Error(`Store Action: ${action.type} - ${err}`);
     }
-
 
   };
 

@@ -5,31 +5,14 @@
 */
 
 import middleware from "../middleware";
-
-interface IDispatchPipeline {
-  (
-    storeItem: {
-      action: string;
-      state: {
-        [key: string]: any;
-      };
-    },
-    state: any,
-    action: {
-      [key: string]: any;
-      type: string;
-      options?: {
-        disableMiddleware?: boolean | undefined;
-      };
-    }
-  ): { [key: string]: any };
-}
+import { IDispatchPipeline } from '../interfaces';
 
 const dispatchPipeline: IDispatchPipeline = (storeItem, state, action) => {
   let stateName = Object.keys(storeItem.state)[0];
   let dispatchedValue = action[storeItem.action];
   let disableMiddleware = action.options?.disableMiddleware;
 
+  //run middleware if not disabled
   if (disableMiddleware !== true) {
     let middlewareValue = middleware(
       dispatchedValue,

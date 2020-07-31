@@ -99,6 +99,25 @@ export interface IReducerActions {
   [key: string]: any | undefined
 }
 
+export interface IDispatchPipeline {
+  (
+    storeItem: {
+      action: string;
+      state: {
+        [key: string]: any;
+      };
+    },
+    state: any,
+    action: {
+      [key: string]: any;
+      type: string;
+      options?: {
+        disableMiddleware?: boolean | undefined;
+      };
+    }
+  ): { [key: string]: any };
+}
+
 // #endregion 
 
 // #region Store Interfaces
