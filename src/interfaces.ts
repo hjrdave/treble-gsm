@@ -3,37 +3,37 @@
 */
 
 import React from 'react';
-import {ISubscribeAPI} from './subscribe/interfaces';
+import { ISubscribeAPI } from './subscribe/interfaces';
 
 // #region Shared Interfaces 
 
 //Store State model
-export interface IStoreState{
-    [key: string]: any
+export interface IStoreState {
+  [key: string]: any
 }
 
 //Store Item Features Model
 export interface IStoreFeatures {
-    persist?: boolean,
-    keys?: boolean,
-    call?: (state: any) => void,
-    check?: (state: any) => boolean,
-    process?: (state: any) => any,
-    callback?: (state: any) => void
+  persist?: boolean,
+  keys?: boolean,
+  call?: (state: any) => void,
+  check?: (state: any) => boolean,
+  process?: (state: any) => any,
+  callback?: (state: any) => void
 }
- 
+
 //Store Item Model
 export interface IStoreItem {
-    action: string,
-    state: IStoreState
-    features?: IStoreFeatures
+  action: string,
+  state: IStoreState
+  features?: IStoreFeatures
 }
 
 //Store Options Model
 export interface IStoreOptions {
-    context?: React.Context<never[]>,
-    extendStore?: { data: IStoreItem[] }[],
-    modules?: any[]
+  context?: React.Context<never[]>,
+  extendStore?: { data: IStoreItem[] }[],
+  modules?: any[]
 }
 
 // #endregion 
@@ -42,25 +42,25 @@ export interface IStoreOptions {
 
 //Treble Provider Model
 export interface ITreble {
-    children: JSX.Element | JSX.Element[];
-    store: {
-        data: IStoreItem[],
-        scope?: React.Context<never[]>,
-        modules?: any[]
-    }
+  children: JSX.Element | JSX.Element[];
+  store: {
+    data: IStoreItem[],
+    scope?: React.Context<never[]>,
+    modules?: any[]
+  }
 }
 // #endregion 
 
 // #region State Interfaces 
 
 //BuildState Interface
-export interface IBuildState{
-    (
-      store: IStoreItem[]
-    ): {
-      [key: string]: any
-    }
+export interface IBuildState {
+  (
+    store: IStoreItem[]
+  ): {
+    [key: string]: any
   }
+}
 
 // #endregion 
 
@@ -68,34 +68,34 @@ export interface IBuildState{
 
 //BuildReducer Interface
 export interface IBuildReducer {
-    (
-      store: IStoreItem[]
-    ): any
-  }
+  (
+    store: IStoreItem[]
+  ): any
+}
 
 //Main Reducer Interface
-export interface IReducer{
-    (
-        state: {
-          [key: string]: any,
-          subscribeID: number
-        },
-        action: {
-          type: string,
-          [key: string]: any,
-          options?: {
-            disableMiddleware?: boolean,
-            limit?: number
-          }
-        }
-      ): {
-        [key: string]: any
+export interface IReducer {
+  (
+    state: {
+      [key: string]: any,
+      subscribeID: number
+    },
+    action: {
+      type: string,
+      [key: string]: any,
+      options?: {
+        disableMiddleware?: boolean,
+        limit?: number
       }
+    }
+  ): {
+    [key: string]: any
+  }
 }
 
 //Reducer Actions Model
-export interface IReducerActions{
-  'updateSubscribeID': () => object,
+export interface IReducerActions {
+  'updateSubscribeID'?: () => object,
   [key: string]: any | undefined
 }
 
@@ -106,13 +106,13 @@ export interface IReducerActions{
 //CreateStore Interface
 export interface ICreateStore {
   (
-      storeData: IStoreItem[],
-      options?: IStoreOptions
+    storeData: IStoreItem[],
+    options?: IStoreOptions
   ): {
-      data: IStoreItem[],
-      options?: IStoreOptions
-      } 
+    data: IStoreItem[],
+    options?: IStoreOptions
   }
+}
 
 //#endregion
 
@@ -121,16 +121,16 @@ export interface ICreateStore {
 //Main Middleware Interface
 export interface IMiddleware {
   (
-      dispatchValue: any,
-      storeItem: {
-          action: string,
-          state: IStoreState,
-          features?: IStoreFeatures
-      },
+    dispatchValue: any,
+    storeItem: {
+      action: string,
       state: IStoreState,
-      action: {
-          subscribeType: 'remove' | 'orderBy' | 'append' | 'prepend'
-      }
+      features?: IStoreFeatures
+    },
+    state: IStoreState,
+    action: {
+      subscribeType: 'remove' | 'orderBy' | 'append' | 'prepend'
+    }
 
   ): any
 }
@@ -138,10 +138,10 @@ export interface IMiddleware {
 //#endregion
 
 //#region Hooks
-export interface IUseTreble{
+export interface IUseTreble {
   (
-      context?: React.Context<Partial<{[key:string]:any} | null>>
-  ): [{[key:string]:any}, ISubscribeAPI]
+    context?: React.Context<Partial<{ [key: string]: any } | null>>
+  ): [{ [key: string]: any }, ISubscribeAPI]
 }
 
 //#endregion
@@ -161,9 +161,9 @@ export interface IWithTreble {
   (Component: React.ComponentClass | React.FunctionComponent | any,
     options?: {
       store?:
-        {
-          data: IStoreItem[],
-          scope?: React.Context<never[]>
+      {
+        data: IStoreItem[],
+        scope?: React.Context<never[]>
       }
     }): any
 }
