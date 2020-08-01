@@ -4,15 +4,17 @@
 */
 import listManagement from './list-management';
 import staticKeys from './static-keys';
-import {IMiddleware} from '../interfaces';
+import checkDispatchValue from './check-dispatch-value';
+import callSideEffect from './call-side-effect';
+import { IMiddleware } from '../interfaces';
 
 
 
-const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
-    
+const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
+
     //store features middleware
-    let call = storeItem?.features?.call || null;
-    let check = storeItem?.features?.check || null;
+    let callMiddleware = storeItem?.features?.call || null;
+    let checkMiddleware = storeItem?.features?.check || null;
     let process = storeItem?.features?.process || null;
     let callback = storeItem?.features?.callback || null;
     let keys = storeItem?.features?.keys || null;
@@ -21,21 +23,13 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     let subscribeType = action?.subscribeType;
 
     //checks state agianst criteria then returns boolean
-    let doesStatePass = (dispatchValue: any) => {
-        //runs dispatched state agianst check middlware if it exists
-        if (check !== null && dispatchValue !== null) {
-            return check(dispatchValue);
-        }
-        return true;
-    }
+    let doesDispatchValuePass = checkDispatchValue(dispatchValue, checkMiddleware)
 
-    //calls a non-blocking function as soon as valuse is dispatched to Store
-    if (call !== null && dispatchValue !== null) {
-        setTimeout(() => {(call !== null) ? call(dispatchValue) : null}, 0);
-    }
+    //calls a non-blocking function as soon as a value is dispatched to Store
+    callSideEffect(dispatchValue, callMiddleware)
 
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
-    if (doesStatePass(dispatchValue) === true) {
+    if (doesDispatchValuePass) {
 
         //list management middleware
         if (['prepend', 'remove', 'orderBy', 'append', 'edit', 'removeBatch'].includes(subscribeType)) {
@@ -48,33 +42,33 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
         }
 
         //returns a processed dispatchValue
-        
-            if (process !== null) {
-                
-                const processedState = process(dispatchValue);
 
-                //runs callback if it exists with processedValue
-                if (callback !== null) {
-                    setTimeout(() => {(callback !== null) ? callback(dispatchValue) : null}, 0);
-                }
-    
-                //if feature.keys are set to true returns state with keys
-                if(keys){
-                    let stateWithKeys = staticKeys(processedState);
-                    return stateWithKeys;
-                }
+        if (process !== null) {
 
-                return processedState;
+            const processedState = process(dispatchValue);
+
+            //runs callback if it exists with processedValue
+            if (callback !== null) {
+                setTimeout(() => { (callback !== null) ? callback(dispatchValue) : null }, 0);
+            }
+
+            //if feature.keys are set to true returns state with keys
+            if (keys) {
+                let stateWithKeys = staticKeys(processedState);
+                return stateWithKeys;
+            }
+
+            return processedState;
         }
-       
+
 
         //runs a non-blocking callback function as soon as other middleware runs
         if (callback !== null) {
-            setTimeout(() => {(callback !== null) ? callback(dispatchValue) : null}, 0);
+            setTimeout(() => { (callback !== null) ? callback(dispatchValue) : null }, 0);
         }
 
         //gives static keys to objects in list if keys feature is set to true
-        if(keys){
+        if (keys) {
             let stateWithKeys = staticKeys(dispatchValue);
             return stateWithKeys;
         }
@@ -85,4 +79,4 @@ const middleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
     return null
 }
 
-export default middleware;
+export default runMiddleware;

@@ -4,7 +4,7 @@
     - It puts a dispatch value through middleware modules before being sent to reducer action
 */
 
-import middleware from "../middleware";
+import runMiddleware from "../middleware";
 import { IDispatchPipeline } from '../interfaces';
 
 const dispatchPipeline: IDispatchPipeline = (storeItem, state, action) => {
@@ -13,12 +13,13 @@ const dispatchPipeline: IDispatchPipeline = (storeItem, state, action) => {
   let disableMiddleware = action.options?.disableMiddleware;
 
   //run middleware if not disabled
-  if (disableMiddleware !== true) {
-    let middlewareValue = middleware(
+  if (!(disableMiddleware)) {
+
+    let middlewareValue = runMiddleware(
       dispatchedValue,
       storeItem,
       state,
-      action as any
+      action
     );
 
     //makes sure dispatchValue passes check middleware

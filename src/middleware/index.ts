@@ -1,3 +1,3 @@
-import middleware from './middleware';
+import runMiddleware from './run-middleware';
 
-export default middleware;
+export default runMiddleware;

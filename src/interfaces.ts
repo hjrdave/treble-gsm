@@ -36,6 +36,16 @@ export interface IStoreOptions {
   modules?: any[]
 }
 
+export interface IReducerAction {
+  type: string,
+  [key: string]: any,
+  subscribeType: 'prepend' | 'remove' | 'orderBy' | 'append' | 'edit' | 'removeBatch';
+  options?: {
+    disableMiddleware?: boolean,
+    limit?: number,
+  }
+}
+
 // #endregion 
 
 // #region Provider Interfaces 
@@ -80,14 +90,7 @@ export interface IReducer {
       [key: string]: any,
       subscribeID: number
     },
-    action: {
-      type: string,
-      [key: string]: any,
-      options?: {
-        disableMiddleware?: boolean,
-        limit?: number
-      }
-    }
+    action: IReducerAction
   ): {
     [key: string]: any
   }
@@ -108,13 +111,7 @@ export interface IDispatchPipeline {
       };
     },
     state: any,
-    action: {
-      [key: string]: any;
-      type: string;
-      options?: {
-        disableMiddleware?: boolean | undefined;
-      };
-    }
+    action: IReducerAction
   ): { [key: string]: any };
 }
 
@@ -147,9 +144,7 @@ export interface IMiddleware {
       features?: IStoreFeatures
     },
     state: IStoreState,
-    action: {
-      subscribeType: 'remove' | 'orderBy' | 'append' | 'prepend'
-    }
+    action: IReducerAction
 
   ): any
 }
