@@ -6,6 +6,8 @@ import listManagement from './list-management';
 import staticKeys from './static-keys';
 import checkDispatchValue from './check-dispatch-value';
 import callSideEffect from './call-side-effect';
+import manageLists from './manage-lists';
+import isSubscribeAPIListMethod from './is-subscribe-list-method';
 import { IMiddleware } from '../interfaces';
 
 
@@ -15,7 +17,7 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action) => 
     //store features middleware
     let callMiddleware = storeItem?.features?.call || null;
     let checkMiddleware = storeItem?.features?.check || null;
-    let process = storeItem?.features?.process || null;
+    let processMiddleware = storeItem?.features?.process || null;
     let callback = storeItem?.features?.callback || null;
     let keys = storeItem?.features?.keys || null;
 
@@ -32,20 +34,15 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action) => 
     if (doesDispatchValuePass) {
 
         //list management middleware
-        if (['prepend', 'remove', 'orderBy', 'append', 'edit', 'removeBatch'].includes(subscribeType)) {
-            //allows process to be ran on dispatchValue before outputed to list
-            if (process !== null) {
-                let processedState = process(listManagement(dispatchValue, storeItem, state, action));
-                return processedState;
-            }
-            return listManagement(dispatchValue, storeItem, state, action);
+        if (isSubscribeAPIListMethod(subscribeType)) {
+            return manageLists(dispatchValue, storeItem, state, action);
         }
 
         //returns a processed dispatchValue
 
-        if (process !== null) {
+        if (processMiddleware !== null) {
 
-            const processedState = process(dispatchValue);
+            const processedState = processMiddleware(dispatchValue);
 
             //runs callback if it exists with processedValue
             if (callback !== null) {
