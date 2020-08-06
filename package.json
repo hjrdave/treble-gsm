@@ -40,7 +40,11 @@
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
+<<<<<<< HEAD
     "@types/uniqid": "^5.2.0",
+=======
+    "@types/react": "^16.9.43",
+>>>>>>> Refactor-Code
     "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-minify-dead-code-elimination": "^0.5.1",
@@ -61,8 +65,13 @@
   },
   "dependencies": {},
   "peerDependencies": {
+<<<<<<< HEAD
     "uniqid": "^5.2.0",
     "react": "^16.13.x",
     "react-dom": "^16.13.x"
+=======
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+>>>>>>> Refactor-Code
   }
 }

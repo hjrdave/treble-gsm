@@ -2,7 +2,7 @@ import Treble from './treble';
 import Provider from './provider';
 import createStore from './create-store';
 import withTreble from './with-treble';
-import {clearPersist} from './utilities';
+import {clearPersist} from './persist';
 import {useTreble, useScopedTreble} from './hooks';
 import {TUseTreble} from './interfaces';
 
