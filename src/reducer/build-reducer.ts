@@ -4,7 +4,7 @@
 */
 
 import { IBuildReducer, IReducer, IReducerActions } from '../interfaces';
-import dispatchPipeline from './dispatch-pipeline';
+import runDispatchPipeline from './run-dispatch-pipeline';
 import coreActions from './core-actions';
 
 
@@ -21,7 +21,7 @@ const buildReducer: IBuildReducer = (store) => {
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
-        [storeItem.action]: () => dispatchPipeline(storeItem, state, action)
+        [storeItem.action]: () => runDispatchPipeline(storeItem, state, action)
       }
     })
 
