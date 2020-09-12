@@ -4,7 +4,7 @@
 */
 import checkDispatchValue from './check-dispatch-value';
 import runSideEffect from './run-side-effect';
-import manageLists from './manage-lists';
+import runListManagement from './run-list-management';
 import isSubscribeAPIListMethod from './is-subscribe-list-method';
 import generateStaticKeys from './generate-static-keys';
 import { IMiddleware } from '../interfaces';
@@ -32,7 +32,7 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action) => 
 
         //list management middleware
         if (isSubscribeAPIListMethod(subscribeType)) {
-            return manageLists(dispatchValue, storeItem, state, action);
+            return runListManagement(dispatchValue, storeItem, state, action);
         }
 
         //returns a processed dispatchValue

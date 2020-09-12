@@ -13,7 +13,9 @@ interface IGenerateStaticKeys {
     ): {
         [key: string]: any;
         trebleKey: number;
-    }[] | void
+    }[] | {
+        [key: string]: any;
+    }[] | null
 }
 
 const generateStaticKeys: IGenerateStaticKeys = (dispatchValue, staticKeysMiddleware) => {
@@ -26,6 +28,7 @@ const generateStaticKeys: IGenerateStaticKeys = (dispatchValue, staticKeysMiddle
         );
         return dispatchValueWithKeys;
     }
+    return dispatchValue;
 }
 
 export default generateStaticKeys;

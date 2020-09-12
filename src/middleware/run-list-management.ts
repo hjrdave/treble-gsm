@@ -4,7 +4,7 @@
 */
 
 import { IReducerAction, IStoreState, IStoreFeatures } from "../interfaces";
-import listManagement from './list-management';
+import listManagement from '../modules/list-management';
 
 interface IManageLists {
     (
@@ -20,7 +20,7 @@ interface IManageLists {
 }
 
 
-const manageLists: IManageLists = (dispatchValue, storeItem, state, action) => {
+const runListManagement: IManageLists = (dispatchValue, storeItem, state, action) => {
 
     let processMiddleware = storeItem?.features?.process || null;
 
@@ -35,4 +35,4 @@ const manageLists: IManageLists = (dispatchValue, storeItem, state, action) => {
 
 }
 
-export default manageLists;
+export default runListManagement;

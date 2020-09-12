@@ -1,7 +1,8 @@
 /*
    Middleware module for handling lists
 */
-import staticKeys from '../static-keys';
+import generateStaticKeys from '../../middleware/generate-static-keys';
+import { append } from '../../subscribe/methods';
 interface IListManagement {
     (
         dispatchValue: any,
@@ -21,14 +22,13 @@ interface IListManagement {
                 limit?: number
             },
             orderType?: 'asc' | 'desc',
-            subscribeType: 'append' | 'prepend' | 'remove' |'orderBy' | 'edit' | 'removeBatch'
+            subscribeType: 'append' | 'prepend' | 'remove' | 'orderBy' | 'edit' | 'removeBatch'
         }
     ): any
 }
 
 const listManagement: IListManagement = (dispatchValue, storeItem, state, action) => {
     let objectProp = Object.keys(storeItem.state)[0];
-    let limit = action?.options?.limit;
     let orderType = action?.orderType;
     let subscribeType = action?.subscribeType;
     let keys = storeItem?.features?.keys || null;
@@ -36,35 +36,17 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
     //prepend state to list array
     if (subscribeType === 'prepend') {
         //creates new array with appended state. If features.keys is set to true will create a static key for each
-        let prependedStateArray = (keys) ? staticKeys([dispatchValue, ...state[objectProp]]) : [dispatchValue, ...state[objectProp]];
+        let prependedStateArray = (keys) ? generateStaticKeys([dispatchValue, ...state[objectProp]], keys) : [dispatchValue, ...state[objectProp]];
 
-        //check list limit and remove items from top of list
-        if (limit) {
-            //makes sure all but the specified limit is removed
-            if (prependedStateArray.length > limit) {
-                return prependedStateArray.slice(0, limit);
-            }
-            return prependedStateArray
-        }
-        
         return prependedStateArray;
     }
 
     //append state to list array
     if (subscribeType === 'append') {
-        
-        //creates new array with prepended state. If features.keys is set to true will create a static key for each
-        let appendedStateArray = (keys) ? staticKeys([...state[objectProp], dispatchValue]) : [dispatchValue, ...state[objectProp]];
 
-        //check list limit and remove items from top of list
-        if (limit) {
-            //when a new element is appended the first element will be removed to keep within the specified limit
-            if (appendedStateArray.length > limit) {
-                let overLimitAmount = appendedStateArray.length - limit;
-                return appendedStateArray.slice(overLimitAmount, appendedStateArray.length);
-            }
-            return appendedStateArray
-        }
+        //creates new array with prepended state. If features.keys is set to true will create a static key for each
+        let appendedStateArray = (keys) ? generateStaticKeys([...state[objectProp], dispatchValue], keys) : [dispatchValue, ...state[objectProp]];
+
         return appendedStateArray;
     }
     //remove item from array and return new array
@@ -75,8 +57,8 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
 
     //remove batch items from array and return new array
     if (subscribeType === 'removeBatch') {
-        let filteredStateArray = state[objectProp].filter((item: any) => { 
-            if(!(dispatchValue.includes(item))){
+        let filteredStateArray = state[objectProp].filter((item: any) => {
+            if (!(dispatchValue.includes(item))) {
                 return item
             }
         });
@@ -107,7 +89,7 @@ const listManagement: IListManagement = (dispatchValue, storeItem, state, action
     if (subscribeType === 'edit') {
         let currentState = [...state[objectProp]];
         let editedState = currentState?.map((item) => {
-            if(dispatchValue.trebleKey === item.trebleKey){
+            if (dispatchValue.trebleKey === item.trebleKey) {
                 return dispatchValue;
             }
             return item;
