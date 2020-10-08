@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { ISubscribeAPI } from './subscribe/interfaces';
+import { IStoreUtilities } from './store-utilities/interfaces';
 
 // #region Shared Interfaces 
 
@@ -155,7 +156,7 @@ export interface IMiddleware {
 export interface IUseTreble {
   (
     context?: React.Context<Partial<{ [key: string]: any } | null>>
-  ): [{ [key: string]: any }, ISubscribeAPI]
+  ): [{ [key: string]: any }, ISubscribeAPI, IStoreUtilities<{ [key: string]: string }>]
 }
 
 //#endregion
@@ -163,7 +164,7 @@ export interface IUseTreble {
 //#region User Exported Interfaces and Types
 
 //useTreble hook type (used to get state intelisense)
-export type TUseTreble<State> = [State, ISubscribeAPI];
+export type TUseTreble<State, Actions> = [State, ISubscribeAPI, IStoreUtilities<Actions>];
 
 //#endregion
 

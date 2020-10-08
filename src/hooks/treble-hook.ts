@@ -6,6 +6,7 @@
 import { useContext } from "react";
 import defaultContext from "../context";
 import { IUseTreble } from "../interfaces";
+import { IStoreUtilities } from "../store-utilities/interfaces";
 import { ISubscribeAPI } from "../subscribe/interfaces";
 
 const useTreble: IUseTreble = (context) => {
@@ -19,7 +20,7 @@ const useTreble: IUseTreble = (context) => {
     const trebleContext = context !== undefined ? context : defaultContext;
 
     //would like to figure out how to type trebleContext something other then 'any' without breaking everything
-    const StoreSubscription: [{ [key: string]: any }, ISubscribeAPI] = useContext(
+    const StoreSubscription: [{ [key: string]: any }, ISubscribeAPI, { actions: { [key: string]: string } }] = useContext(
       trebleContext as any
     );
 
@@ -30,9 +31,10 @@ const useTreble: IUseTreble = (context) => {
 
     const StoreItems = StoreSubscription[0];
     const SubscribeAPI = StoreSubscription[1];
+    const StoreUtilities = StoreSubscription[2];
 
     //returns an Array [StoreItems (Global state object), StoreMethods (SubscribeAPI methods to interact with Store)]
-    return [StoreItems, SubscribeAPI];
+    return [StoreItems, SubscribeAPI, StoreUtilities];
 
   } catch (error) {
     throw new Error(error);

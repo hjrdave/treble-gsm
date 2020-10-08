@@ -4,6 +4,7 @@
 */
 import React, { useReducer } from "react";
 import subscribeAPI from "../subscribe";
+import storeUtilities from '../store-utilities'
 
 const Provider = ({ reducer, data, children, scope, store }: any) => {
   const Context = scope;
@@ -13,7 +14,7 @@ const Provider = ({ reducer, data, children, scope, store }: any) => {
 
   return (
     <>
-      <Context.Provider value={[storeItems, subscribeAPI(dispatch, store)]}>
+      <Context.Provider value={[storeItems, subscribeAPI(dispatch, store), storeUtilities(store)]}>
         {children}
       </Context.Provider>
     </>
