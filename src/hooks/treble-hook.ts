@@ -20,7 +20,7 @@ const useTreble: IUseTreble = (context) => {
     const trebleContext = context !== undefined ? context : defaultContext;
 
     //would like to figure out how to type trebleContext something other then 'any' without breaking everything
-    const StoreSubscription: [{ [key: string]: any }, ISubscribeAPI, { actions: { [key: string]: string } }] = useContext(
+    const StoreSubscription: [{ [key: string]: any }, ISubscribeAPI, IStoreUtilities] = useContext(
       trebleContext as any
     );
 

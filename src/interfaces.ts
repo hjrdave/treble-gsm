@@ -156,7 +156,7 @@ export interface IMiddleware {
 export interface IUseTreble {
   (
     context?: React.Context<Partial<{ [key: string]: any } | null>>
-  ): [{ [key: string]: any }, ISubscribeAPI, IStoreUtilities<{ [key: string]: string }>]
+  ): [{ [key: string]: any }, ISubscribeAPI, IStoreUtilities]
 }
 
 //#endregion
@@ -164,7 +164,7 @@ export interface IUseTreble {
 //#region User Exported Interfaces and Types
 
 //useTreble hook type (used to get state intelisense)
-export type TUseTreble<State, Actions> = [State, ISubscribeAPI, IStoreUtilities<Actions>];
+export type TUseTreble<State, Actions = void> = [State, ISubscribeAPI, IStoreUtilities<Actions>];
 
 //#endregion
 

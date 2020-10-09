@@ -1,3 +1,7 @@
+/*
+    Store Action Type helper.
+    Can be used in typescript projects to aid in using actions with Store methods.
+*/
 import { IStoreItem } from '../../interfaces';
 const createActionsHelper = (store: IStoreItem[]) => {
 
