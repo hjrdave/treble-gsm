@@ -2,7 +2,7 @@
     Utiltites Object that is outputed by useTreble
 */
 
-import { createActionsHelper, getActions, getStateKeys } from './methods';
+import { createActionsHelper, getActions, getStateKeys, getCurrentStoreData } from './methods';
 import { IStoreUtilities } from './interfaces';
 import { IStoreItem } from '../interfaces';
 
@@ -10,13 +10,15 @@ const storeUtilties = (store: IStoreItem[]) => {
 
     let returnedActionArray = getActions(store);
     let returnedStateKeys = getStateKeys(store);
+    let returnedStoreData = getCurrentStoreData(store);
 
     let utiltiesObject: IStoreUtilities = {
         actions: {
             ...createActionsHelper(store)
         },
         stateKeys: returnedActionArray,
-        actionKeys: returnedStateKeys
+        actionKeys: returnedStateKeys,
+        storeData: returnedStoreData
     }
 
     return utiltiesObject
