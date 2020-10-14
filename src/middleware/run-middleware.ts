@@ -10,9 +10,7 @@ import manageLists from './manage-lists';
 import isSubscribeAPIListMethod from './is-subscribe-list-method';
 import { IMiddleware } from '../interfaces';
 
-
-
-const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action) => {
+const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store) => {
 
     //store features middleware
     let callMiddleware = storeItem?.features?.call || null;
@@ -20,33 +18,49 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action) => 
     let processMiddleware = storeItem?.features?.process || null;
     let callback = storeItem?.features?.callback || null;
     let keys = storeItem?.features?.keys || null;
+    
+    //store data object for middleware (this object holds dispatch and store data that can get passed to middleware functions)
+    let subscribeData = {
+        dispatchValue: dispatchValue,
+        dispatchAction: {...action, dispatchTime: new Date()},
+        processedValue: null,
+        action: storeItem.action,
+        features: storeItem.features,
+        currentState: state[Object.keys(storeItem.state)[0]],
+        storeItems: store,
+        storeState: state
+    }
 
     //subscribeAPI type
     let subscribeType = action?.subscribeType;
 
     //checks state agianst criteria then returns boolean
-    let doesDispatchValuePass = checkDispatchValue(dispatchValue, checkMiddleware)
+    let doesDispatchValuePass = checkDispatchValue(subscribeData, checkMiddleware)
 
     //calls a non-blocking function as soon as a value is dispatched to Store
-    callSideEffect(dispatchValue, callMiddleware)
+    callSideEffect(subscribeData, callMiddleware)
 
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
     if (doesDispatchValuePass) {
 
         //list management middleware
         if (isSubscribeAPIListMethod(subscribeType)) {
-            return manageLists(dispatchValue, storeItem, state, action);
+            return manageLists(subscribeData.dispatchValue, storeItem, state, action);
         }
 
         //returns a processed dispatchValue
 
         if (processMiddleware !== null) {
 
-            const processedState = processMiddleware(dispatchValue);
+            const processedState = processMiddleware(subscribeData);
 
             //runs callback if it exists with processedValue
             if (callback !== null) {
-                setTimeout(() => { (callback !== null) ? callback(dispatchValue) : null }, 0);
+                subscribeData = {
+                    ...subscribeData,
+                    processedValue: processedState
+                }
+                setTimeout(() => { (callback !== null) ? callback(subscribeData) : null }, 0);
             }
 
             //if feature.keys are set to true returns state with keys
@@ -61,12 +75,12 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action) => 
 
         //runs a non-blocking callback function as soon as other middleware runs
         if (callback !== null) {
-            setTimeout(() => { (callback !== null) ? callback(dispatchValue) : null }, 0);
+            setTimeout(() => { (callback !== null) ? callback(subscribeData) : null }, 0);
         }
 
         //gives static keys to objects in list if keys feature is set to true
         if (keys) {
-            let stateWithKeys = staticKeys(dispatchValue);
+            let stateWithKeys = staticKeys(subscribeData.dispatchValue);
             return stateWithKeys;
         }
 

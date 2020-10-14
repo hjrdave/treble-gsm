@@ -5,16 +5,18 @@
 
 interface ICallSideEffect {
     (
-        dispatchValue: any,
-        callMiddleware: ((state: any) => void) | null
+        subscribeData: {
+            dispatchValue: any,
+        },
+        callMiddleware: ((subscribeData: any) => void) | null
     ): void
 }
 
-const callSideEffect: ICallSideEffect = (dispatchValue, callMiddleware) => {
-    if (callMiddleware !== null && dispatchValue !== null) {
+const callSideEffect: ICallSideEffect = (subscribeData, callMiddleware) => {
+    if (callMiddleware !== null && subscribeData.dispatchValue !== null) {
         setTimeout(() => {
             (callMiddleware !== null) ?
-                callMiddleware(dispatchValue) : null
+                callMiddleware(subscribeData) : null
         }, 0);
     }
 }

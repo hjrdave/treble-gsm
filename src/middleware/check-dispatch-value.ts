@@ -6,14 +6,16 @@
 
 interface ICheckDispatchValue {
     (
-        dispatchValue: any,
+         subscribeData: {
+            dispatchValue: any
+        },
         checkMiddleware: ((state: any) => boolean) | null
     ): boolean
 }
 
-const checkDispatchValue: ICheckDispatchValue = (dispatchValue, checkMiddleware) => {
-    if (checkMiddleware !== null && dispatchValue !== null) {
-        return checkMiddleware(dispatchValue);
+const checkDispatchValue: ICheckDispatchValue = (subscribeData, checkMiddleware) => {
+    if (checkMiddleware !== null && subscribeData.dispatchValue !== null) {
+        return checkMiddleware(subscribeData);
     }
     return true;
 }

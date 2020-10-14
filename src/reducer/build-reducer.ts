@@ -21,7 +21,7 @@ const buildReducer: IBuildReducer = (store) => {
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
-        [storeItem.action]: () => dispatchPipeline(storeItem, state, action)
+        [storeItem.action]: () => dispatchPipeline(storeItem, state, action, store)
       }
     })
 

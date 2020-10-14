@@ -17,10 +17,10 @@ export interface IStoreState {
 export interface IStoreFeatures {
   persist?: boolean,
   keys?: boolean,
-  call?: (state: any) => void,
-  check?: (state: any) => boolean,
-  process?: (state: any) => any,
-  callback?: (state: any) => void
+  call?: (storeData: any) => void,
+  check?: (storeData: any) => boolean,
+  process?: (storeData: any) => any,
+  callback?: (storeData: any) => void
 }
 
 //Store Item Model
@@ -112,7 +112,8 @@ export interface IDispatchPipeline {
       };
     },
     state: any,
-    action: IReducerAction
+    action: IReducerAction,
+    store: any
   ): { [key: string]: any };
 }
 
@@ -145,8 +146,8 @@ export interface IMiddleware {
       features?: IStoreFeatures
     },
     state: IStoreState,
-    action: IReducerAction
-
+    action: IReducerAction,
+    store: any
   ): any
 }
 
