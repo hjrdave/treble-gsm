@@ -40,6 +40,7 @@
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
+    "@types/react": "^16.9.52",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-minify-dead-code-elimination": "^0.5.1",
     "babel-preset-env": "^1.6.1",
