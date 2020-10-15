@@ -27,7 +27,7 @@ steps:
 - task: Npm@1
   inputs:
     command: custom
-    customCommand: run-script build
+    customCommand: run build
     publishPackageMetadata: true # Optional
     publishEndpoint: 'treble-gsm-package'
     displayName: 'Compile Source'
