@@ -8,7 +8,7 @@ import checkDispatchValue from './check-dispatch-value';
 import callSideEffect from './call-side-effect';
 import manageLists from './manage-lists';
 import isSubscribeAPIListMethod from './is-subscribe-list-method';
-import { IMiddleware, IMiddlewareData } from '../interfaces';
+import { IMiddleware, IMiddlewareData, IStoreState } from '../interfaces';
 
 const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store) => {
 

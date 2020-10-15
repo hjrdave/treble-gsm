@@ -3,7 +3,7 @@
     - Runs dispatchValue agianst a specified criteria 
     and returns true if the dispatchValue meets that criteria or false if it doesnt
 */
-import {IMiddlewareData} from '../interfaces';
+import {IMiddlewareData, IStoreState} from '../interfaces';
 interface ICheckDispatchValue {
     (
          middlewareData: IMiddlewareData,

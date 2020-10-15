@@ -2,7 +2,7 @@
     Calls Side Effect
     - Calls a non-blocking side effect before other middleware fire
 */
-import {IMiddlewareData} from '../interfaces';
+import {IMiddlewareData, IStoreState} from '../interfaces';
 interface ICallSideEffect {
     (
         middlewareData: IMiddlewareData,

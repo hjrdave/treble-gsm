@@ -168,7 +168,7 @@ export interface IUseTreble {
 export type TUseTreble<State, Actions = void> = [State, ISubscribeAPI, IStoreUtilities<Actions>];
 
 //data object that gets passed to middleware functions 
-export interface IMiddlewareData<State = void>{
+export interface IMiddlewareData<State = void & any>{
   dispatchValue: any,
   dispatchAction: IReducerAction & {
     dispatchTime: Date
@@ -178,7 +178,7 @@ export interface IMiddlewareData<State = void>{
   features: IStoreFeatures | undefined,
   currentState: any,
   storeItems: IStoreItem[],
-  storeState: State | IStoreState
+  storeState: State
 }
 
 //#endregion
