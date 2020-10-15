@@ -17,10 +17,10 @@ export interface IStoreState {
 export interface IStoreFeatures {
   persist?: boolean,
   keys?: boolean,
-  call?: (storeData: any) => void,
-  check?: (storeData: any) => boolean,
-  process?: (storeData: any) => any,
-  callback?: (storeData: any) => void
+  call?: (storeData: IMiddlewareData) => void,
+  check?: (storeData: IMiddlewareData) => boolean,
+  process?: (storeData: IMiddlewareData) => any,
+  callback?: (storeData: IMiddlewareData) => void
 }
 
 //Store Item Model
@@ -167,6 +167,20 @@ export interface IUseTreble {
 //useTreble hook type (used to get state intelisense)
 export type TUseTreble<State, Actions = void> = [State, ISubscribeAPI, IStoreUtilities<Actions>];
 
+//data object that gets passed to middleware functions 
+export interface IMiddlewareData<State = void>{
+  dispatchValue: any,
+  dispatchAction: IReducerAction & {
+    dispatchTime: Date
+  },
+  processedValue: any,
+  action: string,
+  features: IStoreFeatures | undefined,
+  currentState: any,
+  storeItems: IStoreItem[],
+  storeState: State | IStoreState
+}
+
 //#endregion
 
 //#region Higher Order Functions
@@ -186,15 +200,3 @@ export interface IWithTreble {
 
 //#endregion
 
-export interface IMiddlewareData<State = void>{
-  dispatchValue: any,
-  dispatchAction: IReducerAction & {
-    dispatchTime: Date
-  },
-  processedValue: any,
-  action: string,
-  features: IStoreFeatures | undefined,
-  currentState: any,
-  storeItems: IStoreItem[],
-  storeState: State | IStoreState
-}
