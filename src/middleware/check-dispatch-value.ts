@@ -3,19 +3,17 @@
     - Runs dispatchValue agianst a specified criteria 
     and returns true if the dispatchValue meets that criteria or false if it doesnt
 */
-
+import {IMiddlewareData} from '../interfaces';
 interface ICheckDispatchValue {
     (
-         subscribeData: {
-            dispatchValue: any
-        },
+         middlewareData: IMiddlewareData,
         checkMiddleware: ((state: any) => boolean) | null
     ): boolean
 }
 
-const checkDispatchValue: ICheckDispatchValue = (subscribeData, checkMiddleware) => {
-    if (checkMiddleware !== null && subscribeData.dispatchValue !== null) {
-        return checkMiddleware(subscribeData);
+const checkDispatchValue: ICheckDispatchValue = (middlewareData, checkMiddleware) => {
+    if (checkMiddleware !== null && middlewareData.dispatchValue !== null) {
+        return checkMiddleware(middlewareData);
     }
     return true;
 }

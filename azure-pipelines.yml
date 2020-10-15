@@ -22,7 +22,7 @@ steps:
     publishPackageMetadata: true # Optional
     customRegistry: useNpmrc
     publishEndpoint: 'treble-gsm-package'
-    displayName: 'Install Dependencies'
+  displayName: 'Install Dependencies'
 
 - task: Npm@1
   inputs:
@@ -30,7 +30,7 @@ steps:
     customCommand: run build
     publishPackageMetadata: true # Optional
     publishEndpoint: 'treble-gsm-package'
-    displayName: 'Compile Source'
+  displayName: 'Compile Source'
 
 - script: |
     npm pack
@@ -40,7 +40,7 @@ steps:
   inputs:
     command: publish
     publishEndpoint: 'treble-gsm-package'
-    displayName: 'Create build artifact'
+  displayName: 'Create build artifact'
 
     
 

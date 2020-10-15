@@ -2,21 +2,19 @@
     Calls Side Effect
     - Calls a non-blocking side effect before other middleware fire
 */
-
+import {IMiddlewareData} from '../interfaces';
 interface ICallSideEffect {
     (
-        subscribeData: {
-            dispatchValue: any,
-        },
-        callMiddleware: ((subscribeData: any) => void) | null
+        middlewareData: IMiddlewareData,
+        callMiddleware: ((middlewareData: any) => void) | null
     ): void
 }
 
-const callSideEffect: ICallSideEffect = (subscribeData, callMiddleware) => {
-    if (callMiddleware !== null && subscribeData.dispatchValue !== null) {
+const callSideEffect: ICallSideEffect = (middlewareData, callMiddleware) => {
+    if (callMiddleware !== null && middlewareData.dispatchValue !== null) {
         setTimeout(() => {
             (callMiddleware !== null) ?
-                callMiddleware(subscribeData) : null
+                callMiddleware(middlewareData) : null
         }, 0);
     }
 }

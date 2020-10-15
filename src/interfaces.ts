@@ -185,3 +185,16 @@ export interface IWithTreble {
 }
 
 //#endregion
+
+export interface IMiddlewareData<State = void>{
+  dispatchValue: any,
+  dispatchAction: IReducerAction & {
+    dispatchTime: Date
+  },
+  processedValue: any,
+  action: string,
+  features: IStoreFeatures | undefined,
+  currentState: any,
+  storeItems: IStoreItem[],
+  storeState: State | IStoreState
+}
