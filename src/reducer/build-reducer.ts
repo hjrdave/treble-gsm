@@ -12,9 +12,11 @@ const buildReducer: IBuildReducer = (store) => {
 
   let Reducer: IReducer = (state, action) => {
 
+    //let coreReducerActions = coreActions(state);
+    
     //built in reducer actions
     let reducerActions: IReducerActions = {
-      ...coreActions
+      //...coreReducerActions
     }
 
     //dynamically builds reducer actions

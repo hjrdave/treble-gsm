@@ -28,7 +28,8 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
         features: storeItem.features,
         currentState: state[Object.keys(storeItem.state)[0]],
         storeItems: store,
-        storeState: state
+        storeState: state,
+        subscribeAPI: state.TrebleSubscribeAPI
     }
 
     //subscribeAPI type

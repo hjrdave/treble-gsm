@@ -6,7 +6,9 @@
 import { IBuildState } from "../interfaces";
 
 const buildState: IBuildState = (store) => {
-  let state = {};
+  let state = {
+    TrebleSubscribeAPI: null
+  };
 
   store.map((obj) => {
     state = { ...state, ...obj.state };

@@ -21,12 +21,19 @@ function Treble({ children, store }: ITreble) {
     throw error;
   }
 
+  const fooData = {
+    action: 'addSubcribeAPIToMiddleware',
+    state: {
+      TrebleSubscribeAPI: null
+    }
+  }
+
   const //passed store
     Store = useMemo(() => store.data, [store.data]),
     //builds state from treble store
-    State = buildState(Store),
+    State = buildState([...Store, fooData]),
     //builds reducer from treble store
-    Reducer = buildReducer(Store),
+    Reducer = buildReducer([...Store, fooData]),
     //the main context used by TrebleGSM
     defaultContext = Context,
     //optional passed scoped context (substitutes default context. Used for scoped Treble Providers)

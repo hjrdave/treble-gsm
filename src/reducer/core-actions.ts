@@ -4,11 +4,12 @@
 */
 
 const coreActions = (state: any) => {
+  //console.log(state)
   const actions = {
-    updateSubscribeID: () => {
+    addSubcribeAPIToMiddleware: () => {
       return {
         ...state,
-        subscribeID: state.subscribeID + 1,
+        TrebleSubscribeAPI: state.TrebleSubscribeAPI,
       };
     },
   };

@@ -178,7 +178,8 @@ export interface IMiddlewareData<State = void & any>{
   features: IStoreFeatures | undefined,
   currentState: any,
   storeItems: IStoreItem[],
-  storeState: State
+  storeState: State,
+  subscribeAPI: ISubscribeAPI
 }
 
 //#endregion
