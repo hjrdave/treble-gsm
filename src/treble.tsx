@@ -12,6 +12,7 @@ import { Persist } from "./persist";
 import { ITreble } from "./interfaces";
 
 function Treble({ children, store }: ITreble) {
+
   //error handling
   try {
     if (typeof store !== "object") {
