@@ -1,3 +1,3 @@
-import buildState from './state';
+import buildState from './build-state';
 
 export default buildState;

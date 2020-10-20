@@ -7,10 +7,11 @@
 import runMiddleware from "../middleware";
 import { IDispatchPipeline } from '../interfaces';
 
-const dispatchPipeline: IDispatchPipeline = (storeItem, state, action, store) => {
+const runDispatchPipeline: IDispatchPipeline = (storeItem, state, action, store) => {
   let stateName = Object.keys(storeItem.state)[0];
   let dispatchedValue = action[storeItem.action];
   let disableMiddleware = action.options?.disableMiddleware;
+  
   //run middleware if not disabled
   if (!(disableMiddleware)) {
 
@@ -39,4 +40,4 @@ const dispatchPipeline: IDispatchPipeline = (storeItem, state, action, store) =>
   };
 };
 
-export default dispatchPipeline;
+export default runDispatchPipeline;

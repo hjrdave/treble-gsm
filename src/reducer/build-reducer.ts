@@ -4,26 +4,20 @@
 */
 
 import { IBuildReducer, IReducer, IReducerActions } from '../interfaces';
-import dispatchPipeline from './dispatch-pipeline';
-import coreActions from './core-actions';
-
+import runDispatchPipeline from './run-dispatch-pipeline';
 
 const buildReducer: IBuildReducer = (store) => {
 
   let Reducer: IReducer = (state, action) => {
-
-    //let coreReducerActions = coreActions(state);
-    
+   
     //built in reducer actions
-    let reducerActions: IReducerActions = {
-      //...coreReducerActions
-    }
+    let reducerActions: IReducerActions = {}
 
     //dynamically builds reducer actions
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
-        [storeItem.action]: () => dispatchPipeline(storeItem, state, action, store)
+        [storeItem.action]: () => runDispatchPipeline(storeItem, state, action, store)
       }
     })
 

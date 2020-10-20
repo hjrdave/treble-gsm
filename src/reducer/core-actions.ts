@@ -4,7 +4,7 @@
 */
 
 const coreActions = (state: any) => {
-  //console.log(state)
+
   const actions = {
     addSubcribeAPIToMiddleware: () => {
       return {
@@ -13,6 +13,7 @@ const coreActions = (state: any) => {
       };
     },
   };
+  
   return actions;
 };
 
