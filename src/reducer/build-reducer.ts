@@ -10,7 +10,6 @@ const buildReducer: IBuildReducer = (store) => {
 
   let Reducer: IReducer = (state, action) => {
    
-    //built in reducer actions
     let reducerActions: IReducerActions = {}
 
     //dynamically builds reducer actions

@@ -10,6 +10,7 @@ import buildReducer from "./reducer";
 import Context from "./context";
 import { Persist } from "./persist";
 import { ITreble } from "./interfaces";
+import TrebleCore from './modules/treble-core';
 
 function Treble({ children, store }: ITreble) {
 
@@ -22,26 +23,23 @@ function Treble({ children, store }: ITreble) {
     throw error;
   }
 
-  const fooData = {
-    action: 'addSubcribeAPIToMiddleware',
-    state: {
-      TrebleSubscribeAPI: null
-    }
-  }
-
   const //passed store
     Store = useMemo(() => store.data, [store.data]),
+
     //builds state from treble store
-    State = buildState([...Store, fooData]),
+    State = buildState([...Store]),
+
     //builds reducer from treble store
-    Reducer = buildReducer([...Store, fooData]),
+    Reducer = buildReducer([...Store]),
+
+    //store modules
+    modules = (store?.modules) ? [...store.modules, TrebleCore] : [TrebleCore],
+
     //the main context used by TrebleGSM
     defaultContext = Context,
+
     //optional passed scoped context (substitutes default context. Used for scoped Treble Providers)
     scopedContext = store?.scope;
-
-  //TrebleGSM modules for extending
-  //modules = store?.modules;
 
   return (
     <>
@@ -51,6 +49,7 @@ function Treble({ children, store }: ITreble) {
         reducer={Reducer}
         store={Store}
         scope={scopedContext !== undefined ? scopedContext : defaultContext}
+        modules={modules}
       >
         <Persist store={Store} />
         {children}
