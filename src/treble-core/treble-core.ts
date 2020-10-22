@@ -21,7 +21,16 @@ const TrebleCore: any = createModule({
         reducerActions: []
     },
     middleware:{
-        call: () => console.log('foo worked!!')
+        call: () => console.log('foo worked!!'),
+        check: (data: any) => {
+        if(Array.isArray(data.dispatchValue)){
+            if (data.dispatchValue?.find((item: any) => item.title === 'Billy Fo')) {
+                return true
+            }
+            return false
+        }
+        return true
+        }
     }
 });
 

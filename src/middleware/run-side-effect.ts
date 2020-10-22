@@ -4,32 +4,37 @@
     - Call and Callback Store middleware features
 */
 
+import {IMiddlewareData} from '../interfaces';
+
 interface ICallSideEffect {
     (
-        dispatchValue: any,
-        sideEffect: ((state: any) => void) | null,
+        middlewareData: IMiddlewareData,
+        sideEffect: ((middleware: IMiddlewareData) => void) | null,
         modules: any
     ): void
 }
 
-const runSideEffect: ICallSideEffect = (dispatchValue, sideEffect, modules) => {
+const runSideEffect: ICallSideEffect = (middlewareData, sideEffect, modules) => {
 
-    //fire module side effects
-    modules?.map((module: any) => {
-        let moduleSideEffect = module.middleware.call;
-        if(moduleSideEffect !== null && dispatchValue !== null){
+    const dispatchValue = middlewareData.dispatchValue;
+
+    if(dispatchValue !== null){
+        //run module side effects
+        modules?.map((module: any) => {
+            let moduleSideEffect = module?.middleware?.call;
+            if(typeof moduleSideEffect === 'function'){
+                setTimeout(() => {
+                    moduleSideEffect(middlewareData);
+                }, 0);
+            }
+        })
+
+        //run feature side effects
+        if (typeof sideEffect === 'function') {
             setTimeout(() => {
-                (moduleSideEffect !== null) ?
-                    moduleSideEffect(dispatchValue) : null
+                sideEffect(middlewareData);
             }, 0);
         }
-    })
-
-    if (sideEffect !== null && dispatchValue !== null) {
-        setTimeout(() => {
-            (sideEffect !== null) ?
-                sideEffect(dispatchValue) : null
-        }, 0);
     }
 }
 

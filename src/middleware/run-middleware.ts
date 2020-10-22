@@ -4,6 +4,7 @@
 */
 import checkDispatchValue from './check-dispatch-value';
 import runSideEffect from './run-side-effect';
+import processDispatchValue from './process-dispatch-value';
 import { IMiddleware, IMiddlewareData } from '../interfaces';
 
 const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store, modules) => {
@@ -37,20 +38,15 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
     if (doesDispatchValuePass) {
 
         //returns a processed dispatchValue
-        if (processMiddleware !== null) {
+        if (typeof processMiddleware === 'function') {
 
-            //[need to run modules here]
-
-            const processedDispatchValue = processMiddleware(middlewareData);
+            const processedDispatchValue = processDispatchValue(middlewareData, processMiddleware, modules);
 
             //runs callback if it exists with processedValue
-            runSideEffect(processedDispatchValue, callbackMiddleware, modules);
+            //runSideEffect(processedDispatchValue, callbackMiddleware, modules);
 
             return processedDispatchValue;
         }
-
-        //[need to run modules here]
-
 
         //runs a non-blocking callback function as soon as other middleware runs
         //runSideEffect(middlewareData, callbackMiddleware, modules);
