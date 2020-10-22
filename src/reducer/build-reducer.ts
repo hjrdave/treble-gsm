@@ -6,7 +6,7 @@
 import { IBuildReducer, IReducer, IReducerActions } from '../interfaces';
 import runDispatchPipeline from './run-dispatch-pipeline';
 
-const buildReducer: IBuildReducer = (store) => {
+const buildReducer: IBuildReducer = (store, modules) => {
 
   let Reducer: IReducer = (state, action) => {
    
@@ -16,7 +16,7 @@ const buildReducer: IBuildReducer = (store) => {
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
-        [storeItem.action]: () => runDispatchPipeline(storeItem, state, action, store)
+        [storeItem.action]: () => runDispatchPipeline(storeItem, state, action, store, modules)
       }
     })
 

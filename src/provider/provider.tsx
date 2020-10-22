@@ -12,10 +12,6 @@ const Provider = ({ reducer, data, children, scope, store, modules }: any) => {
   const storeItems = trebleStore[0];
   const dispatch = trebleStore[1];
 
-  React.useEffect(() => {
-    //console.log(modules);
-  }, [])
-
   //store data that will be made accessible via the useTreble hook
   const trebleHookOutput = [storeItems, subscribeAPI(dispatch, store, modules), storeUtilities(store)]
 

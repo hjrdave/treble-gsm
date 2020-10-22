@@ -3,7 +3,7 @@
     - Core Middleware and SubscribeAPI methods
 */
 
-import createModule from '../create-module';
+import createModule from '../create-module/create-module';
 import TrebleStoreCore from './extend-store';
 import TrebleCoreComp from './render-comp';
 import {update, toggle, reset} from './subscribe-methods';
@@ -19,6 +19,9 @@ const TrebleCore: any = createModule({
             'reset': reset
         },
         reducerActions: []
+    },
+    middleware:{
+        call: () => console.log('foo worked!!')
     }
 });
 

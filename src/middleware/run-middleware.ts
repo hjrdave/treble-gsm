@@ -6,7 +6,7 @@ import checkDispatchValue from './check-dispatch-value';
 import runSideEffect from './run-side-effect';
 import { IMiddleware, IMiddlewareData } from '../interfaces';
 
-const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store) => {
+const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store, modules) => {
 
     //store features middleware
     let callMiddleware = storeItem?.features?.call || null;
@@ -28,10 +28,10 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
     }
 
     //checks state agianst criteria then returns boolean
-    let doesDispatchValuePass = checkDispatchValue(middlewareData, checkMiddleware)
+    let doesDispatchValuePass = checkDispatchValue(middlewareData, checkMiddleware, modules)
 
     //calls a non-blocking function as soon as a value is dispatched to Store
-    runSideEffect(middlewareData, callMiddleware);
+    runSideEffect(middlewareData, callMiddleware, modules);
 
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
     if (doesDispatchValuePass) {
@@ -44,19 +44,16 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
             const processedDispatchValue = processMiddleware(middlewareData);
 
             //runs callback if it exists with processedValue
-            runSideEffect(processedDispatchValue, callbackMiddleware);
+            runSideEffect(processedDispatchValue, callbackMiddleware, modules);
 
             return processedDispatchValue;
         }
 
         //[need to run modules here]
-        //list management middleware
-        // if (isSubscribeAPIListMethod(subscribeType)) {
-        //     return runListManagement(moduleData);
-        // }
+
 
         //runs a non-blocking callback function as soon as other middleware runs
-        runSideEffect(middlewareData, callbackMiddleware);
+        //runSideEffect(middlewareData, callbackMiddleware, modules);
 
         return dispatchValue
     }

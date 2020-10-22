@@ -10,7 +10,7 @@ import buildReducer from "./reducer";
 import Context from "./context";
 import { Persist } from "./persist";
 import { ITreble } from "./interfaces";
-import TrebleCore from './modules/treble-core';
+import TrebleCore from './treble-core';
 
 function Treble({ children, store }: ITreble) {
 
@@ -24,16 +24,16 @@ function Treble({ children, store }: ITreble) {
   }
 
   const //passed store
+    //store modules
+    modules = (store?.modules) ? [...store.modules, TrebleCore] : [TrebleCore],
+
     Store = useMemo(() => store.data, [store.data]),
 
     //builds state from treble store
     State = buildState([...Store]),
 
     //builds reducer from treble store
-    Reducer = buildReducer([...Store]),
-
-    //store modules
-    modules = (store?.modules) ? [...store.modules, TrebleCore] : [TrebleCore],
+    Reducer = buildReducer([...Store], modules),
 
     //the main context used by TrebleGSM
     defaultContext = Context,

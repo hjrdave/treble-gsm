@@ -1,5 +1,5 @@
 import React from 'react';
-import useTreble from '../../../hooks/treble-hook';
+import useTreble from '../../hooks/treble-hook';
 
 export default function TrebleCoreComp() {
 

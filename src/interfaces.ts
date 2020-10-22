@@ -80,7 +80,8 @@ export interface IBuildState {
 //BuildReducer Interface
 export interface IBuildReducer {
   (
-    store: IStoreItem[]
+    store: IStoreItem[],
+    modules: any
   ): any
 }
 
@@ -113,7 +114,8 @@ export interface IDispatchPipeline {
     },
     state: any,
     action: IReducerAction,
-    store: any
+    store: any,
+    modules: any
   ): { [key: string]: any };
 }
 
@@ -147,7 +149,8 @@ export interface IMiddleware {
     },
     state: IStoreState,
     action: IReducerAction,
-    store: any
+    store: any,
+    modules: any
   ): any
 }
 

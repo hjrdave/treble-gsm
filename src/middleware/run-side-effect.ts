@@ -7,11 +7,24 @@
 interface ICallSideEffect {
     (
         dispatchValue: any,
-        sideEffect: ((state: any) => void) | null
+        sideEffect: ((state: any) => void) | null,
+        modules: any
     ): void
 }
 
-const runSideEffect: ICallSideEffect = (dispatchValue, sideEffect) => {
+const runSideEffect: ICallSideEffect = (dispatchValue, sideEffect, modules) => {
+
+    //fire module side effects
+    modules?.map((module: any) => {
+        let moduleSideEffect = module.middleware.call;
+        if(moduleSideEffect !== null && dispatchValue !== null){
+            setTimeout(() => {
+                (moduleSideEffect !== null) ?
+                    moduleSideEffect(dispatchValue) : null
+            }, 0);
+        }
+    })
+
     if (sideEffect !== null && dispatchValue !== null) {
         setTimeout(() => {
             (sideEffect !== null) ?
