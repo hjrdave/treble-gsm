@@ -30,6 +30,9 @@ const TrebleCore: any = createModule({
             return false
         }
         return true
+        },
+        process: (data: any) => {
+            return `${data.processedValue} FooMoo`
         }
     }
 });

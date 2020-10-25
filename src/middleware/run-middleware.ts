@@ -10,16 +10,16 @@ import { IMiddleware, IMiddlewareData } from '../interfaces';
 const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store, modules) => {
 
     //store features middleware
-    let callMiddleware = storeItem?.features?.call || null;
-    let checkMiddleware = storeItem?.features?.check || null;
-    let processMiddleware = storeItem?.features?.process || null;
-    let callbackMiddleware = storeItem?.features?.callback || null;
+    const callMiddleware = storeItem?.features?.call || null;
+    const checkMiddleware = storeItem?.features?.check || null;
+    const processMiddleware = storeItem?.features?.process || null;
+    const callbackMiddleware = storeItem?.features?.callback || null;
 
     //store data object for middleware (this object holds dispatch and store data that can get passed to middleware functions)
     let middlewareData: IMiddlewareData = {
         dispatchValue: dispatchValue,
         dispatchAction: {...action, dispatchTime: new Date()},
-        processedValue: null,
+        processedValue: dispatchValue,
         action: storeItem.action,
         features: storeItem.features,
         currentState: state[Object.keys(storeItem.state)[0]],
@@ -29,7 +29,7 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
     }
 
     //checks state agianst criteria then returns boolean
-    let doesDispatchValuePass = checkDispatchValue(middlewareData, checkMiddleware, modules)
+    const doesDispatchValuePass = checkDispatchValue(middlewareData, checkMiddleware, modules)
 
     //calls a non-blocking function as soon as a value is dispatched to Store
     runSideEffect(middlewareData, callMiddleware, modules);
@@ -37,21 +37,17 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
     if (doesDispatchValuePass) {
 
-        //returns a processed dispatchValue
-        if (typeof processMiddleware === 'function') {
+        const processedDispatchValue = processDispatchValue(middlewareData, processMiddleware, modules);
 
-            const processedDispatchValue = processDispatchValue(middlewareData, processMiddleware, modules);
-
-            //runs callback if it exists with processedValue
-            //runSideEffect(processedDispatchValue, callbackMiddleware, modules);
-
-            return processedDispatchValue;
+        middlewareData = {
+            ...middlewareData,
+            processedValue: processedDispatchValue
         }
 
-        //runs a non-blocking callback function as soon as other middleware runs
-        //runSideEffect(middlewareData, callbackMiddleware, modules);
+        //runs callback if it exists with processedValue
+        runSideEffect(middlewareData, callbackMiddleware, modules);
 
-        return dispatchValue
+        return processedDispatchValue;
     }
 
     return null

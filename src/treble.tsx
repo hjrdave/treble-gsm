@@ -23,17 +23,18 @@ function Treble({ children, store }: ITreble) {
     throw error;
   }
 
-  const //passed store
-    //store modules
-    modules = (store?.modules) ? [...store.modules, TrebleCore] : [TrebleCore],
-
+  const
+    //passed store
     Store = useMemo(() => store.data, [store.data]),
 
     //builds state from treble store
     State = buildState([...Store]),
 
+    //store modules
+    Modules = (store?.modules) ? [...store.modules, TrebleCore] : [TrebleCore],
+
     //builds reducer from treble store
-    Reducer = buildReducer([...Store], modules),
+    Reducer = buildReducer([...Store], Modules),
 
     //the main context used by TrebleGSM
     defaultContext = Context,
@@ -49,7 +50,7 @@ function Treble({ children, store }: ITreble) {
         reducer={Reducer}
         store={Store}
         scope={scopedContext !== undefined ? scopedContext : defaultContext}
-        modules={modules}
+        modules={Modules}
       >
         <Persist store={Store} />
         {children}

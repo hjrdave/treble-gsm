@@ -10,14 +10,23 @@ interface IProcessDispatchValue {
 
 const processDispatchValue: IProcessDispatchValue = (middlewareData, processMiddleware, modules ) => {
 
-    const dispatchValue = middlewareData.dispatchValue;
+    let processedMiddlewareData = middlewareData;
 
     //Run Modules here
+    modules?.map((module: any) => {
+        if(typeof module.middleware.process === 'function'){
+        let newDispatchValue = module.middleware.process(processedMiddlewareData);
+        processedMiddlewareData = {
+            ...processedMiddlewareData,
+            processedValue: newDispatchValue
+        }
+        }
+    })
 
     if(typeof processMiddleware === 'function'){
-        return processMiddleware(middlewareData);
+        return processMiddleware(processedMiddlewareData);
     }
-    return dispatchValue
+    return processedMiddlewareData.processedValue;
 }
 
 export default processDispatchValue;

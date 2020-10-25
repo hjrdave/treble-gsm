@@ -18,7 +18,6 @@ const subscribeAPI: ICreateSubscribeAPI = (dispatch, store, modules) => {
     modules?.map((module: any) => {
         let moduleMethods = module?.subscribeAPI?.subscribeMethods;
         if(moduleMethods !== undefined){
-            //console.log(moduleMethods)
             let methodArray = Object.entries(moduleMethods);
             methodArray?.map((method: any) => {
                 subscribeMethods = {
