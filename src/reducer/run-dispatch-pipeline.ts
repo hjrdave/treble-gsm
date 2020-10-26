@@ -8,21 +8,14 @@ import runMiddleware from "../middleware";
 import { IDispatchPipeline } from '../interfaces';
 
 const runDispatchPipeline: IDispatchPipeline = (storeItem, state, action, store, modules) => {
-  let stateName = Object.keys(storeItem.state)[0];
-  let dispatchedValue = action[storeItem.action];
-  let disableMiddleware = action.options?.disableMiddleware;
+  const stateName = Object.keys(storeItem.state)[0];
+  const dispatchValue = action[storeItem.action];
+  const disableMiddleware = action.options?.disableMiddleware;
   
   //run middleware if not disabled
   if (!(disableMiddleware)) {
 
-    let middlewareValue = runMiddleware(
-      dispatchedValue,
-      storeItem,
-      state,
-      action,
-      store,
-      modules
-    );
+    const middlewareValue = runMiddleware(dispatchValue, storeItem, state, action, store, modules);
 
     //makes sure dispatchValue passes check middleware
     if (middlewareValue !== null) {
@@ -37,7 +30,7 @@ const runDispatchPipeline: IDispatchPipeline = (storeItem, state, action, store,
   //if middleware is disabled dispatchValue middleware pipeline will be bypassed
   return {
     ...state,
-    [stateName]: dispatchedValue,
+    [stateName]: dispatchValue,
   };
 };
 

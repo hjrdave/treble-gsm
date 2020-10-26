@@ -3,6 +3,21 @@
     New experimental api for subscribing to store.
 */
 
+interface IDispatch{
+    type: string,
+    [type: string]: any,
+    subscribeType: string,
+    options?: {
+        disableMiddleware?: boolean
+    }
+}
+
+interface IDispatchMethod{
+    (
+        dispatchActions: IDispatch
+    ): void
+}
+
 import { ICreateSubscribeAPI } from './interfaces';
 
 const subscribeAPI: ICreateSubscribeAPI = (dispatch, store, modules) => {
@@ -11,14 +26,14 @@ const subscribeAPI: ICreateSubscribeAPI = (dispatch, store, modules) => {
     let subscribeMethods: any = {
 
         // pure dispatch function that can be use for extending the subsribeAPI
-        dispatch: (object: any) => dispatch(object)
+        dispatch: (object: IDispatch) => dispatch(object)
 
     };
 
     modules?.map((module: any) => {
-        let moduleMethods = module?.subscribeAPI?.subscribeMethods;
+        const moduleMethods = module?.subscribeAPI?.subscribeMethods;
         if(moduleMethods !== undefined){
-            let methodArray = Object.entries(moduleMethods);
+            const methodArray = Object.entries(moduleMethods);
             methodArray?.map((method: any) => {
                 subscribeMethods = {
                     ...subscribeMethods,

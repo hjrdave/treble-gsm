@@ -1,32 +1,34 @@
-import {IMiddlewareData} from '../interfaces';
+import {IMiddlewareData } from '../interfaces';
 
 interface IProcessDispatchValue {
     (
-        middlewareData: IMiddlewareData,
-        processMiddleware: ((middleware: IMiddlewareData) => any) | null,
-        modules: any
+        middlewareData: IMiddlewareData
     ): any
 }
 
-const processDispatchValue: IProcessDispatchValue = (middlewareData, processMiddleware, modules ) => {
+const processDispatchValue: IProcessDispatchValue = (middlewareData) => {
 
+    const { storeModules: modules } = middlewareData;
+    const processMiddleware = middlewareData?.features?.process;
     let processedMiddlewareData = middlewareData;
 
-    //Run Modules here
-    modules?.map((module: any) => {
-        if(typeof module.middleware.process === 'function'){
-        let newDispatchValue = module.middleware.process(processedMiddlewareData);
+    //Run module process middleware
+    modules?.map((module) => {
+        if(typeof module?.middleware?.process === 'function'){
+        const processedDispatchValue = module.middleware.process(processedMiddlewareData);
         processedMiddlewareData = {
-            ...processedMiddlewareData,
-            processedValue: newDispatchValue
-        }
+                ...processedMiddlewareData,
+                dispatchValue: processedDispatchValue
+            }
         }
     })
 
+    //Run feature process middleware
     if(typeof processMiddleware === 'function'){
         return processMiddleware(processedMiddlewareData);
     }
-    return processedMiddlewareData.processedValue;
+
+    return processedMiddlewareData.dispatchValue;
 }
 
 export default processDispatchValue;

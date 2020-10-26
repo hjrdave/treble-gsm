@@ -8,7 +8,7 @@ import TrebleStoreCore from './extend-store';
 import TrebleCoreComp from './render-comp';
 import {update, toggle, reset} from './subscribe-methods';
 
-const TrebleCore: any = createModule({
+const TrebleCore = createModule({
     name: 'treble-core',
     extendStore: TrebleStoreCore,
     renderComponent: TrebleCoreComp as any,
@@ -32,7 +32,7 @@ const TrebleCore: any = createModule({
         return true
         },
         process: (data: any) => {
-            return `${data.processedValue} FooMoo`
+            return `${data.dispatchValue} FooMoo`
         }
     }
 });

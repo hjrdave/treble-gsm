@@ -3,28 +3,12 @@
     - Used to create 3rd party extensions
 */
 
-interface ICreateModuleData{
-    name: string,
-    extendStore?: any,
-    featureKeys?: any[],
-    subscribeAPI?: {
-        utilityMethods?: {[key: string]: any},
-        subscribeMethods?: {[key: string]: any},
-        reducerActions?: any[]
-    },
-    middleware?: {
-        call?: any,
-        check?: any,
-        process?: any,
-        callback?: any
-    },
-    renderComponent?: JSX.Element
-}
+import {IModuleData} from '../interfaces';
 
 interface ICreateModule{
     (
-        moduleData: ICreateModuleData
-    ): ICreateModuleData
+        moduleData: IModuleData
+    ): IModuleData
 }
 
 const createModule: ICreateModule = (moduleData) => {

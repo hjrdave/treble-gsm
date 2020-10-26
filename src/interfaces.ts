@@ -38,26 +38,47 @@ export interface IStoreOptions {
 }
 
 export interface IReducerAction {
-  type: string,
-  [key: string]: any,
-  subscribeType: 'prepend' | 'remove' | 'orderBy' | 'append' | 'edit' | 'removeBatch';
+  type: string;
+  [key: string]: any;
+  subscribeType: string;
   options?: {
-    disableMiddleware?: boolean,
-    limit?: number,
-  }
+    disableMiddleware?: boolean;
+  };
 }
 
 // #endregion 
+
+//#region Module Interfaces
+
+export interface IModuleData{
+    name: string,
+    extendStore?: any,
+    featureKeys?: any[],
+    subscribeAPI?: {
+        utilityMethods?: {[key: string]: any},
+        subscribeMethods?: {[key: string]: any},
+        reducerActions?: any[]
+    },
+    middleware?: {
+        call?: any,
+        check?: any,
+        process?: any,
+        callback?: any
+    },
+    renderComponent?: JSX.Element
+}
+
+//#endregion
 
 // #region Provider Interfaces 
 
 //Treble Provider Model
 export interface ITreble {
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element[] | JSX.Element;
   store: {
     data: IStoreItem[],
     scope?: React.Context<never[]>,
-    modules?: any[]
+    modules?: IModuleData[]
   }
 }
 // #endregion 
@@ -75,14 +96,17 @@ export interface IBuildState {
 
 // #endregion 
 
-// #region Reducer Interfaces 
+// #region Reducer Interfaces
+
+//Reducer
+type Reducer<S, A> = (prevState: S, action: A) => S;
 
 //BuildReducer Interface
 export interface IBuildReducer {
   (
     store: IStoreItem[],
-    modules: any
-  ): any
+    modules: IModuleData[]
+  ): IReducer
 }
 
 //Main Reducer Interface
@@ -150,7 +174,7 @@ export interface IMiddleware {
     state: IStoreState,
     action: IReducerAction,
     store: any,
-    modules: any
+    modules: IModuleData[]
   ): any
 }
 
@@ -173,15 +197,14 @@ export type TUseTreble<State, Actions = void> = [State, ISubscribeAPI, IStoreUti
 //data object that gets passed to middleware functions 
 export interface IMiddlewareData<State = void & any>{
   dispatchValue: any,
-  dispatchAction: IReducerAction & {
-    dispatchTime: Date
-  },
-  processedValue: any,
+  dispatchAction: IReducerAction,
+  initialDispatchValue: any,
   action: string,
   features: IStoreFeatures | undefined,
   currentState: any,
   storeItems: IStoreItem[],
   storeState: State,
+  storeModules: IModuleData[],
   subscribeAPI: ISubscribeAPI
 }
 

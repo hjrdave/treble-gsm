@@ -3,30 +3,29 @@
     - Runs dispatch value agianst a specified criteria 
     and returns true if the dispatch value meets that criteria or false if it doesnt
 */
-import {IMiddlewareData} from '../interfaces';
+import {IMiddlewareData, IModuleData} from '../interfaces';
 
 interface ICheckDispatchValue {
     (
-        middlewareData: IMiddlewareData,
-        checkMiddleware: ((middlewareData: IMiddlewareData) => boolean) | null,
-        modules: any
+        middlewareData: IMiddlewareData
     ): boolean
 }
 
-const checkDispatchValue: ICheckDispatchValue = (middlewareData, checkMiddleware, modules) => {
+const checkDispatchValue: ICheckDispatchValue = (middlewareData) => {
 
-    const dispatchValue = middlewareData.dispatchValue;
+    const {dispatchValue, storeModules: modules, features} = middlewareData;
+    const checkMiddleware = features?.check;
 
     if(dispatchValue !== null){
 
         //run module checks
-        const doesModuleMiddlewarePass = modules.filter((module: any) => {
-            let moduleCheckMiddleware = module.middleware.check;
+        const doesModuleMiddlewarePass = modules.filter((module) => {
+            const moduleCheckMiddleware = module?.middleware?.check;
             if(typeof moduleCheckMiddleware === 'function'){
                 return moduleCheckMiddleware
             }
-        }).map((module: any) => module.middleware.check(middlewareData)).includes(!(false));
-    
+        }).map((module) => module?.middleware?.check(middlewareData)).includes(!(false));
+        
         //if a module check fails return false
         if(!doesModuleMiddlewarePass){
             return false;
@@ -34,7 +33,7 @@ const checkDispatchValue: ICheckDispatchValue = (middlewareData, checkMiddleware
 
         //run store feature check
         if (typeof checkMiddleware === 'function') {
-            let doesFeatureCheckPass = checkMiddleware(middlewareData);
+            const doesFeatureCheckPass = checkMiddleware(middlewareData);
             if(doesFeatureCheckPass === true){
                 return true
             }

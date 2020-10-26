@@ -7,7 +7,7 @@ export default function TrebleCoreComp() {
 
     React.useEffect(() => {
         console.log('Treble Core renderComponent Loaded')
-        // Store.update('addSubcribeAPIToMiddleware', subscribeAPIMethods);
+        //Store.update('addSubcribeAPIToMiddleware', subscribeAPIMethods);
     }, []);
 
     return null

@@ -5,12 +5,20 @@
 import React, { useReducer } from "react";
 import subscribeAPI from "../subscribe";
 import storeUtilities from '../store-utilities';
+import { IStoreItem, IModuleData } from '../interfaces';
 
-const Provider = ({ reducer, data, children, scope, store, modules }: any) => {
+interface IProvider {
+  reducer: any,
+  initialState: { [key: string]: any },
+  children: JSX.Element[] | JSX.Element,
+  scope: any,
+  store: IStoreItem[],
+  modules: IModuleData[]
+}
+
+const Provider = ({ reducer, initialState, children, scope, store, modules }: IProvider) => {
   const Context = scope;
-  const trebleStore = useReducer(reducer, data);
-  const storeItems = trebleStore[0];
-  const dispatch = trebleStore[1];
+  const [storeItems, dispatch] = useReducer(reducer, initialState);
 
   //store data that will be made accessible via the useTreble hook
   const trebleHookOutput = [storeItems, subscribeAPI(dispatch, store, modules), storeUtilities(store)]
@@ -18,16 +26,22 @@ const Provider = ({ reducer, data, children, scope, store, modules }: any) => {
   return (
     <>
       <Context.Provider value={trebleHookOutput}>
+
         {/** Render Module Components */}
         {
-          modules?.map((module: any, index: number) => {
+          modules?.map((module, index: number) => {
+            const { renderComponent: RenderComponent }: any = module;
             return (
-              (module?.renderComponent) ?
-                <module.renderComponent key={index} /> : null
+              <>
+                {
+                  (RenderComponent) ?
+                    <RenderComponent key={index} /> : null
+                }
+              </>
             )
-
           })
         }
+
         {children}
       </Context.Provider>
     </>
