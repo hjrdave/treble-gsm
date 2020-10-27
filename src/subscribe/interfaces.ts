@@ -1,30 +1,21 @@
+import {IModuleData } from '../interfaces';
+
+export interface IDispatch{
+    type: string,
+    [type: string]: any,
+    subscribeType: string,
+    options?: {
+        disableMiddleware?: boolean
+    }
+}
+
+export interface IDispatchMethod{
+    (
+        dispatchActions: IDispatch
+    ): void
+}
 
 export interface ISubscribeAPI {
-
-    update: (
-        action: string,
-        dispatchValue: any,
-        options?: {
-            disableMiddleware?: boolean
-        }
-    ) => void,
-
-    toggle: (
-        action: string,
-        toggleValue: boolean,
-        options?: {
-            disableMiddleware?: boolean
-        }
-    ) => void,
-
-    reset: (
-        action: string,
-        dispatch?: any
-    ) => void,
-
-    getActions: (store: any) => string[],
-
-    getStateKeys: (store: any) => string[],
 
     dispatch: any
 }
@@ -33,6 +24,6 @@ export interface ICreateSubscribeAPI {
     (
         dispatch: any,
         store: any,
-        modules: any
+        modules: IModuleData[]
     ): any
 }

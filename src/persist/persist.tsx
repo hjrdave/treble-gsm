@@ -4,7 +4,7 @@
 */
 
 import { useEffect } from 'react';
-import {useTreble} from '../hooks';
+import { useTreble } from '../hooks';
 
 interface Props {
     store: {
@@ -18,7 +18,7 @@ interface Props {
     }[]
 }
 
-function Persist({store}: Props) {
+function Persist({ store }: Props) {
 
     const state = useTreble();
     const [{ }, Store] = useTreble();
@@ -26,7 +26,7 @@ function Persist({store}: Props) {
     //set to local storage
     interface ISetLocalStorage {
         (
-            store:  {
+            store: {
                 action: string;
                 state: {
                     [key: string]: any;
@@ -49,7 +49,7 @@ function Persist({store}: Props) {
 
                     //checks if the value is an object then stringify for storage
                     let handleValue = (value: any) => {
-                        if(typeof value === 'object'){
+                        if (typeof value === 'object') {
                             return JSON.stringify(value);
                         }
                         return value
@@ -90,33 +90,33 @@ function Persist({store}: Props) {
                     let key = Object.keys(item.state)[0];
                     let value = localStorage.getItem(key) || state[0][key];
                     let action = item.action;
-                    
+
                     //does some type checking and conversions because of weird local storage quirks
                     let handleValue = (value: any) => {
 
                         //makes sure boolean values are not returned as strings
                         //This might cause issues down the road.  If it becomes an issue, will seek alternative
-                        if(value === 'true' || value === 'false'){
+                        if (value === 'true' || value === 'false') {
                             return (value === 'true') ? true : (value === 'false') ? false : value
                         }
 
                         //checks to see if the localstorage string is a valid json string
                         let isJsonString = (value: any) => {
-                            try{
+                            try {
                                 JSON.parse(value)
-                            } catch (e){
+                            } catch (e) {
                                 return false
                             }
                             return true
                         }
                         //if string is valid it parses back to object
-                        if(isJsonString(value)){
+                        if (isJsonString(value)) {
                             return JSON.parse(value);
                         }
                         return value
                     }
                     //updateStore false parameter disables middleware pipeline
-                    Store.update(action, handleValue(value), {
+                    (Store as any).update(action, handleValue(value), {
                         disableMiddleware: true
                     });
                 }
@@ -125,7 +125,7 @@ function Persist({store}: Props) {
     }
 
     useEffect(() => {
-       updateStateFromLocalStorage(store, state);
+        updateStateFromLocalStorage(store, state);
     }, [Store])
 
     useEffect(() => {

@@ -6,7 +6,7 @@ interface ICreateMiddlewareData{
         action: IReducerAction, 
         storeItem: IStoreItem, 
         state: IStoreState, 
-        store: any,
+        store: IStoreItem[],
         modules: IModuleData[]
     ): IMiddlewareData
 }

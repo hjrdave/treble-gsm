@@ -17,11 +17,12 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
     const doesDispatchValuePass = checkDispatchValue(middlewareData);
 
     //calls a non-blocking function as soon as a value is dispatched to Store
-    runSideEffect(middlewareData);
+    runSideEffect(middlewareData, 'call');
 
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
     if (doesDispatchValuePass) {
 
+        //passes dispatchValue through module and feature process middleware
         const processedDispatchValue = processDispatchValue(middlewareData);
 
         middlewareData = {
@@ -30,7 +31,7 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
         }
 
         //runs callback if it exists with processedValue
-        runSideEffect(middlewareData);
+        runSideEffect(middlewareData, 'callback');
 
         return processedDispatchValue;
     }

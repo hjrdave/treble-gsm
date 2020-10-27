@@ -8,20 +8,26 @@ import {IMiddlewareData} from '../interfaces';
 
 interface ICallSideEffect {
     (
-        middlewareData: IMiddlewareData
+        middlewareData: IMiddlewareData,
+        type: 'call' | 'callback'
     ): void
 }
 
-const runSideEffect: ICallSideEffect = (middlewareData) => {
+const runSideEffect: ICallSideEffect = (middlewareData, type) => {
 
     const dispatchValue = middlewareData.dispatchValue;
     const { storeModules: modules } = middlewareData;
-    const sideEffect = middlewareData?.features?.call;
+    const sideEffect = (type === 'call') ? middlewareData?.features?.call : 
+    (type === 'callback') ? middlewareData?.features?.callback : null;
 
     if(dispatchValue !== null){
         //run module side effects
         modules?.map((module) => {
-            let moduleSideEffect = module?.middleware?.call;
+
+            const moduleSideEffect = (type === 'call') ? 
+            module?.middleware?.call : (type === 'callback') 
+            ? module?.middleware?.callback : null;
+
             if(typeof moduleSideEffect === 'function'){
                 setTimeout(() => {
                     moduleSideEffect(middlewareData);
