@@ -8,11 +8,11 @@ import { IStoreItem } from '../interfaces';
 
 const storeUtilties = (store: IStoreItem[]) => {
 
-    let returnedActionArray = getActions(store);
-    let returnedStateKeys = getStateKeys(store);
-    let returnedStoreData = getCurrentStoreData(store);
+    const returnedActionArray = getActions(store);
+    const returnedStateKeys = getStateKeys(store);
+    const returnedStoreData = getCurrentStoreData(store);
 
-    let utiltiesObject: IStoreUtilities = {
+    const utiltiesObject: IStoreUtilities = {
         actions: {
             ...createActionsHelper(store)
         },

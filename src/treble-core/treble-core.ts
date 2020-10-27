@@ -11,18 +11,17 @@ import {update, toggle, reset} from './subscribe-methods';
 const TrebleCore = createModule({
     name: 'treble-core',
     extendStore: TrebleStoreCore,
-    renderComponent: TrebleCoreComp as any,
+    renderComponent: TrebleCoreComp,
     subscribeAPI: {
         subscribeMethods: {
             'update': update, 
             'toggle': toggle, 
             'reset': reset
-        },
-        reducerActions: []
+        }
     },
     middleware:{
         call: () => console.log('foo worked!!'),
-        check: (data: any) => {
+        check: (data) => {
         if(Array.isArray(data.dispatchValue)){
             if (data.dispatchValue?.find((item: any) => item.title === 'Billy Fo')) {
                 return true
@@ -31,7 +30,7 @@ const TrebleCore = createModule({
         }
         return true
         },
-        process: (data: any) => {
+        process: (data) => {
             return `${data.dispatchValue} FooMoo`
         }
     }

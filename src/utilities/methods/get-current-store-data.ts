@@ -8,7 +8,7 @@ interface IGetCurrentStoreData{
 }
 
 const getCurrentStoreData: IGetCurrentStoreData = (store) => {
-    let storeDataArray = store?.map((storeItem: {action: string, state: any, features: any}) => {
+    const storeDataArray = store?.map((storeItem: {action: string, state: any, features: any}) => {
         return {
             action: storeItem.action,
             state: storeItem.state,

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { ISubscribeAPI } from './subscribe/interfaces';
-import { IStoreUtilities } from './store-utilities/interfaces';
+import { IStoreUtilities } from './utilities/interfaces';
 
 // #region Shared Interfaces 
 
@@ -52,20 +52,23 @@ export interface IReducerAction {
 
 export interface IModuleData{
     name: string,
-    extendStore?: any,
-    featureKeys?: any[],
+    extendStore?: {
+      data: IStoreItem[],
+      options?: IStoreOptions
+    },
+    featureKeys?: string[],
     subscribeAPI?: {
         utilityMethods?: {[key: string]: any},
         subscribeMethods?: {[key: string]: any},
-        reducerActions?: any[]
+        reducerActions?: (middlewareData: IMiddlewareData) => any
     },
     middleware?: {
-        call?: any,
-        check?: any,
-        process?: any,
-        callback?: any
+        call?: (middlewareData: IMiddlewareData) => void,
+        check?: (middlewareData: IMiddlewareData) => boolean,
+        process?: (middlewareData: IMiddlewareData) => any,
+        callback?: (middlewareData: IMiddlewareData) => void
     },
-    renderComponent?: JSX.Element
+    renderComponent?: React.ReactNode
 }
 
 //#endregion

@@ -6,7 +6,7 @@
 import { useContext } from "react";
 import defaultContext from "../context";
 import { IUseTreble } from "../interfaces";
-import { IStoreUtilities } from "../store-utilities/interfaces";
+import { IStoreUtilities } from "../utilities/interfaces";
 import { ISubscribeAPI } from "../subscribe/interfaces";
 
 const useTreble: IUseTreble = (context) => {

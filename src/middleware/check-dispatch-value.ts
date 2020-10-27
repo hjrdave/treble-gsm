@@ -3,7 +3,7 @@
     - Runs dispatch value agianst a specified criteria 
     and returns true if the dispatch value meets that criteria or false if it doesnt
 */
-import {IMiddlewareData, IModuleData} from '../interfaces';
+import {IMiddlewareData} from '../interfaces';
 
 interface ICheckDispatchValue {
     (
@@ -24,7 +24,12 @@ const checkDispatchValue: ICheckDispatchValue = (middlewareData) => {
             if(typeof moduleCheckMiddleware === 'function'){
                 return moduleCheckMiddleware
             }
-        }).map((module) => module?.middleware?.check(middlewareData)).includes(!(false));
+        }).map((module) => {
+            const moduleCheckMiddleware = module?.middleware?.check;
+            if(typeof moduleCheckMiddleware === 'function'){
+                return moduleCheckMiddleware(middlewareData);
+            }
+        }).includes(!(false));
         
         //if a module check fails return false
         if(!doesModuleMiddlewarePass){

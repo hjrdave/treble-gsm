@@ -4,7 +4,7 @@
 */
 import React, { useReducer } from "react";
 import subscribeAPI from "../subscribe";
-import storeUtilities from '../store-utilities';
+import storeUtilities from '../utilities';
 import { IStoreItem, IModuleData } from '../interfaces';
 
 interface IProvider {
@@ -30,7 +30,7 @@ const Provider = ({ reducer, initialState, children, scope, store, modules }: IP
         {/** Render Module Components */}
         {
           modules?.map((module, index: number) => {
-            const { renderComponent: RenderComponent }: any = module;
+            const RenderComponent: any = module.renderComponent;
             return (
               <>
                 {

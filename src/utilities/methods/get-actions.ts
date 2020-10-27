@@ -8,7 +8,7 @@ interface IGetActions{
 }
 
 const getActions: IGetActions = (store) => {
-    let actionArray = store?.map((storeItem: {action: string}) => {
+    const actionArray = store?.map((storeItem: {action: string}) => {
         return storeItem.action
     });
    return actionArray;

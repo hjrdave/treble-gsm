@@ -8,7 +8,7 @@ interface IGetStateKeys{
 }
 
 const getStateKeys: IGetStateKeys = (store) => {
-    let stateKeyArray = store?.map((storeItem: {state: string}) => {
+    const stateKeyArray = store?.map((storeItem: {state: string}) => {
         return Object.keys(storeItem.state)[0]
     });
    return stateKeyArray;
