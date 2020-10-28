@@ -19,7 +19,7 @@ const checkDispatchValue: ICheckDispatchValue = (middlewareData) => {
     if(dispatchValue !== null){
 
         //run module checks
-        const doesModuleMiddlewarePass = modules.filter((module) => {
+        const modulePassRateArray = modules.filter((module) => {
             const moduleCheckMiddleware = module?.middleware?.check;
             if(typeof moduleCheckMiddleware === 'function'){
                 return moduleCheckMiddleware
@@ -29,10 +29,12 @@ const checkDispatchValue: ICheckDispatchValue = (middlewareData) => {
             if(typeof moduleCheckMiddleware === 'function'){
                 return moduleCheckMiddleware(middlewareData);
             }
-        }).includes(!(false));
-        
+        });
+
+        const doModuleMiddlewarePass = (modulePassRateArray.includes(!(false)) || modulePassRateArray.length === 0) ? true : false;
+
         //if a module check fails return false
-        if(!doesModuleMiddlewarePass){
+        if(!doModuleMiddlewarePass){
             return false;
         }
 
@@ -44,6 +46,8 @@ const checkDispatchValue: ICheckDispatchValue = (middlewareData) => {
             }
             return false
         }
+
+        return true
     }
 
     return true;

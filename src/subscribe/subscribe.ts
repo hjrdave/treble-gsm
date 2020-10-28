@@ -8,7 +8,7 @@ import { ICreateSubscribeAPI, IDispatch } from './interfaces';
 const subscribeAPI: ICreateSubscribeAPI = (dispatch, store, modules) => {
 
     //subscribeAPI methods
-    let subscribeMethods: any = {
+    let subscribeMethods: {[key:string]: any} = {
 
         // pure dispatch function that can be use for extending the subsribeAPI
         dispatch: (object: IDispatch) => dispatch(object)

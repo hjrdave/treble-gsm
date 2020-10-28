@@ -12,13 +12,23 @@ const buildReducer: IBuildReducer = (store, modules) => {
    
     let reducerActions: IReducerActions = {}
 
-    //dynamically builds reducer actions
+    //adds reducer actions from store
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
         [storeItem.action]: () => runDispatchPipeline(storeItem, state, action, store, modules)
       }
-    })
+    });
+    
+    //adds reducer actions from module.extendStore (if exists)
+    modules.map((module) => {
+      module.extendStore?.data.map((storeItem) => {
+        reducerActions = {
+          ...reducerActions,
+          [storeItem.action]: () => runDispatchPipeline(storeItem, state, action, store, modules)
+        }
+      })
+    });
 
     //checks to makes sure action key exists and throws error if it doesnt
     try {

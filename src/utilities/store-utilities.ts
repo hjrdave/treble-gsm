@@ -4,7 +4,7 @@
 
 import { createActionsHelper, getActions, getStateKeys, getCurrentStoreData } from './methods';
 import { IStoreUtilities } from './interfaces';
-import { IStoreItem } from '../interfaces';
+import { IStoreItem, IModuleData } from '../interfaces';
 
 const storeUtilties = (store: IStoreItem[]) => {
 

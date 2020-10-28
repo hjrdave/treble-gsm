@@ -32,12 +32,12 @@ const Provider = ({ reducer, initialState, children, scope, store, modules }: IP
           modules?.map((module, index: number) => {
             const RenderComponent: any = module.renderComponent;
             return (
-              <>
+              <React.Fragment key={index}>
                 {
                   (RenderComponent) ?
-                    <RenderComponent key={index} /> : null
+                    <RenderComponent /> : null
                 }
-              </>
+              </React.Fragment>
             )
           })
         }

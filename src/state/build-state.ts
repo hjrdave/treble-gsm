@@ -30,7 +30,7 @@ const buildState: IBuildState = (store, modules) => {
   });
 
   const initialState = { ...state };
-  console.log(initialState)
+  
   return initialState;
 };
 

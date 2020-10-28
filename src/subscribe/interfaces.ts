@@ -3,7 +3,7 @@ import {IModuleData } from '../interfaces';
 export interface IDispatch{
     type: string,
     [type: string]: any,
-    subscribeType: string,
+    subscribeType?: string,
     options?: {
         disableMiddleware?: boolean
     }
@@ -17,7 +17,7 @@ export interface IDispatchMethod{
 
 export interface ISubscribeAPI {
 
-    dispatch: any
+    dispatch: (object: IDispatch) => IDispatch
 }
 
 export interface ICreateSubscribeAPI {
