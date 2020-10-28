@@ -1,20 +1,16 @@
-
+import {IDispatch} from '../../subscribe/interfaces';
 interface IUpdate{
     (
         action: string,
         dispatchValue: any,
-        options?:{
+        options:{
             disableMiddleware?: boolean
         },
-        dispatch?: any,
+        dispatch: (payload: IDispatch) => IDispatch,
     ): void
 }
 
 const update: IUpdate = (action, dispatchValue, options, dispatch) => {
-    // console.log(action);
-    // console.log(dispatchValue);
-    // console.log(options);
-    // console.log(dispatch);
     dispatch({
         type: action,
         [action]: dispatchValue,

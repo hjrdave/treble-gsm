@@ -1,11 +1,12 @@
+import {IDispatch} from '../../subscribe/interfaces';
 interface IToggle{
     (
         action: string,
         dispatchValue: any,
-        options?:{
+        options:{
             disableMiddleware?: boolean
         },
-        dispatch?: any,
+        dispatch: (payload: IDispatch) => IDispatch,
     ): void
 }
 const toggle:IToggle = (action, toggleValue, options, dispatch) => {

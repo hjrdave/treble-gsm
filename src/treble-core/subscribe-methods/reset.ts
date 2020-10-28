@@ -1,17 +1,16 @@
-
+import {IDispatch} from '../../subscribe/interfaces';
 interface IUpdate{
     (
         action: string,
-        options?: {
+        options: {
             disableMiddleware?: boolean
         },
-        dispatch?: any,
-        store?: any,
+        dispatch: (payload: IDispatch) => IDispatch
         
     ): void
 }
 
-const reset: IUpdate = (action, options, dispatch, store) => {
+const reset: IUpdate = (action, options, dispatch) => {
 
     try{
         if(typeof action !== 'string'){
@@ -21,18 +20,18 @@ const reset: IUpdate = (action, options, dispatch, store) => {
         throw error;
     }
 
-    const resetValue = () => {
-        let filteredValue = store?.filter((item: {action: string, state: {[key:string]: any}}) => {
-            if(item.action === action){
-                return item
-            }
-        });
-        let initialValue = Object.values(filteredValue[0].state)[0];
-        return initialValue;
-    }
+    // const resetValue = () => {
+    //     let filteredValue = store?.filter((item: {action: string, state: {[key:string]: any}}) => {
+    //         if(item.action === action){
+    //             return item
+    //         }
+    //     });
+    //     let initialValue = Object.values(filteredValue[0].state)[0];
+    //     return initialValue;
+    // }
     dispatch({
         type: action,
-        [action]: resetValue(),
+        [action]: 'foo',
         subscribeType: 'reset',
         options: {
             disableMiddleware: true
