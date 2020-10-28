@@ -27,14 +27,14 @@ function Treble({ children, store }: ITreble) {
     //passed Store
     Store = useMemo(() => store.data, [store.data]),
 
-    //builds state from Store
-    State = buildState([...Store]),
-
     //store modules
     Modules = (store?.modules) ? [...store.modules, TrebleCore] : [TrebleCore],
 
     //builds reducer from Store
     Reducer = buildReducer([...Store], Modules),
+
+    //builds state from Store
+    State = buildState([...Store], Modules),
 
     //the default context used by TrebleGSM (Should only be used for App global state)
     defaultContext = Context,

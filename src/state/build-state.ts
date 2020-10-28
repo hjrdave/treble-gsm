@@ -5,19 +5,32 @@
 
 import { IBuildState } from "../interfaces";
 
-const buildState: IBuildState = (store) => {
-  let state = {
-    TrebleSubscribeAPI: null
-  };
+const buildState: IBuildState = (store, modules) => {
 
+  let state = {};
+
+  //add state from store
   store.map((obj) => {
-    state = { ...state, ...obj.state };
+    state = { 
+      ...state, 
+      ...obj.state
+     };
   });
 
-  let initialState = {
-    ...state,
-  };
+  //add module extend state (if exists)
+  modules.map((module) => {
+    if(module.extendStore){
+      module.extendStore?.data?.map((item) => {
+        state = {
+          ...state,
+          ...item.state
+        }
+      })
+    }
+  });
 
+  const initialState = { ...state };
+  console.log(initialState)
   return initialState;
 };
 

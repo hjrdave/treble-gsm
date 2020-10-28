@@ -91,7 +91,8 @@ export interface ITreble {
 //BuildState Interface
 export interface IBuildState {
   (
-    store: IStoreItem[]
+    store: IStoreItem[],
+    modules: IModuleData[]
   ): {
     [key: string]: any
   }

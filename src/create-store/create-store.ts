@@ -4,7 +4,7 @@
 */
 import {ICreateStore} from '../interfaces';
 import errorHandling from './error-handling';
-import {IStoreItem} from '../interfaces';
+import {IStoreItem, IModuleData} from '../interfaces';
 
 const createStore: ICreateStore = (storeData, options) => {
     
