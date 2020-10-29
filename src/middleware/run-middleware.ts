@@ -5,6 +5,7 @@
 import checkDispatchValue from './check-dispatch-value';
 import runSideEffect from './run-side-effect';
 import processDispatchValue from './process-dispatch-value';
+import runReducerActions from './run-reducer-actions';
 import { IMiddleware } from '../interfaces';
 import createMiddlewareData from './create-middleware-data';
 
