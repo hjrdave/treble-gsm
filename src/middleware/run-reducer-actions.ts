@@ -6,13 +6,17 @@ import {IMiddlewareData, IModuleData} from '../interfaces';
 
 interface IRunReducerActions{
     (
-        dispatchValue: any,
-        middlewareData: IMiddlewareData,
-        modules: IModuleData[]
+        middlewareData: IMiddlewareData
     ): any
 }
 
-const runReducerActions: IRunReducerActions = (dispatchValue, middlewareData, modules) => {
+const runReducerActions: IRunReducerActions = (middlewareData) => {
+
+    const { dispatchValue, storeModules } = middlewareData;
+
+    //map storeModules
+    //should map an object literal for speed
+
     return dispatchValue
 }
 

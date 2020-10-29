@@ -23,18 +23,29 @@ const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, sto
     //Makes sure state passes check and then will continue middleware pipeline and then return a value
     if (doesDispatchValuePass) {
 
-        //passes dispatchValue through module and feature process middleware
-        const processedDispatchValue = processDispatchValue(middlewareData);
+        //run module reducer actions
+        const dispatchValue = runReducerActions(middlewareData);
 
         middlewareData = {
             ...middlewareData,
-            dispatchValue: processedDispatchValue
+            dispatchValue: dispatchValue
+        }
+
+        //passes dispatchValue through module and feature process middleware
+        const processedDispatchValue = processDispatchValue(middlewareData);
+
+        //updates middleware data if data is processed
+        if(processDispatchValue !== dispatchValue){
+            middlewareData = {
+                ...middlewareData,
+                dispatchValue: processedDispatchValue
+            }
         }
 
         //runs callback if it exists with processedValue
         runSideEffect(middlewareData, 'callback');
 
-        return processedDispatchValue;
+        return middlewareData.dispatchValue;
     }
 
     return null
