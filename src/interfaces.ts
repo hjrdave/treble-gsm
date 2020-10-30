@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-import { ISubscribeAPI } from './subscribe/interfaces';
+import { IDispatch, ISubscribeAPI } from './subscribe/interfaces';
 import { IStoreUtilities } from './utilities/interfaces';
 
 // #region Shared Interfaces 
@@ -59,8 +59,8 @@ export interface IModuleData{
     featureKeys?: string[],
     subscribeAPI?: {
         utilityMethods?: {[key: string]: any},
-        subscribeMethods?: {[key: string]: any},
-        reducerActions?: (middlewareData: IMiddlewareData) => any
+        subscribeMethods?: {[key: string]: (...params: any) => void},
+        reducerActions?: {[key: string]: (middlewareData: IMiddlewareData) => any}
     },
     middleware?: {
         call?: (middlewareData: IMiddlewareData) => void,
@@ -206,6 +206,7 @@ export interface IMiddlewareData<State = void & any>{
   action: string,
   features: IStoreFeatures | undefined,
   currentState: any,
+  initialState: any,
   storeItems: IStoreItem[],
   storeState: State,
   storeModules: IModuleData[],

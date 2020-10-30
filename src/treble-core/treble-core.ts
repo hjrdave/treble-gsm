@@ -6,7 +6,8 @@
 import createModule from '../create-module/create-module';
 import TrebleStoreCore from './extend-store';
 import TrebleCoreComp from './render-comp';
-import {update, toggle, reset} from './subscribe-methods';
+import {update as updateStore, toggle as toggleStore, reset as resetStore} from './subscribe-methods';
+import {update as updateReducerAction, toggle as toggleReducerAction, reset as resetReducerAction} from './reducer-actions';
 
 const TrebleCore = createModule({
     name: 'treble-core',
@@ -14,9 +15,14 @@ const TrebleCore = createModule({
     renderComponent: TrebleCoreComp,
     subscribeAPI: {
         subscribeMethods: {
-            'update': update, 
-            'toggle': toggle, 
-            'reset': reset
+            'update': updateStore, 
+            'toggle': toggleStore, 
+            'reset': resetStore
+        },
+        reducerActions: {
+            'update': updateReducerAction,
+            'toggle': toggleReducerAction,
+            'reset': resetReducerAction
         }
     }
 });

@@ -21,7 +21,7 @@ const Provider = ({ reducer, initialState, children, scope, store, modules }: IP
   const [storeItems, dispatch] = useReducer(reducer, initialState);
 
   //store data that will be made accessible via the useTreble hook
-  const trebleHookOutput = [storeItems, subscribeAPI(dispatch, store, modules), storeUtilities(store)]
+  const trebleHookOutput = [storeItems, subscribeAPI(dispatch, modules), storeUtilities(store)]
 
   return (
     <>

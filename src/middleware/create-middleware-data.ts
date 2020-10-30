@@ -10,7 +10,11 @@ interface ICreateMiddlewareData{
         modules: IModuleData[]
     ): IMiddlewareData
 }
+
 const createMiddlewareData: ICreateMiddlewareData = (dispatchValue, action, storeItem, state, store, modules) => {
+
+    const initialState = () => store.find((item: IStoreItem) => item.action === storeItem.action)?.state[0];
+
     return {
         dispatchValue: dispatchValue,
         dispatchAction: action,
@@ -18,6 +22,7 @@ const createMiddlewareData: ICreateMiddlewareData = (dispatchValue, action, stor
         action: storeItem.action,
         features: storeItem.features,
         currentState: state[Object.keys(storeItem.state)[0]],
+        initialState: initialState(),
         storeItems: store,
         storeState: state,
         storeModules: modules,

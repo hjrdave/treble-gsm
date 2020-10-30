@@ -23,7 +23,6 @@ export interface ISubscribeAPI {
 export interface ICreateSubscribeAPI {
     (
         dispatch: any,
-        store: any,
         modules: IModuleData[]
     ): any
 }

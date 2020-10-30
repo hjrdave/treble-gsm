@@ -3,6 +3,7 @@
     - These are actions specified by modules
 */
 import {IMiddlewareData, IModuleData} from '../interfaces';
+import processDispatchValue from './process-dispatch-value';
 
 interface IRunReducerActions{
     (
@@ -12,11 +13,28 @@ interface IRunReducerActions{
 
 const runReducerActions: IRunReducerActions = (middlewareData) => {
 
-    const { dispatchValue, storeModules } = middlewareData;
+    const { dispatchValue, storeModules: modules, dispatchAction } = middlewareData;
 
-    //map storeModules
-    //should map an object literal for speed
+    let reducerActions: {[key:string]: any} = {}
 
+    //Run module reducer actions
+    modules?.map((module) => {
+        const dispatchMethods = module.subscribeAPI?.subscribeMethods;
+        if(dispatchMethods){
+            const dispatchMethodsArray = Object.entries(dispatchMethods);
+            reducerActions = {
+                ...reducerActions,
+                [dispatchMethodsArray[0][0]]: (middlewareData:IMiddlewareData) => dispatchMethodsArray[0][1](middlewareData)
+            }
+        }
+    })
+
+    const processedDispatchValue = reducerActions[dispatchAction?.subscribeType](middlewareData);
+
+    if(processedDispatchValue){
+        return processedDispatchValue;
+    }
+    
     return dispatchValue
 }
 
