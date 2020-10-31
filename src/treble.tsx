@@ -53,7 +53,7 @@ function Treble({ children, store }: ITreble) {
         modules={Modules}
       >
         <>
-          <Persist store={Store} />
+          {/* <Persist store={Store} /> */}
           {children}
         </>
       </Provider>

@@ -1,22 +1,22 @@
 import {IDispatch} from '../../subscribe/interfaces';
 interface IUpdate{
     (
+        dispatch: (payload: IDispatch) => IDispatch,
         action: string,
         dispatchValue: any,
-        options:{
+        options?:{
             disableMiddleware?: boolean
-        },
-        dispatch: (payload: IDispatch) => IDispatch,
+        }
     ): void
 }
 
-const update: IUpdate = (action, dispatchValue, options, dispatch) => {
+const update: IUpdate = (dispatch, action, dispatchValue, options) => {
     dispatch({
         type: action,
         [action]: dispatchValue,
         subscribeType: 'update',
         options: {
-            disableMiddleware: options?.disableMiddleware
+            disableMiddleware: (options?.disableMiddleware) ? true : false
         }
     })
 }

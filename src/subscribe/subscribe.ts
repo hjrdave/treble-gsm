@@ -22,7 +22,7 @@ const subscribeAPI: ICreateSubscribeAPI = (dispatch, modules) => {
             methodArray?.map((method) => {
                 subscribeMethods = {
                     ...subscribeMethods,
-                    [method[0]]: (...params: any) => method[1](...params, params?.options, dispatch)
+                    [method[0]]: (...params: any) => method[1](dispatch, ...params)
                 }
             })
             

@@ -1,16 +1,16 @@
 import {IDispatch} from '../../subscribe/interfaces';
 interface IUpdate{
     (
+        dispatch: (payload: IDispatch) => IDispatch,
         action: string,
         options?: {
             disableMiddleware?: boolean
-        },
-        dispatch?: (payload: IDispatch) => IDispatch
+        }
         
     ): void
 }
 
-const reset: IUpdate = (action, options, dispatch) => {
+const reset: IUpdate = (dispatch, action, options) => {
 
     try{
         if(typeof action !== 'string'){
@@ -20,17 +20,16 @@ const reset: IUpdate = (action, options, dispatch) => {
         throw error;
     }
 
-    if(dispatch){
-        dispatch({
-            type: action,
-            [action]: null,
-            subscribeType: 'reset',
-            options: {
-                disableMiddleware: true,
-                ...options
-            }
-        })
-    }
+    dispatch({
+        type: action,
+        [action]: null,
+        subscribeType: 'reset',
+        options: {
+            disableMiddleware: false,
+            ...options
+        }
+    })
+
 }
 
 export default reset;

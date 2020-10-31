@@ -1,26 +1,24 @@
 import {IDispatch} from '../../subscribe/interfaces';
 interface IToggle{
     (
+        dispatch: (payload: IDispatch) => IDispatch,
         action: string,
         dispatchValue?: boolean,
         options?:{
             disableMiddleware?: boolean
-        },
-        dispatch?: (payload: IDispatch) => IDispatch,
+        }
     ): void
 }
-const toggle:IToggle = (action, dispatchValue, options, dispatch) => {
+const toggle:IToggle = (dispatch, action, dispatchValue, options) => {
 
-    if(dispatch){
         dispatch({
             type: action,
             [action]: dispatchValue,
             subscribeType: 'toggle',
             options: {
-                disableMiddleware: options?.disableMiddleware
+                disableMiddleware: true
             }
         })
-    }
 
 }
 

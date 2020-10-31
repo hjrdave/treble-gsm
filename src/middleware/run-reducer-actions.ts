@@ -19,17 +19,19 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
 
     //Run module reducer actions
     modules?.map((module) => {
-        const dispatchMethods = module.subscribeAPI?.subscribeMethods;
+        const dispatchMethods = module.subscribeAPI?.reducerActions;
         if(dispatchMethods){
             const dispatchMethodsArray = Object.entries(dispatchMethods);
-            reducerActions = {
-                ...reducerActions,
-                [dispatchMethodsArray[0][0]]: (middlewareData:IMiddlewareData) => dispatchMethodsArray[0][1](middlewareData)
-            }
+            dispatchMethodsArray?.map((dispatchMethod) => {
+                reducerActions = {
+                    ...reducerActions,
+                    [dispatchMethod[0]]: () => dispatchMethod[1](middlewareData)
+                }
+            });
         }
     })
 
-    const processedDispatchValue = reducerActions[dispatchAction?.subscribeType](middlewareData);
+    const processedDispatchValue = reducerActions[dispatchAction.subscribeType]();
 
     if(processedDispatchValue){
         return processedDispatchValue;
