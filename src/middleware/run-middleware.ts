@@ -6,10 +6,10 @@ import checkDispatchValue from './check-dispatch-value';
 import runSideEffect from './run-side-effect';
 import processDispatchValue from './process-dispatch-value';
 import runReducerActions from './run-reducer-actions';
-import { IMiddleware } from '../interfaces';
+import { IRunMiddleware } from './interfaces';
 import createMiddlewareData from './create-middleware-data';
 
-const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store, modules) => {
+const runMiddleware: IRunMiddleware = (dispatchValue, storeItem, state, action, store, modules) => {
 
     //create middleware data object
     let middlewareData = createMiddlewareData(dispatchValue, action, storeItem, state, store, modules);

@@ -5,15 +5,15 @@
 import React, { useReducer } from "react";
 import subscribeAPI from "../subscribe";
 import storeUtilities from '../utilities';
-import { IStoreItem, IModuleData } from '../interfaces';
+import { TrebleGSM } from '../interfaces';
 
 interface IProvider {
   reducer: any,
   initialState: { [key: string]: any },
   children: JSX.Element[] | JSX.Element,
   scope: any,
-  store: IStoreItem[],
-  modules: IModuleData[]
+  store: TrebleGSM.StoreItem[],
+  modules: TrebleGSM.ModuleData[]
 }
 
 const Provider = ({ reducer, initialState, children, scope, store, modules }: IProvider) => {

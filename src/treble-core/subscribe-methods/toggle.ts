@@ -1,7 +1,7 @@
-import {IDispatch} from '../../subscribe/interfaces';
+import {TrebleGSM} from '../../interfaces';
 interface IToggle{
     (
-        dispatch: (payload: IDispatch) => IDispatch,
+        dispatch: (payload: TrebleGSM.DispatchPayload) => void,
         action: string,
         dispatchValue?: boolean,
         options?:{

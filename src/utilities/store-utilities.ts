@@ -3,16 +3,15 @@
 */
 
 import { createActionsHelper, getActions, getStateKeys, getCurrentStoreData } from './methods';
-import { IStoreUtilities } from './interfaces';
-import { IStoreItem, IModuleData } from '../interfaces';
+import { TrebleGSM } from '../interfaces';
 
-const storeUtilties = (store: IStoreItem[]) => {
+const storeUtilties = (store: TrebleGSM.StoreItem[]) => {
 
     const returnedActionArray = getActions(store);
     const returnedStateKeys = getStateKeys(store);
     const returnedStoreData = getCurrentStoreData(store);
 
-    const utiltiesObject: IStoreUtilities = {
+    const utiltiesObject: TrebleGSM.StoreUtilities = {
         actions: {
             ...createActionsHelper(store)
         },

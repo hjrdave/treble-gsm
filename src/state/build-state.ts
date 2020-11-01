@@ -3,7 +3,7 @@
   Consumes the treble store and dynamically builds out the global state based off of store.state.
 */
 
-import { IBuildState } from "../interfaces";
+import { IBuildState } from "./interfaces";
 
 const buildState: IBuildState = (store, modules) => {
 

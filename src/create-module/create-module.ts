@@ -3,12 +3,12 @@
     - Used to create 3rd party extensions
 */
 
-import {IModuleData} from '../interfaces';
+import {TrebleGSM} from '../interfaces';
 
 interface ICreateModule{
     (
-        moduleData: IModuleData
-    ): IModuleData
+        moduleData: TrebleGSM.ModuleData
+    ): TrebleGSM.ModuleData
 }
 
 const createModule: ICreateModule = (moduleData) => {

@@ -5,7 +5,7 @@
 */
 
 import runMiddleware from "../middleware";
-import { IDispatchPipeline } from '../interfaces';
+import { IDispatchPipeline } from './interfaces';
 
 const runDispatchPipeline: IDispatchPipeline = (storeItem, state, action, store, modules) => {
   const stateName = Object.keys(storeItem.state)[0];

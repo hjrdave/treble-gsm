@@ -9,8 +9,17 @@ import buildState from "./state";
 import buildReducer from "./reducer";
 import Context from "./context";
 import { Persist } from "./persist";
-import { ITreble } from "./interfaces";
+import { TrebleGSM } from "./interfaces";
 import TrebleCore from './treble-core';
+
+export interface ITreble {
+  children: JSX.Element[] | JSX.Element;
+  store: {
+    data: TrebleGSM.StoreItem[],
+    scope?: React.Context<never[]>,
+    modules?: TrebleGSM.ModuleData[]
+  }
+}
 
 function Treble({ children, store }: ITreble) {
 

@@ -3,11 +3,11 @@
     - Runs dispatch value agianst a specified criteria 
     and returns true if the dispatch value meets that criteria or false if it doesnt
 */
-import {IMiddlewareData} from '../interfaces';
+import {TrebleGSM} from '../interfaces';
 
 interface ICheckDispatchValue {
     (
-        middlewareData: IMiddlewareData
+        middlewareData: TrebleGSM.MiddlewareData
     ): boolean
 }
 

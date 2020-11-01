@@ -2,8 +2,8 @@
     Subscribe API
     New experimental api for subscribing to store.
 */
-
-import { ICreateSubscribeAPI, IDispatch } from './interfaces';
+import {TrebleGSM} from '../interfaces';
+import { ICreateSubscribeAPI } from './interfaces';
 
 const subscribeAPI: ICreateSubscribeAPI = (dispatch, modules) => {
 
@@ -11,10 +11,11 @@ const subscribeAPI: ICreateSubscribeAPI = (dispatch, modules) => {
     let subscribeMethods: {[key:string]: any} = {
 
         // pure dispatch function that can be use for extending the subsribeAPI
-        dispatch: (object: IDispatch) => dispatch(object)
+        dispatch: (object: TrebleGSM.DispatchPayload) => dispatch(object)
 
     };
-
+    
+    //add module suscribe methods
     modules?.map((module) => {
         const moduleMethods = module?.subscribeAPI?.subscribeMethods;
         if(moduleMethods !== undefined){

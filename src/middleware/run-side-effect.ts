@@ -4,11 +4,11 @@
     - Call and Callback Store middleware features
 */
 
-import {IMiddlewareData} from '../interfaces';
+import {TrebleGSM} from '../interfaces';
 
 interface ICallSideEffect {
     (
-        middlewareData: IMiddlewareData,
+        middlewareData: TrebleGSM.MiddlewareData,
         type: 'call' | 'callback'
     ): void
 }

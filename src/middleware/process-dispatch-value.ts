@@ -1,8 +1,8 @@
-import {IMiddlewareData } from '../interfaces';
+import { TrebleGSM } from '../interfaces';
 
 interface IProcessDispatchValue {
     (
-        middlewareData: IMiddlewareData
+        middlewareData: TrebleGSM.MiddlewareData
     ): any
 }
 

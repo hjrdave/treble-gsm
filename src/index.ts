@@ -5,8 +5,7 @@ import createModule from './create-module';
 import withTreble from './with-treble';
 import {clearPersist} from './persist';
 import {useTreble, useScopedTreble} from './hooks';
-import {TUseTreble, IMiddlewareData} from './interfaces';
-
+import {TrebleGSM} from './interfaces';
 
 export {
     useTreble, 
@@ -16,8 +15,7 @@ export {
     withTreble, 
     clearPersist, 
     Provider, 
-    TUseTreble, 
-    IMiddlewareData
+    TrebleGSM
 };
 
 export default Treble;

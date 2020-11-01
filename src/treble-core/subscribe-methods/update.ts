@@ -1,7 +1,7 @@
-import {IDispatch} from '../../subscribe/interfaces';
+import {TrebleGSM} from '../../interfaces';
 interface IUpdate{
     (
-        dispatch: (payload: IDispatch) => IDispatch,
+        dispatch: (payload: TrebleGSM.DispatchPayload) => void,
         action: string,
         dispatchValue: any,
         options?:{

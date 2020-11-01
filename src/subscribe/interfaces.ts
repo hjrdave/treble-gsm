@@ -1,28 +1,16 @@
-import {IModuleData } from '../interfaces';
-
-export interface IDispatch{
-    type: string,
-    [type: string]: any,
-    subscribeType?: string,
-    options?: {
-        disableMiddleware?: boolean
-    }
-}
+import {TrebleGSM } from '../interfaces';
 
 export interface IDispatchMethod{
     (
-        dispatchActions: IDispatch
+        dispatchActions: TrebleGSM.DispatchPayload
     ): void
 }
 
-export interface ISubscribeAPI {
 
-    dispatch: (object: IDispatch) => IDispatch
-}
 
 export interface ICreateSubscribeAPI {
     (
         dispatch: any,
-        modules: IModuleData[]
+        modules: TrebleGSM.ModuleData[]
     ): any
 }

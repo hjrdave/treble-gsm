@@ -2,18 +2,17 @@
     Reducer Actions
     - These are actions specified by modules
 */
-import {IMiddlewareData, IModuleData} from '../interfaces';
-import processDispatchValue from './process-dispatch-value';
+import {TrebleGSM} from '../interfaces';
 
 interface IRunReducerActions{
     (
-        middlewareData: IMiddlewareData
+        middlewareData: TrebleGSM.MiddlewareData
     ): any
 }
 
 const runReducerActions: IRunReducerActions = (middlewareData) => {
 
-    const { dispatchValue, storeModules: modules, dispatchAction } = middlewareData;
+    const { dispatchValue, storeModules: modules, dispatchPayload } = middlewareData;
 
     let reducerActions: {[key:string]: any} = {}
 
@@ -31,7 +30,7 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
         }
     })
 
-    const processedDispatchValue = reducerActions[dispatchAction.subscribeType]();
+    const processedDispatchValue = reducerActions[dispatchPayload.subscribeType]();
 
     if(processedDispatchValue){
         return processedDispatchValue;

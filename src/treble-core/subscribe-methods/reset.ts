@@ -1,7 +1,7 @@
-import {IDispatch} from '../../subscribe/interfaces';
-interface IUpdate{
+import {TrebleGSM} from '../../interfaces';
+interface IReset{
     (
-        dispatch: (payload: IDispatch) => IDispatch,
+        dispatch: (payload: TrebleGSM.DispatchPayload) => void,
         action: string,
         options?: {
             disableMiddleware?: boolean
@@ -10,7 +10,7 @@ interface IUpdate{
     ): void
 }
 
-const reset: IUpdate = (dispatch, action, options) => {
+const reset: IReset = (dispatch, action, options) => {
 
     try{
         if(typeof action !== 'string'){
