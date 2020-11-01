@@ -15,8 +15,6 @@ export namespace TrebleGSM{
 
   //Store Item Features Model
   export interface StoreFeatures {
-    persist?: boolean,
-    keys?: boolean,
     call?: (storeData: MiddlewareData) => void,
     check?: (storeData: MiddlewareData) => boolean,
     process?: (storeData: MiddlewareData) => any,

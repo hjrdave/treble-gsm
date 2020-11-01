@@ -59,10 +59,10 @@ const errorHandling: IErrorHandling = (storeData) => {
                 }
             });
 
-            //checks property persist
-            if(typeof storeItem.features.persist !== 'boolean' && storeItem.features.persist !== undefined){
-                throw new TypeError(`Store[${index}].features.persist must be a boolean.`);
-            }
+            // //checks property persist
+            // if(typeof storeItem.features.persist !== 'boolean' && storeItem.features.persist !== undefined){
+            //     throw new TypeError(`Store[${index}].features.persist must be a boolean.`);
+            // }
 
             //checks property call type
             if(typeof storeItem.features.call !== 'function' && storeItem.features.call !== undefined){

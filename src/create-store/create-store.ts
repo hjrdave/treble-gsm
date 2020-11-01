@@ -9,7 +9,7 @@ import {TrebleGSM} from '../interfaces';
 const createStore: ICreateStore = (storeData, options) => {
     
     //error handles storeItems
-    errorHandling(storeData);
+    // errorHandling(storeData);
 
     //handle extendStore array
     const handleExtendStore = (extendStoreProp: {data: TrebleGSM.StoreItem[]}[]) => {
