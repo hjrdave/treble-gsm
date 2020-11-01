@@ -14,7 +14,7 @@ const update: IUpdate = (dispatch, action, dispatchValue, options) => {
     dispatch({
         type: action,
         [action]: dispatchValue,
-        subscribeType: 'update',
+        reducerAction: 'updateState',
         options: {
             disableMiddleware: (options?.disableMiddleware) ? true : false
         }

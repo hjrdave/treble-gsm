@@ -5,9 +5,9 @@
 */
 
 import runMiddleware from "../middleware";
-import { IDispatchPipeline } from './interfaces';
+import { Reducer} from './interfaces';
 
-const runDispatchPipeline: IDispatchPipeline = (storeItem, state, action, store, modules) => {
+const runDispatchPipeline: Reducer.DispatchPipeline = (storeItem, state, action, store, modules) => {
   const stateName = Object.keys(storeItem.state)[0];
   const dispatchValue = action[storeItem.action];
   const disableMiddleware = action.options?.disableMiddleware;

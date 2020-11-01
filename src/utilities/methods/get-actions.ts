@@ -1,9 +1,11 @@
 /*
     Returns an array of action strings.
 */
+
+import {TrebleGSM} from '../../interfaces';
 interface IGetActions{
     (
-        store?: any
+        store: TrebleGSM.StoreItem[]
     ): string[]
 }
 

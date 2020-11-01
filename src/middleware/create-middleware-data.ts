@@ -32,7 +32,7 @@ const createMiddlewareData: ICreateMiddlewareData = (dispatchValue, action, stor
         storeItems: store,
         storeState: state,
         storeModules: modules,
-        subscribeAPI: state.TrebleSubscribeAPI
+        dispatchers: state.TrebleSubscribeAPI
     }
 }
 

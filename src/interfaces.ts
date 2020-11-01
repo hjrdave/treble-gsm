@@ -3,8 +3,7 @@
 */
 
 import React from 'react';
-import {ITrebleCoreSubscribeAPI} from './treble-core/interfaces';
-import { IStoreUtilities } from './utilities/interfaces';
+import {TrebleCore} from './treble-core/interfaces';
 
 export namespace TrebleGSM{
 
@@ -32,13 +31,13 @@ export namespace TrebleGSM{
   export interface StoreOptions {
     context?: React.Context<never[]>,
     extendStore?: { data: StoreItem[] }[],
-    modules?: any[]
+    modules?: ModuleData[]
   }
 
   export interface DispatchPayload {
     type: string;
     [key: string]: any;
-    subscribeType: string;
+    reducerAction: string;
     options?: {
       disableMiddleware?: boolean;
     };
@@ -54,7 +53,7 @@ export namespace TrebleGSM{
     storeItems: StoreItem[],
     storeState: State,
     storeModules: ModuleData[],
-    subscribeAPI: SubscribeAPI
+    dispatchers: SubscribeAPI.Dispatchers
   }
 
   export interface ModuleData{
@@ -65,8 +64,8 @@ export namespace TrebleGSM{
     },
     featureKeys?: string[],
     subscribeAPI?: {
-        utilityMethods?: {[key: string]: any},
-        subscribeMethods?: {[key: string]: (...params: any) => void},
+        utilities?: {[key: string]: any},
+        dispatchers?: {[key: string]: (...params: any) => void},
         reducerActions?: {[key: string]: (middlewareData: MiddlewareData) => any}
     },
     middleware?: {
@@ -78,18 +77,20 @@ export namespace TrebleGSM{
     renderComponent?: React.ReactNode
   }
 
-  export type UseTreble<State, Actions = void> = [State, SubscribeAPI, IStoreUtilities<Actions>];
+  export type UseTreble<State, Actions = void> = [State, SubscribeAPI.Dispatchers, SubscribeAPI.Utilities<Actions>];
+  export namespace SubscribeAPI{
+      export interface Dispatchers extends TrebleCore.Dispatchers{
+        dispatch: (payload: DispatchPayload) => DispatchPayload
+      }
 
-  export interface SubscribeAPI extends ITrebleCoreSubscribeAPI{
-    dispatch: (object: DispatchPayload) => DispatchPayload
+      export interface Utilities<T = void> {
+        actions: T | {[key:string]: string};
+        stateKeys: string[];
+        actionKeys: string[];
+        storeData: any
+    }
   }
-
-  export interface StoreUtilities<T = void> {
-    actions: T | {[key:string]: string};
-    stateKeys: string[];
-    actionKeys: string[];
-    storeData: any
-}
+ 
 
 }
 

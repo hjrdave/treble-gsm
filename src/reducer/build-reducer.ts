@@ -3,14 +3,14 @@
   Consumes treble store and dynamically builds global state reducer.
 */
 
-import {IBuildReducer, IReducer, IReducerActions} from './interfaces';
+import {Reducer} from './interfaces';
 import runDispatchPipeline from './run-dispatch-pipeline';
 
-const buildReducer: IBuildReducer = (store, modules) => {
+const buildReducer: Reducer.Build = (store, modules) => {
 
-  let Reducer: IReducer = (state, action) => {
+  const Reducer: Reducer.TrebleReducer = (state, action) => {
    
-    let reducerActions: IReducerActions = {}
+    let reducerActions: Reducer.ReducerActions = {}
 
     //adds reducer actions from store
     store.map((storeItem) => {

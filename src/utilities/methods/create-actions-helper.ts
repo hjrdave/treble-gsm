@@ -3,7 +3,7 @@
     Can be used in typescript projects to aid in using actions with Store methods.
 */
 import { TrebleGSM } from '../../interfaces';
-const createActionsHelper = (store: TrebleGSM.StoreItem[]) => {
+const createActionHelpers = (store: TrebleGSM.StoreItem[]) => {
 
     let actions = {};
     store?.map((storeItem) => {
@@ -16,4 +16,4 @@ const createActionsHelper = (store: TrebleGSM.StoreItem[]) => {
 
 }
 
-export default createActionsHelper;
+export default createActionHelpers;

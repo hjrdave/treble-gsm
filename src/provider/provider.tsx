@@ -3,11 +3,11 @@
   Provider that consumes Reducer hook and provides state to wrapped children.  
 */
 import React, { useReducer } from "react";
-import subscribeAPI from "../subscribe";
-import storeUtilities from '../utilities';
+import createDispatchers from "../dispatchers";
+import createUtilities from '../utilities';
 import { TrebleGSM } from '../interfaces';
 
-interface IProvider {
+interface Props {
   reducer: any,
   initialState: { [key: string]: any },
   children: JSX.Element[] | JSX.Element,
@@ -16,16 +16,17 @@ interface IProvider {
   modules: TrebleGSM.ModuleData[]
 }
 
-const Provider = ({ reducer, initialState, children, scope, store, modules }: IProvider) => {
-  const Context = scope;
-  const [storeItems, dispatch] = useReducer(reducer, initialState);
+const Provider = ({ reducer, initialState, children, scope, store, modules }: Props) => {
 
-  //store data that will be made accessible via the useTreble hook
-  const trebleHookOutput = [storeItems, subscribeAPI(dispatch, modules), storeUtilities(store)]
+  const Context = scope;
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  //SubcribeAPI (store items, dispatchers, and utilities that will be made accessible via the useTreble hook)
+  const subscribeAPI = [state, createDispatchers(dispatch, modules), createUtilities(store)]
 
   return (
     <>
-      <Context.Provider value={trebleHookOutput}>
+      <Context.Provider value={subscribeAPI}>
 
         {/** Render Module Components */}
         {

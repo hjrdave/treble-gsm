@@ -6,10 +6,9 @@
 import { useContext } from "react";
 import defaultContext from "../context";
 import { TrebleGSM } from "../interfaces";
-import {IUseTreble} from './interface';
-import { IStoreUtilities } from "../utilities/interfaces";
+import {Hooks} from './interface';
 
-const useTreble: IUseTreble = (context) => {
+const useTreble: Hooks.UseTreble = (context) => {
   try {
     if (context) {
       if (typeof context !== "object") {
@@ -20,21 +19,21 @@ const useTreble: IUseTreble = (context) => {
     const trebleContext = context !== undefined ? context : defaultContext;
 
     //would like to figure out how to type trebleContext something other then 'any' without breaking everything
-    const StoreSubscription: [{ [key: string]: any }, TrebleGSM.SubscribeAPI, IStoreUtilities] = useContext(
+    const storeSubscription: [{ [key: string]: any }, TrebleGSM.SubscribeAPI.Dispatchers, TrebleGSM.SubscribeAPI.Utilities] = useContext(
       trebleContext as any
     );
 
     //checks to make sure React is installed
-    if (StoreSubscription === null) {
+    if (storeSubscription === null) {
       throw new Error('TrebleGSM: StoreSubscription is null. Dependency React might be missing.');
     }
 
-    const StoreItems = StoreSubscription[0];
-    const SubscribeAPI = StoreSubscription[1];
-    const StoreUtilities = StoreSubscription[2];
+    const storeItems = storeSubscription[0];
+    const dispatchers = storeSubscription[1];
+    const utilities = storeSubscription[2];
 
-    //returns an Array [StoreItems (Global state object), StoreMethods (SubscribeAPI methods to interact with Store)]
-    return [StoreItems, SubscribeAPI, StoreUtilities];
+    //returns an Array [StoreItems (Global state object), Dispatchers (dispatch methods to interact with Store), Utilities (helpers for subscribing) ]
+    return [storeItems, dispatchers, utilities];
 
   } catch (error) {
     throw new Error(error);

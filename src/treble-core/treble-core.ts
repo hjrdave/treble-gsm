@@ -4,25 +4,25 @@
 */
 
 import createModule from '../create-module/create-module';
-import TrebleStoreCore from './extend-store';
+import TrebleCoreStore from './extend-store';
 import TrebleCoreComp from './render-comp';
-import {update as updateStore, toggle as toggleStore, reset as resetStore} from './subscribe-methods';
-import {update as updateReducerAction, toggle as toggleReducerAction, reset as resetReducerAction} from './reducer-actions';
+import {update as updateStore, toggle as toggleStore, reset as resetStore} from './dispatchers';
+import {updateState, toggleState, resetToInitialState} from './reducer-actions';
 
 const TrebleCore = createModule({
     name: 'treble-core',
-    extendStore: TrebleStoreCore,
+    extendStore: TrebleCoreStore,
     renderComponent: TrebleCoreComp,
     subscribeAPI: {
-        subscribeMethods: {
+        dispatchers: {
             'update': updateStore, 
             'toggle': toggleStore, 
             'reset': resetStore
         },
         reducerActions: {
-            'update': updateReducerAction,
-            'toggle': toggleReducerAction,
-            'reset': resetReducerAction
+            'updateState': updateState,
+            'toggleState': toggleState,
+            'resetToInitialState': resetToInitialState
         }
     }
 });

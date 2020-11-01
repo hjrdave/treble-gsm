@@ -1,4 +1,3 @@
-import storeUtilties from './store-utilities';
-import storeUtilities from './store-utilities';
+import createUtilities from './create-utilities';
 
-export default storeUtilties;
+export default createUtilities;

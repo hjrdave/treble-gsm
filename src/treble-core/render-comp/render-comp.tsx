@@ -1,7 +1,7 @@
 import React from 'react';
-import useTreble from '../../hooks/treble-hook';
+import useTreble from '../../hooks/use-treble';
 
-export default function TrebleCoreComp() {
+export default function RenderComp() {
 
     const Store = useTreble()[1];
 

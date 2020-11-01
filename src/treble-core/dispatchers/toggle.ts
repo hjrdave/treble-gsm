@@ -14,7 +14,7 @@ const toggle:IToggle = (dispatch, action, dispatchValue, options) => {
         dispatch({
             type: action,
             [action]: dispatchValue,
-            subscribeType: 'toggle',
+            reducerAction: 'toggleState',
             options: {
                 disableMiddleware: true
             }

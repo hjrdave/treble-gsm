@@ -1,25 +1,15 @@
 import {TrebleGSM} from '../interfaces';
 
-export interface IBuildReducer {
+export namespace Reducer{
+
+  
+export interface Build{
   (
     store: TrebleGSM.StoreItem[],
     modules: TrebleGSM.ModuleData[]
-  ): IReducer
+  ): TrebleReducer
 }
-
-export interface IReducer {
-  (
-    state: {
-      [key: string]: any,
-      subscribeID: number
-    },
-    action: TrebleGSM.DispatchPayload
-  ): {
-    [key: string]: any
-  }
-}
-
-export interface IDispatchPipeline {
+export interface DispatchPipeline {
   (
     storeItem: {
       action: string;
@@ -33,8 +23,25 @@ export interface IDispatchPipeline {
     modules: any
   ): { [key: string]: any };
 }
-
-export interface IReducerActions {
+export interface ReducerActions {
   [key: string]: any | undefined
 }
+export interface TrebleReducer {
+  (
+    state: {
+      [key: string]: any,
+      subscribeID: number
+    },
+    action: TrebleGSM.DispatchPayload
+  ): {
+    [key: string]: any
+  }
+}
+}
+
+
+
+
+
+
 

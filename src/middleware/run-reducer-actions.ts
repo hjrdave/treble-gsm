@@ -30,7 +30,7 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
         }
     })
 
-    const processedDispatchValue = reducerActions[dispatchPayload.subscribeType]();
+    const processedDispatchValue = reducerActions[dispatchPayload.dispatcherType]();
 
     if(processedDispatchValue){
         return processedDispatchValue;

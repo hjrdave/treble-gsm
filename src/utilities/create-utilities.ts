@@ -2,18 +2,18 @@
     Utiltites Object that is outputed by useTreble
 */
 
-import { createActionsHelper, getActions, getStateKeys, getCurrentStoreData } from './methods';
+import { createActionHelpers, getActions, getStateKeys, getCurrentStoreData } from './methods';
 import { TrebleGSM } from '../interfaces';
 
-const storeUtilties = (store: TrebleGSM.StoreItem[]) => {
+const createUtilities = (store: TrebleGSM.StoreItem[]) => {
 
     const returnedActionArray = getActions(store);
     const returnedStateKeys = getStateKeys(store);
     const returnedStoreData = getCurrentStoreData(store);
 
-    const utiltiesObject: TrebleGSM.StoreUtilities = {
+    const utiltiesObject: TrebleGSM.SubscribeAPI.Utilities = {
         actions: {
-            ...createActionsHelper(store)
+            ...createActionHelpers(store)
         },
         stateKeys: returnedActionArray,
         actionKeys: returnedStateKeys,
@@ -23,4 +23,4 @@ const storeUtilties = (store: TrebleGSM.StoreItem[]) => {
     return utiltiesObject
 }
 
-export default storeUtilties;
+export default createUtilities;
