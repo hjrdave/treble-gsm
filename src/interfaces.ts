@@ -5,7 +5,7 @@
 import React from 'react';
 import {TrebleCore} from './treble-core/interfaces';
 
-export namespace TrebleGSM{
+export declare namespace TrebleGSM{
 
   //Store State model
   export interface StoreState {
@@ -29,13 +29,15 @@ export namespace TrebleGSM{
     modules?: ModuleData[]
   }
 
+  export interface DispatcherOptions{
+    disableMiddleware?: boolean;
+  }
+
   export interface DispatchPayload {
     type: string;
     [key: string]: any;
     reducerAction: string;
-    options?: {
-      disableMiddleware?: boolean;
-    };
+    options?: DispatcherOptions
   }
 
   export interface MiddlewareTypes{
@@ -56,7 +58,7 @@ export namespace TrebleGSM{
     storeItems: StoreItem[],
     storeState: State,
     storeModules: ModuleData[],
-    dispatchers: SubscribeAPI.Dispatchers
+    dispatchers: SubscribeAPI.Dispatchers<{}>
   }
 
   export interface ModuleData{
@@ -74,11 +76,19 @@ export namespace TrebleGSM{
     renderComponent?: React.ReactNode
   }
 
-  export type UseTreble<State, Actions = void> = [State, SubscribeAPI.Dispatchers, SubscribeAPI.Utilities<Actions>];
+  export interface ModuleDispatchers<T>{}
+
   export namespace SubscribeAPI{
-      export interface Dispatchers extends TrebleCore.Dispatchers{
-        dispatch: (payload: DispatchPayload) => DispatchPayload
-      }
+
+      export type Dispatchers<T extends {}> = T & {
+          dispatch: (payload: DispatchPayload) => DispatchPayload
+      } & TrebleCore.Dispatchers
+
+      // export interface Dispatchers extends TrebleCore.Dispatchers{
+      //   dispatch: (payload: DispatchPayload) => DispatchPayload
+      // }
+
+
 
       export interface Utilities<T = void> {
         actions: T | {[key:string]: string};
@@ -86,8 +96,10 @@ export namespace TrebleGSM{
         actionKeys: string[];
         storeData: any
     }
+
   }
- 
+
+  export type UseTreble<State, Actions = void, Dispatchers = void> = [State, SubscribeAPI.Dispatchers<Dispatchers>, SubscribeAPI.Utilities<Actions>];
 
 }
 

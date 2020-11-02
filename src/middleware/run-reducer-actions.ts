@@ -1,6 +1,6 @@
 /*
     Reducer Actions
-    - These are actions specified by modules
+    - These are reducer actions that recieve data from dispatchers for processing
 */
 import {TrebleGSM} from '../interfaces';
 

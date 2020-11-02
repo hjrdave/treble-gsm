@@ -1,6 +1,6 @@
 /*
-    Subscribe API
-    New experimental api for subscribing to store.
+    Create Dispatchers
+    - Creates dispatchers for SubscribeAPI
 */
 import {TrebleGSM} from '../interfaces';
 

@@ -1,6 +1,6 @@
 import {TrebleGSM} from '../interfaces';
 
-export namespace Reducer{
+export declare namespace Reducer{
 
   
 export interface Build{

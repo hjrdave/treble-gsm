@@ -19,7 +19,7 @@ const useTreble: Hooks.UseTreble = (context) => {
     const trebleContext = context !== undefined ? context : defaultContext;
 
     //would like to figure out how to type trebleContext something other then 'any' without breaking everything
-    const storeSubscription: [{ [key: string]: any }, TrebleGSM.SubscribeAPI.Dispatchers, TrebleGSM.SubscribeAPI.Utilities] = useContext(
+    const storeSubscription: [{ [key: string]: any }, TrebleGSM.SubscribeAPI.Dispatchers<{}>, TrebleGSM.SubscribeAPI.Utilities] = useContext(
       trebleContext as any
     );
 
