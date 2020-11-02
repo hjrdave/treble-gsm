@@ -65,7 +65,7 @@ const errorHandling: IErrorHandling = (storeData) => {
             // }
 
             //checks property call type
-            if(typeof storeItem.features.call !== 'function' && storeItem.features.call !== undefined){
+            if(typeof storeItem.features.run !== 'function' && storeItem.features.run !== undefined){
                 throw new TypeError(`Store[${index}].call must be a function.`);
             }
 

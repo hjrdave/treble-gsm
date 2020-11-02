@@ -9,7 +9,7 @@ import {TrebleGSM} from '../interfaces';
 interface ICallSideEffect {
     (
         middlewareData: TrebleGSM.MiddlewareData,
-        type: 'call' | 'callback'
+        type: 'log' | 'run' | 'callback'
     ): void
 }
 
@@ -17,15 +17,15 @@ const runSideEffect: ICallSideEffect = (middlewareData, type) => {
 
     const dispatchValue = middlewareData.dispatchValue;
     const { storeModules: modules } = middlewareData;
-    const sideEffect = (type === 'call') ? middlewareData?.features?.call : 
+    const sideEffect = (type === 'log') ? middlewareData?.features?.log : (type === 'run') ? middlewareData?.features?.run : 
     (type === 'callback') ? middlewareData?.features?.callback : null;
 
     if(dispatchValue !== null){
         //run module side effects
         modules?.map((module) => {
 
-            const moduleSideEffect = (type === 'call') ? 
-            module?.middleware?.call : (type === 'callback') 
+            const moduleSideEffect = (type === 'log') ? module?.middleware?.log : (type === 'run') ? 
+            module?.middleware?.run : (type === 'callback') 
             ? module?.middleware?.callback : null;
 
             if(typeof moduleSideEffect === 'function'){

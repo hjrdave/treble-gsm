@@ -18,12 +18,11 @@ const createModule: ICreateModule = (moduleData) => {
         extendStore: moduleData?.extendStore,
         featureKeys: moduleData?.featureKeys,
         subscribeAPI: {
-            utilities: moduleData?.subscribeAPI?.utilities,
             dispatchers: moduleData?.subscribeAPI?.dispatchers,
             reducerActions: moduleData?.subscribeAPI?.reducerActions
         },
         middleware: {
-            call: moduleData?.middleware?.call,
+            call: moduleData?.middleware?.run,
             check: moduleData?.middleware?.check,
             process: moduleData?.middleware?.process,
             callback: moduleData?.middleware?.callback

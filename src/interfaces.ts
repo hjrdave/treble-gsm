@@ -13,12 +13,7 @@ export namespace TrebleGSM{
   }
 
   //Store Item Features Model
-  export interface StoreFeatures {
-    call?: (storeData: MiddlewareData) => void,
-    check?: (storeData: MiddlewareData) => boolean,
-    process?: (storeData: MiddlewareData) => any,
-    callback?: (storeData: MiddlewareData) => void
-  }
+  export interface StoreFeatures extends MiddlewareTypes {}
 
   //Store Item Model
   export interface StoreItem {
@@ -42,6 +37,14 @@ export namespace TrebleGSM{
       disableMiddleware?: boolean;
     };
   }
+
+  export interface MiddlewareTypes{
+        log?: (middlewareData: MiddlewareData) => void,
+        check?: (middlewareData: MiddlewareData) => boolean,
+        run?: (middlewareData: MiddlewareData) => void,
+        process?: (middlewareData: MiddlewareData) => any,
+        callback?: (middlewareData: MiddlewareData) => void
+  }
   export interface MiddlewareData<State = void & any>{
     dispatchValue: any,
     dispatchPayload: DispatchPayload,
@@ -64,16 +67,10 @@ export namespace TrebleGSM{
     },
     featureKeys?: string[],
     subscribeAPI?: {
-        utilities?: {[key: string]: any},
         dispatchers?: {[key: string]: (...params: any) => void},
         reducerActions?: {[key: string]: (middlewareData: MiddlewareData) => any}
     },
-    middleware?: {
-        call?: (middlewareData: MiddlewareData) => void,
-        check?: (middlewareData: MiddlewareData) => boolean,
-        process?: (middlewareData: MiddlewareData) => any,
-        callback?: (middlewareData: MiddlewareData) => void
-    },
+    middleware?: MiddlewareTypes,
     renderComponent?: React.ReactNode
   }
 
