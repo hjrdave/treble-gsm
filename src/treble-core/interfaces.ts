@@ -1,13 +1,10 @@
-interface IOptions{
-    disableMiddleware?: boolean
-}
-
-
+import {TrebleGSM} from '../interfaces';
 
 export declare namespace TrebleCore{
+
     export interface Dispatchers{
-        update: (action: string, dispatchValue: any, options?: IOptions) => void,
-        reset: (action: string, options?: IOptions) => void,
-        toggle: (action: string, dispatchValue?: any, options?: IOptions) => void,
+        update: (action: string, dispatchValue: any, options?: TrebleGSM.DispatcherOptions) => void,
+        reset: (action: string, options?: TrebleGSM.DispatcherOptions) => void,
+        toggle: (action: string, dispatchValue?: any, options?: TrebleGSM.DispatcherOptions) => void,
     }
 }

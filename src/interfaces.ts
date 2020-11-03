@@ -84,12 +84,6 @@ export declare namespace TrebleGSM{
           dispatch: (payload: DispatchPayload) => DispatchPayload
       } & TrebleCore.Dispatchers
 
-      // export interface Dispatchers extends TrebleCore.Dispatchers{
-      //   dispatch: (payload: DispatchPayload) => DispatchPayload
-      // }
-
-
-
       export interface Utilities<T = void> {
         actions: T | {[key:string]: string};
         stateKeys: string[];
