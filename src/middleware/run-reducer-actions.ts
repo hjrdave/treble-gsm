@@ -15,7 +15,7 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
     const { dispatchValue, storeModules: modules, dispatchPayload } = middlewareData;
 
     let reducerActions: {[key:string]: any} = {}
-
+    
     //Run module reducer actions
     modules?.map((module) => {
         const dispatchMethods = module.subscribeAPI?.reducerActions;
@@ -29,7 +29,6 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
             });
         }
     })
-
     const processedDispatchValue = reducerActions[dispatchPayload.reducerAction]();
 
     if(processedDispatchValue){

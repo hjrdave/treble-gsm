@@ -34,8 +34,8 @@ const createDispatchers: ICreateDispatchers = (dispatch, modules) => {
             })
             
         }
-    })
-    
+    });
+
     return dispatcherMethods
 }
 

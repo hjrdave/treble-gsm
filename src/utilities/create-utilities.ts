@@ -5,7 +5,7 @@
 import { createActionHelpers, getActions, getStateKeys, getCurrentStoreData } from './methods';
 import { TrebleGSM } from '../interfaces';
 
-const createUtilities = (store: TrebleGSM.StoreItem[]) => {
+const createUtilities = (store: TrebleGSM.StoreItem[], modules: TrebleGSM.ModuleData[]) => {
 
     const returnedActionArray = getActions(store);
     const returnedStateKeys = getStateKeys(store);
@@ -17,7 +17,8 @@ const createUtilities = (store: TrebleGSM.StoreItem[]) => {
         },
         stateKeys: returnedActionArray,
         actionKeys: returnedStateKeys,
-        storeData: returnedStoreData
+        storeData: returnedStoreData,
+        moduleData: modules
     }
 
     return utiltiesObject

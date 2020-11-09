@@ -3,10 +3,14 @@ import useTreble from '../../hooks/use-treble';
 
 export default function RenderComp() {
 
-    const Store = useTreble()[1];
+    const [{ trebleCoreData }, Store, Utils] = useTreble();
 
     React.useEffect(() => {
-        Store.update('addSubcribeAPIToMiddleware', Store)
+        Store.update('updateTrebleCoreData', {
+            ...trebleCoreData,
+            subscribeAPI: Store,
+            moduleData: Utils.moduleData
+        })
     }, []);
 
     return null

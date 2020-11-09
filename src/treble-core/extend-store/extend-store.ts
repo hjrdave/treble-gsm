@@ -2,9 +2,12 @@ import createStore from '../../create-store';
 
 const TrebleCoreStore = createStore([
     {
-        action: 'addSubcribeAPIToMiddleware',
+        action: 'updateTrebleCoreData',
         state: {
-            TrebleSubscribeAPI: null
+            trebleCoreData: {
+                subscribeAPI: null,
+                moduleData: null
+            }
         }
     }
 ]);

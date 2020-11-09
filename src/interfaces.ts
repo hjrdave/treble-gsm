@@ -13,7 +13,7 @@ export declare namespace TrebleGSM{
   }
 
   //Store Item Features Model
-  export interface StoreFeatures extends MiddlewareTypes {}
+  export interface StoreFeatures extends MiddlewareTypes {[key:string]: any}
 
   //Store Item Model
   export interface StoreItem {
@@ -73,7 +73,12 @@ export declare namespace TrebleGSM{
         reducerActions?: {[key: string]: (middlewareData: MiddlewareData) => any}
     },
     middleware?: MiddlewareTypes,
-    renderComponent?: React.ReactNode
+    renderComponent?: React.ReactNode,
+    initOrder?: number,
+    namespaceDispatchers?: string,
+    namespaceFeatureKeys?: {
+      [key:string]: string
+    }
   }
 
   export interface ModuleDispatchers<T>{}
@@ -88,7 +93,8 @@ export declare namespace TrebleGSM{
         actions: T | {[key:string]: string};
         stateKeys: string[];
         actionKeys: string[];
-        storeData: any
+        storeData: any,
+        moduleData: TrebleGSM.ModuleData[]
     }
 
   }

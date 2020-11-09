@@ -22,12 +22,16 @@ const createModule: ICreateModule = (moduleData) => {
             reducerActions: moduleData?.subscribeAPI?.reducerActions
         },
         middleware: {
-            call: moduleData?.middleware?.run,
+            log: moduleData?.middleware?.log,
+            run: moduleData?.middleware?.run,
             check: moduleData?.middleware?.check,
             process: moduleData?.middleware?.process,
             callback: moduleData?.middleware?.callback
         },
-        renderComponent: moduleData?.renderComponent
+        renderComponent: moduleData?.renderComponent,
+        initOrder: moduleData?.initOrder,
+        namespaceDispatchers: moduleData?.namespaceDispatchers,
+        namespaceFeatureKeys: moduleData?.namespaceFeatureKeys
     }
 };
 

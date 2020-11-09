@@ -22,7 +22,7 @@ const Provider = ({ reducer, initialState, children, scope, store, modules }: Pr
   const [state, dispatch] = useReducer(reducer, initialState);
 
   //SubcribeAPI (store items, dispatchers, and utilities that will be made accessible via the useTreble hook)
-  const subscribeAPI = [state, createDispatchers(dispatch, modules), createUtilities(store)]
+  const subscribeAPI = [state, createDispatchers(dispatch, modules), createUtilities(store, modules)]
 
   return (
     <>

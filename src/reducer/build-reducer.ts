@@ -29,7 +29,6 @@ const buildReducer: Reducer.Build = (store, modules) => {
         }
       })
     });
-
     //checks to makes sure action key exists and throws error if it doesnt
     try {
       return reducerActions[action.type]();
