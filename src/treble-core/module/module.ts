@@ -3,7 +3,7 @@
     - Core Middleware and SubscribeAPI methods
 */
 
-import createModule from '../create-module/create-module';
+import createModule from '../../create-module/create-module';
 import TrebleCoreStore from './extend-store';
 import TrebleCoreComp from './render-comp';
 import renderGuard from './middleware/render-guard';

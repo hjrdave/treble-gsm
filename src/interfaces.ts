@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-import {TrebleCore} from './treble-core/interfaces';
+import {TrebleCore} from './treble-core/module/interfaces';
 
 export declare namespace TrebleGSM{
 

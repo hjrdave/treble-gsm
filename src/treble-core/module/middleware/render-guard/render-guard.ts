@@ -2,7 +2,7 @@
     Render Guard
     - middleware for running shallow comparisons on dispatch values
 */
-import {TrebleGSM} from '../../../interfaces';
+import {TrebleGSM} from '../../../../interfaces';
 import shallowCompare from './shallow-compare';
 
 const renderGuard = (middlewareData: TrebleGSM.MiddlewareData) => {

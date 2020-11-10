@@ -1,3 +1,3 @@
-import TrebleCore from './treble-core';
+import TrebleCore from './module/module';
 
 export default TrebleCore;

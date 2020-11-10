@@ -1,4 +1,4 @@
-import {TrebleGSM} from '../../interfaces';
+import {TrebleGSM} from '../../../interfaces';
 interface IReset{
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,

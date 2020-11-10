@@ -1,5 +1,5 @@
 import React from 'react';
-import useTreble from '../../hooks/use-treble';
+import useTreble from '../../../hooks/use-treble';
 
 export default function RenderComp() {
 

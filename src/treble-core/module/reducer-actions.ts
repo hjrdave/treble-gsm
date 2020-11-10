@@ -1,7 +1,7 @@
 /*
     Treble Core Reducer Actions
 */
-import {TrebleGSM} from '../interfaces';
+import {TrebleGSM} from '../../interfaces';
 
 //simple dispatcher that returns dispatch value
 export const updateState = (middlewareData: TrebleGSM.MiddlewareData) => middlewareData.dispatchValue;
