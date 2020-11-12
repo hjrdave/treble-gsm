@@ -11,13 +11,15 @@ import Context from "./context";
 import { Persist } from "./persist";
 import { TrebleGSM } from "./interfaces";
 import TrebleCore from './treble-core';
+import { useTreble } from ".";
 
 export interface ITreble {
   children: JSX.Element[] | JSX.Element;
   store: {
     data: TrebleGSM.StoreItem[],
     scope?: React.Context<never[]>,
-    modules?: TrebleGSM.ModuleData[]
+    modules?: TrebleGSM.ModuleData[],
+    options?: TrebleGSM.StoreOptions
   }
 }
 
@@ -31,13 +33,21 @@ function Treble({ children, store }: ITreble) {
   } catch (error) {
     throw error;
   }
+  //Trys to inherit modules from main treble context
+  const trebleCoreData = (store?.options?.inheritModules) ? useTreble(Context)[0].trebleCoreData : { moduleData: [] }
+
+  //main context modules
+  const inheritedModules = (trebleCoreData?.moduleData) ? [...trebleCoreData.moduleData] : [];
+
+  //current instance of store modules
+  const storeModules = (store?.modules) ? [...store?.modules] : [];
 
   const
     //passed Store
     Store = useMemo(() => store.data, [store.data]),
 
     //store modules
-    Modules = (store?.modules) ? [...store.modules, TrebleCore] : [TrebleCore],
+    Modules = [TrebleCore, ...inheritedModules, ...storeModules],
 
     //builds reducer from Store
     Reducer = buildReducer([...Store], Modules),

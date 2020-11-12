@@ -5,7 +5,9 @@ export default function RenderComp() {
 
     const [{ trebleCoreData }, Store, Utils] = useTreble();
 
+
     React.useEffect(() => {
+        //console.log(trebleCoreData);
         Store.update('updateTrebleCoreData', {
             ...trebleCoreData,
             subscribeAPI: Store,

@@ -29,7 +29,8 @@ const createStore: ICreateStore = (storeData, options) => {
     const  store = {
         data: (extendedStoreData) ? [...storeData, ...extendedStoreData] : storeData,
         scope: options?.context,
-        modules: options?.modules
+        modules: options?.modules,
+        options: options
     }
     return store
 }

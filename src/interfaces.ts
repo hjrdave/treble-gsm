@@ -24,9 +24,10 @@ export declare namespace TrebleGSM{
 
   //Store Options Model
   export interface StoreOptions {
-    context?: React.Context<never[]>,
+    context?: any,
     extendStore?: { data: StoreItem[] }[],
-    modules?: ModuleData[]
+    modules?: ModuleData[],
+    inheritModules?: boolean
   }
 
   export interface DispatcherOptions{
