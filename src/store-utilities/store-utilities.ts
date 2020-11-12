@@ -16,8 +16,8 @@ const storeUtilties = (store: IStoreItem[]) => {
         actions: {
             ...createActionsHelper(store)
         },
-        stateKeys: returnedActionArray,
-        actionKeys: returnedStateKeys,
+        stateKeys: returnedStateKeys,
+        actionKeys: returnedActionArray,
         storeData: returnedStoreData
     }
 
