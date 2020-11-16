@@ -8,7 +8,7 @@ import TrebleCoreStore from './extend-store';
 import TrebleCoreComp from './render-comp';
 import renderGuard from './middleware/render-guard';
 import { update as updateStore, toggle as toggleStore, reset as resetStore, resetAll as resetAllStore } from './dispatchers';
-import { updateState, toggleState, resetToInitialState } from './reducer-actions';
+import { updateState, toggleState, resetToInitialState, resetAllToInitialState } from './reducer-actions';
 
 const TrebleCore = createModule({
     name: 'treble-core',
@@ -26,7 +26,8 @@ const TrebleCore = createModule({
     reducerActions: {
         'updateState': updateState,
         'toggleState': toggleState,
-        'resetToInitialState': resetToInitialState
+        'resetToInitialState': resetToInitialState,
+        'resetAllToInitialState': resetAllToInitialState
     }
 
 });

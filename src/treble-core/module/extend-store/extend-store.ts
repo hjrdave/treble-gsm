@@ -14,13 +14,6 @@ const TrebleCoreStore = createStore([
         action: 'runTrebleCoreMiddleware',
         state: {
             trebleCoreMiddleware: true
-        },
-        features: {
-            run: (data) => {
-                data.storeItems.map((item) => {
-                    data.dispatchers?.reset(item.action);
-                });
-            }
         }
     }
 ]);

@@ -4,15 +4,22 @@
 import { TrebleGSM } from '../../interfaces';
 
 //simple dispatcher that returns dispatch value
-export const updateState = (middlewareData: TrebleGSM.MiddlewareData) => middlewareData.dispatchValue;
+export const updateState = (data: TrebleGSM.MiddlewareData) => data.dispatchValue;
 
 //resets specified state to initial value
-export const resetToInitialState = (middlewareData: TrebleGSM.MiddlewareData) => middlewareData.initialState;
+export const resetToInitialState = (data: TrebleGSM.MiddlewareData) => data.initialState;
+
+//resets entire store to initial values
+export const resetAllToInitialState = (data: TrebleGSM.MiddlewareData) => {
+    data.storeItems.map((item) => {
+        data.dispatchers?.reset(item.action);
+    });
+}
 
 //toggles state from true to false
-export const toggleState = (middlewareData: TrebleGSM.MiddlewareData) => {
+export const toggleState = (data: TrebleGSM.MiddlewareData) => {
 
-    const { dispatchValue, currentState } = middlewareData;
+    const { dispatchValue, currentState } = data;
     if (dispatchValue) {
         return (dispatchValue) ? false : true;
     }

@@ -18,7 +18,7 @@ const resetAll: IResetAll = (dispatch) => {
         dispatch({
             type: 'runTrebleCoreMiddleware',
             ['runTrebleCoreMiddleware']: true,
-            reducerAction: 'updateState',
+            reducerAction: 'resetAllToInitialState',
             options: {
                 disableMiddleware: false
             }
