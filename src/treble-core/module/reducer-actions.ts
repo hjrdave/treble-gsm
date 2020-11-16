@@ -25,3 +25,6 @@ export const toggleState = (data: TrebleGSM.MiddlewareData) => {
     }
     return (currentState) ? false : true;
 }
+
+//runs a store side effect (no state is set)
+export const runSideEffect = () => null
