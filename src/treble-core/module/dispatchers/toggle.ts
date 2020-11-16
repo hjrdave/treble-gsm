@@ -1,4 +1,5 @@
 import {TrebleGSM} from '../../../interfaces';
+import {trebleError} from '../../../globals';
 interface IToggle{
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
@@ -11,6 +12,14 @@ interface IToggle{
 }
 const toggle:IToggle = (dispatch, action, dispatchValue, options) => {
 
+    try{
+        if(typeof action !== 'string'){
+            throw TypeError('action prop must be a string');
+        }
+        if(dispatchValue !== undefined || typeof dispatchValue !== 'boolean'){
+            throw TypeError('dispatchValue must be a boolean');
+        }
+
         dispatch({
             type: action,
             [action]: dispatchValue,
@@ -20,6 +29,9 @@ const toggle:IToggle = (dispatch, action, dispatchValue, options) => {
             }
         })
 
+    }catch(error){
+        console.error(`${trebleError} ${error}`);
+    }
 }
 
 export default toggle;

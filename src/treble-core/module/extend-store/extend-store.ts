@@ -9,6 +9,19 @@ const TrebleCoreStore = createStore([
                 moduleData: null
             }
         }
+    },
+    {
+        action: 'runTrebleCoreMiddleware',
+        state: {
+            trebleCoreMiddleware: true
+        },
+        features: {
+            run: (data) => {
+                data.storeItems.map((item) => {
+                    data.dispatchers?.reset(item.action);
+                });
+            }
+        }
     }
 ]);
 

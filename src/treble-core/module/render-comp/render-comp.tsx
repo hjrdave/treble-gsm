@@ -7,7 +7,6 @@ export default function RenderComp() {
 
 
     React.useEffect(() => {
-        //console.log(trebleCoreData);
         Store.update('updateTrebleCoreData', {
             ...trebleCoreData,
             subscribeAPI: Store,

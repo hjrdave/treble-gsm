@@ -1,4 +1,5 @@
 import {TrebleGSM} from '../../../interfaces';
+import {trebleError} from '../../../globals';
 interface IUpdate{
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
@@ -11,14 +12,26 @@ interface IUpdate{
 }
 
 const update: IUpdate = (dispatch, action, dispatchValue, options) => {
-    dispatch({
-        type: action,
-        [action]: dispatchValue,
-        reducerAction: 'updateState',
-        options: {
-            disableMiddleware: (options?.disableMiddleware) ? true : false
+
+    try{
+
+        if(typeof action !== 'string'){
+            throw TypeError('action prop must be a string');
         }
-    })
+
+        dispatch({
+            type: action,
+            [action]: dispatchValue,
+            reducerAction: 'updateState',
+            options: {
+                disableMiddleware: (options?.disableMiddleware) ? true : false
+            }
+        });
+
+    }catch(error){
+        console.error(`${trebleError} ${error}`);
+    }
+
 }
 
 export default update;

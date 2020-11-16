@@ -3,9 +3,9 @@
     - Used to create 3rd party extensions
 */
 
-import {TrebleGSM} from '../interfaces';
+import { TrebleGSM } from '../interfaces';
 
-interface ICreateModule{
+interface ICreateModule {
     (
         moduleData: TrebleGSM.ModuleData
     ): TrebleGSM.ModuleData
@@ -17,10 +17,8 @@ const createModule: ICreateModule = (moduleData) => {
         name: moduleData.name,
         extendStore: moduleData?.extendStore,
         featureKeys: moduleData?.featureKeys,
-        subscribeAPI: {
-            dispatchers: moduleData?.subscribeAPI?.dispatchers,
-            reducerActions: moduleData?.subscribeAPI?.reducerActions
-        },
+        dispatchers: moduleData?.dispatchers,
+        reducerActions: moduleData?.reducerActions,
         middleware: {
             log: moduleData?.middleware?.log,
             run: moduleData?.middleware?.run,

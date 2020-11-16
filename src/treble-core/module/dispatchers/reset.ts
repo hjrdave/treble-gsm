@@ -1,4 +1,5 @@
 import {TrebleGSM} from '../../../interfaces';
+import {trebleError} from '../../../globals';
 interface IReset{
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
@@ -14,22 +15,20 @@ const reset: IReset = (dispatch, action, options) => {
 
     try{
         if(typeof action !== 'string'){
-            throw TypeError('SubscribeAPI: parameter action must be a string');
+            throw TypeError('action prop must be a string');
         }
+        dispatch({
+            type: action,
+            [action]: null,
+            reducerAction: 'resetToInitialState',
+            options: {
+                disableMiddleware: false,
+                ...options
+            }
+        })
     }catch(error){
-        throw error;
+        console.error(`${trebleError} ${error}`);
     }
-
-    dispatch({
-        type: action,
-        [action]: null,
-        reducerAction: 'resetToInitialState',
-        options: {
-            disableMiddleware: false,
-            ...options
-        }
-    })
-
 }
 
 export default reset;

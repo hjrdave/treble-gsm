@@ -2,9 +2,9 @@
     Reducer Actions
     - These are reducer actions that recieve data from dispatchers for processing
 */
-import {TrebleGSM} from '../interfaces';
+import { TrebleGSM } from '../interfaces';
 
-interface IRunReducerActions{
+interface IRunReducerActions {
     (
         middlewareData: TrebleGSM.MiddlewareData
     ): any
@@ -14,12 +14,12 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
 
     const { dispatchValue, storeModules: modules, dispatchPayload } = middlewareData;
 
-    let reducerActions: {[key:string]: any} = {}
-    
+    let reducerActions: { [key: string]: any } = {}
+
     //Run module reducer actions
     modules?.map((module) => {
-        const dispatchMethods = module.subscribeAPI?.reducerActions;
-        if(dispatchMethods){
+        const dispatchMethods = module?.reducerActions;
+        if (dispatchMethods) {
             const dispatchMethodsArray = Object.entries(dispatchMethods);
             dispatchMethodsArray?.map((dispatchMethod) => {
                 reducerActions = {
@@ -31,10 +31,10 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
     })
     const processedDispatchValue = reducerActions[dispatchPayload.reducerAction]();
 
-    if(processedDispatchValue){
+    if (processedDispatchValue) {
         return processedDispatchValue;
     }
-    
+
     return dispatchValue
 }
 

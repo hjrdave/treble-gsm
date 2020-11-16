@@ -1,7 +1,7 @@
 /*
     Treble Core Reducer Actions
 */
-import {TrebleGSM} from '../../interfaces';
+import { TrebleGSM } from '../../interfaces';
 
 //simple dispatcher that returns dispatch value
 export const updateState = (middlewareData: TrebleGSM.MiddlewareData) => middlewareData.dispatchValue;
@@ -13,7 +13,7 @@ export const resetToInitialState = (middlewareData: TrebleGSM.MiddlewareData) =>
 export const toggleState = (middlewareData: TrebleGSM.MiddlewareData) => {
 
     const { dispatchValue, currentState } = middlewareData;
-    if(dispatchValue){
+    if (dispatchValue) {
         return (dispatchValue) ? false : true;
     }
     return (currentState) ? false : true;

@@ -28,3 +28,13 @@ export interface IReset{
         
     ): void
 }
+
+export interface IResetAll{
+    (
+        action: string,
+        options?: {
+            disableMiddleware?: boolean
+        }
+        
+    ): void
+}

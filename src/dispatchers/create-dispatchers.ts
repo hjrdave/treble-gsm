@@ -2,7 +2,7 @@
     Create Dispatchers
     - Creates dispatchers for SubscribeAPI
 */
-import {TrebleGSM} from '../interfaces';
+import { TrebleGSM } from '../interfaces';
 
 interface ICreateDispatchers {
     (
@@ -14,17 +14,17 @@ interface ICreateDispatchers {
 const createDispatchers: ICreateDispatchers = (dispatch, modules) => {
 
     //dispatcher methods
-    let dispatcherMethods: {[key:string]: any} = {
+    let dispatcherMethods: { [key: string]: any } = {
 
         // pure dispatch method that can be use for extending the SubsribeAPI Dispatchers
         dispatch: (payload: TrebleGSM.DispatchPayload) => dispatch(payload)
 
     };
-    
+
     //add module suscribe methods
     modules?.map((module) => {
-        const moduleMethods = module?.subscribeAPI?.dispatchers;
-        if(moduleMethods !== undefined){
+        const moduleMethods = module?.dispatchers;
+        if (moduleMethods !== undefined) {
             const methodArray = Object.entries(moduleMethods);
             methodArray?.map((method) => {
                 dispatcherMethods = {
@@ -32,7 +32,7 @@ const createDispatchers: ICreateDispatchers = (dispatch, modules) => {
                     [method[0]]: (...params: any) => method[1](dispatch, ...params)
                 }
             })
-            
+
         }
     });
 
