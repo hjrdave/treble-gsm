@@ -3,6 +3,7 @@
     - Creates dispatchers for SubscribeAPI
 */
 import { TrebleGSM } from '../interfaces';
+import { trebleError } from '../globals';
 
 interface ICreateDispatchers {
     (
@@ -12,6 +13,14 @@ interface ICreateDispatchers {
 }
 
 const createDispatchers: ICreateDispatchers = (dispatch, modules) => {
+
+    try {
+        if (dispatch === undefined) {
+            throw Error('Dispatch failed. React or TrebleGSM might not be installed.')
+        }
+    } catch (error) {
+        console.error(`${trebleError} ${error}`);
+    }
 
     //dispatcher methods
     let dispatcherMethods: { [key: string]: any } = {
