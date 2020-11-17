@@ -3,12 +3,7 @@ import { trebleError } from '../../../globals';
 interface IRun {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
-        action: string,
-        options?: {
-            disableMiddleware?: boolean,
-            sideEffectOnly: boolean
-        }
-
+        action: string
     ): void
 }
 
@@ -20,7 +15,8 @@ const run: IRun = (dispatch, action) => {
             [action]: false,
             reducerAction: 'runSideEffect',
             options: {
-                disableMiddleware: false
+                disableMiddleware: false,
+                renderGuard: false
             }
         })
     } catch (error) {

@@ -8,7 +8,6 @@ import Provider from "./provider";
 import buildState from "./state";
 import buildReducer from "./reducer";
 import Context from "./context";
-import { Persist } from "./persist";
 import { TrebleGSM } from "./interfaces";
 import TrebleCore from './treble-core';
 import { useTreble } from ".";
@@ -76,7 +75,6 @@ function Treble({ children, store }: ITreble) {
         modules={Modules}
       >
         <>
-          {/* <Persist store={Store} /> */}
           {children}
         </>
       </Provider>

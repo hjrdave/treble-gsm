@@ -2,40 +2,44 @@
     Render Guard
     - middleware for running shallow comparisons on dispatch values
 */
-import {TrebleGSM} from '../../../../interfaces';
+import { TrebleGSM } from '../../../../interfaces';
 import shallowCompare from './shallow-compare';
 
-const renderGuard = (middlewareData: TrebleGSM.MiddlewareData) => {
-    const {dispatchValue, currentState} = middlewareData;
+const renderGuard = (data: TrebleGSM.MiddlewareData) => {
+    const { dispatchValue, currentState, dispatchPayload } = data;
 
-    //primitive check
-    if(dispatchValue !== currentState){
+    //makes sure renderGuard is not disabled by dispatcher
+    if (dispatchPayload.options?.renderGuard !== false) {
+        //primitive check
+        if (dispatchValue !== currentState) {
 
-        //determines if dispatch value is an object type
-        const isObject = (dispatchValue && typeof dispatchValue === 'object' && currentState && typeof currentState === 'object');
+            //determines if dispatch value is an object type
+            const isObject = (dispatchValue && typeof dispatchValue === 'object' && currentState && typeof currentState === 'object');
 
-        if(isObject){
+            if (isObject) {
 
-            //checks arrays
-            if(Array.isArray(dispatchValue)){
+                //checks arrays
+                if (Array.isArray(dispatchValue)) {
 
-                //makes sure consecutive empty array dispatch values do not trigger rerenders
-                if(!(dispatchValue.length > 0 && currentState.length > 0)){
-                    return false
+                    //makes sure consecutive empty array dispatch values do not trigger rerenders
+                    if (!(dispatchValue.length > 0 && currentState.length > 0)) {
+                        return false
+                    }
+                    return true
                 }
+
+                //does a shallow check on objects
+                if (!shallowCompare(dispatchValue, currentState)) {
+                    return false
+                };
                 return true
             }
-            
-            //does a shallow check on objects
-            if(!shallowCompare(dispatchValue, currentState)){
-                return false
-            };
-            return true
+            return true;
         }
-        return true;
+        return false;
     }
 
-    return true;
+    return true
 
 }
 
