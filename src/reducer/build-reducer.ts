@@ -36,7 +36,7 @@ const buildReducer: Reducer.Build = (store, modules) => {
       return reducerActions[action.type]();
     }
     catch (err) {
-      throw Error(`${trebleError} Store action ${action.type} does not exist`);
+      throw Error(`${trebleError} Store action key "${action.type}" does not exist`);
     }
 
   };

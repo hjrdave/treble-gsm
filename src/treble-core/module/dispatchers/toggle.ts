@@ -1,22 +1,19 @@
-import {TrebleGSM} from '../../../interfaces';
-import {trebleError} from '../../../globals';
-interface IToggle{
+import { TrebleGSM } from '../../../interfaces';
+import { trebleError } from '../../../globals';
+interface IToggle {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
         action: string,
-        dispatchValue?: boolean,
-        options?:{
-            disableMiddleware?: boolean
-        }
+        dispatchValue?: boolean
     ): void
 }
-const toggle:IToggle = (dispatch, action, dispatchValue, options) => {
+const toggle: IToggle = (dispatch, action, dispatchValue) => {
 
-    try{
-        if(typeof action !== 'string'){
+    try {
+        if (typeof action !== 'string') {
             throw TypeError('action prop must be a string');
         }
-        if(dispatchValue !== undefined || typeof dispatchValue !== 'boolean'){
+        if (dispatchValue !== undefined || typeof dispatchValue !== 'boolean') {
             throw TypeError('dispatchValue must be a boolean');
         }
 
@@ -29,7 +26,7 @@ const toggle:IToggle = (dispatch, action, dispatchValue, options) => {
             }
         })
 
-    }catch(error){
+    } catch (error) {
         console.error(`${trebleError} ${error}`);
     }
 }

@@ -10,6 +10,9 @@ interface IRun {
 const run: IRun = (dispatch, action) => {
 
     try {
+        if (typeof action !== 'string') {
+            throw TypeError('action prop must be a string');
+        }
         dispatch({
             type: action,
             [action]: false,

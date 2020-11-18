@@ -1,11 +1,11 @@
-import {TrebleGSM} from '../../../interfaces';
-import {trebleError} from '../../../globals';
-interface IUpdate{
+import { TrebleGSM } from '../../../interfaces';
+import { trebleError } from '../../../globals';
+interface IUpdate {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
         action: string,
         dispatchValue: any,
-        options?:{
+        options?: {
             disableMiddleware?: boolean
         }
     ): void
@@ -13,12 +13,11 @@ interface IUpdate{
 
 const update: IUpdate = (dispatch, action, dispatchValue, options) => {
 
-    try{
+    try {
 
-        if(typeof action !== 'string'){
+        if (typeof action !== 'string') {
             throw TypeError('action prop must be a string');
         }
-
         dispatch({
             type: action,
             [action]: dispatchValue,
@@ -28,7 +27,7 @@ const update: IUpdate = (dispatch, action, dispatchValue, options) => {
             }
         });
 
-    }catch(error){
+    } catch (error) {
         console.error(`${trebleError} ${error}`);
     }
 
