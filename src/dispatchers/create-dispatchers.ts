@@ -16,7 +16,7 @@ const createDispatchers: ICreateDispatchers = (dispatch, modules) => {
 
     try {
         if (dispatch === undefined) {
-            throw Error('Dispatch failed. React or TrebleGSM might not be installed.')
+            throw Error('Dispatch is undefined. React or TrebleGSM might not be installed.')
         }
     } catch (error) {
         console.error(`${trebleError} ${error}`);
