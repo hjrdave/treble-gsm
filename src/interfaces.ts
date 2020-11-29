@@ -48,7 +48,8 @@ export declare namespace TrebleGSM {
     check?: (middlewareData: MiddlewareData) => boolean,
     run?: (middlewareData: MiddlewareData) => void,
     process?: (middlewareData: MiddlewareData) => any,
-    callback?: (middlewareData: MiddlewareData) => void
+    callback?: (middlewareData: MiddlewareData) => void,
+    payloadListener?: (payload: DispatchPayload) => void
   }
   export interface MiddlewareData<State = void & any> {
     dispatchValue: any,

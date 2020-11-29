@@ -3,7 +3,7 @@ import { TrebleGSM } from '../interfaces';
 interface ICreateMiddlewareData {
     (
         dispatchValue: any,
-        action: TrebleGSM.DispatchPayload,
+        payload: TrebleGSM.DispatchPayload,
         storeItem: TrebleGSM.StoreItem,
         state: TrebleGSM.StoreState,
         store: TrebleGSM.StoreItem[],
@@ -11,7 +11,7 @@ interface ICreateMiddlewareData {
     ): TrebleGSM.MiddlewareData
 }
 
-const createMiddlewareData: ICreateMiddlewareData = (dispatchValue, action, storeItem, state, store, modules) => {
+const createMiddlewareData: ICreateMiddlewareData = (dispatchValue, payload, storeItem, state, store, modules) => {
 
     const handleInitialState = () => {
         const stateObject = store.find((item) => item.action === storeItem.action)?.state;
@@ -22,7 +22,7 @@ const createMiddlewareData: ICreateMiddlewareData = (dispatchValue, action, stor
     }
     return {
         dispatchValue: dispatchValue,
-        dispatchPayload: action,
+        dispatchPayload: payload,
         initialDispatchValue: dispatchValue,
         action: storeItem.action,
         features: storeItem.features,

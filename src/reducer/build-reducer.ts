@@ -9,7 +9,7 @@ import { trebleError } from '../globals';
 
 const buildReducer: Reducer.Build = (store, modules) => {
 
-  const Reducer: Reducer.TrebleReducer = (state, action) => {
+  const Reducer: Reducer.TrebleReducer = (state, payload) => {
 
     let reducerActions: Reducer.ReducerActions = {}
 
@@ -17,7 +17,7 @@ const buildReducer: Reducer.Build = (store, modules) => {
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
-        [storeItem.action]: () => runDispatchPipeline(storeItem, state, action, store, modules)
+        [storeItem.action]: () => runDispatchPipeline(storeItem, state, payload, store, modules)
       }
     });
 
@@ -26,17 +26,17 @@ const buildReducer: Reducer.Build = (store, modules) => {
       module.extendStore?.data.map((storeItem) => {
         reducerActions = {
           ...reducerActions,
-          [storeItem.action]: () => runDispatchPipeline(storeItem, state, action, store, modules)
+          [storeItem.action]: () => runDispatchPipeline(storeItem, state, payload, store, modules)
         }
       })
     });
 
     //checks to makes sure action key exists and throws error if it doesnt
     try {
-      return reducerActions[action.type]();
+      return reducerActions[payload.type]();
     }
     catch (err) {
-      throw Error(`${trebleError} Store action key "${action.type}" does not exist`);
+      throw Error(`${trebleError} Store action key "${payload.type}" does not exist`);
     }
 
   };

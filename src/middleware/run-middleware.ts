@@ -18,55 +18,55 @@ export interface IRunMiddleware {
       features?: TrebleGSM.StoreFeatures
     },
     state: TrebleGSM.StoreState,
-    action: TrebleGSM.DispatchPayload,
+    payload: TrebleGSM.DispatchPayload,
     store: any,
     modules: TrebleGSM.ModuleData[]
   ): any
 }
 
-const runMiddleware: IRunMiddleware = (dispatchValue, storeItem, state, action, store, modules) => {
+const runMiddleware: IRunMiddleware = (dispatchValue, storeItem, state, payload, store, modules) => {
 
-    //create middleware data object
-    let middlewareData = createMiddlewareData(dispatchValue, action, storeItem, state, store, modules);
-   
-    //checks state agianst criteria then returns boolean
-    const doesDispatchValuePass = checkDispatchValue(middlewareData);
+  //create middleware data object
+  let middlewareData = createMiddlewareData(dispatchValue, payload, storeItem, state, store, modules);
 
-    //runs a non-blocking function as soon as a value is dispatched to Store (failed checks will not cause it to fail)
-    runSideEffect(middlewareData, 'log');
+  //checks state agianst criteria then returns boolean
+  const doesDispatchValuePass = checkDispatchValue(middlewareData);
 
-    //Makes sure state passes check and then will continue middleware pipeline and then return a value
-    if (doesDispatchValuePass) {
+  //runs a non-blocking function as soon as a value is dispatched to Store (failed checks will not cause it to fail)
+  runSideEffect(middlewareData, 'log');
 
-        //runs a non-blocking function
-        runSideEffect(middlewareData, 'run');
+  //Makes sure state passes check and then will continue middleware pipeline and then return a value
+  if (doesDispatchValuePass) {
 
-        //run module reducer actions
-        const dispatchValue = runReducerActions(middlewareData);
+    //runs a non-blocking function
+    runSideEffect(middlewareData, 'run');
 
-        middlewareData = {
-            ...middlewareData,
-            dispatchValue: dispatchValue
-        }
+    //run module reducer actions
+    const dispatchValue = runReducerActions(middlewareData);
 
-        //passes dispatchValue through module and feature process middleware
-        const processedDispatchValue = processDispatchValue(middlewareData);
-
-        //updates middleware data if data is processed
-        if(processDispatchValue !== dispatchValue){
-            middlewareData = {
-                ...middlewareData,
-                dispatchValue: processedDispatchValue
-            }
-        }
-
-        //runs callback if it exists with processedValue
-        runSideEffect(middlewareData, 'callback');
-
-        return middlewareData.dispatchValue;
+    middlewareData = {
+      ...middlewareData,
+      dispatchValue: dispatchValue
     }
 
-    return null
+    //passes dispatchValue through module and feature process middleware
+    const processedDispatchValue = processDispatchValue(middlewareData);
+
+    //updates middleware data if data is processed
+    if (processDispatchValue !== dispatchValue) {
+      middlewareData = {
+        ...middlewareData,
+        dispatchValue: processedDispatchValue
+      }
+    }
+
+    //runs callback if it exists with processedValue
+    runSideEffect(middlewareData, 'callback');
+
+    return middlewareData.dispatchValue;
+  }
+
+  return null
 }
 
 export default runMiddleware;
