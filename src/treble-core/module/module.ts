@@ -15,7 +15,7 @@ const TrebleCore = createModule({
     extendStore: TrebleCoreStore,
     renderComponent: TrebleCoreComp,
     middleware: {
-        check: (data) => renderGuard(data)
+        check: renderGuard
     },
     dispatchers: {
         'update': updateStore,

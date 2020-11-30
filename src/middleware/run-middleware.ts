@@ -11,23 +11,13 @@ import createMiddlewareData from './create-middleware-data';
 
 export interface IRunMiddleware {
   (
-    dispatchValue: any,
-    storeItem: {
-      action: string,
-      state: TrebleGSM.StoreState,
-      features?: TrebleGSM.StoreFeatures
-    },
-    state: TrebleGSM.StoreState,
-    payload: TrebleGSM.DispatchPayload,
-    store: any,
-    modules: TrebleGSM.ModuleData[]
+    middlewareData: TrebleGSM.MiddlewareData
   ): any
 }
 
-const runMiddleware: IRunMiddleware = (dispatchValue, storeItem, state, payload, store, modules) => {
+const runMiddleware: IRunMiddleware = (middlewareData) => {
 
-  //create middleware data object
-  let middlewareData = createMiddlewareData(dispatchValue, payload, storeItem, state, store, modules);
+
 
   //checks state agianst criteria then returns boolean
   const doesDispatchValuePass = checkDispatchValue(middlewareData);

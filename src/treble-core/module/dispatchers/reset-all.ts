@@ -20,8 +20,8 @@ const resetAll: IResetAll = (dispatch) => {
             ['runTrebleCoreMiddleware']: true,
             reducerAction: 'resetAllToInitialState',
             options: {
-                disableMiddleware: false,
-                renderGuard: false
+                disableMiddleware: true,
+                allowPayloadListeners: true
             }
         })
     } catch (error) {

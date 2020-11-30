@@ -4,22 +4,27 @@
     - It puts a dispatch value through middleware modules before being sent to reducer action
 */
 
-import runMiddleware from "../middleware";
+import { runMiddleware, createMiddlewareData, runReducerActions, runPayloadListeners } from "../middleware";
 import { Reducer } from './interfaces';
-import runPayloadListeners from '../middleware/run-payload-listeners';
 
 const runDispatchPipeline: Reducer.DispatchPipeline = (storeItem, state, payload, store, modules) => {
   const stateName = Object.keys(storeItem.state)[0];
   const dispatchValue = payload[storeItem.action];
   const disableMiddleware = payload.options?.disableMiddleware;
+  const allowPayloadListeners = payload.options?.allowPayloadListeners;
 
-  //payload listener
-  runPayloadListeners(payload, modules);
+  //create middleware data object
+  const middlewareData = createMiddlewareData(dispatchValue, payload, storeItem, state, store, modules);
+
+  //runs payload listeners (used for dispatchers that have middleware disabled)
+  if (allowPayloadListeners) {
+    runPayloadListeners(payload, modules);
+  }
 
   //run middleware if not disabled
   if (!(disableMiddleware)) {
 
-    const middlewareValue = runMiddleware(dispatchValue, storeItem, state, payload, store, modules);
+    const middlewareValue = runMiddleware(middlewareData);
 
     //makes sure dispatchValue passes check middleware
     if (middlewareValue !== null) {
@@ -31,10 +36,13 @@ const runDispatchPipeline: Reducer.DispatchPipeline = (storeItem, state, payload
     return { ...state };
   }
 
+  //runs reducer actions only
+  const reducerActionValue = runReducerActions(middlewareData);
+
   //if middleware is disabled dispatchValue middleware pipeline will be bypassed
   return {
     ...state,
-    [stateName]: dispatchValue,
+    [stateName]: reducerActionValue
   };
 };
 

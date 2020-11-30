@@ -24,7 +24,8 @@ const createModule: ICreateModule = (moduleData) => {
             run: moduleData?.middleware?.run,
             check: moduleData?.middleware?.check,
             process: moduleData?.middleware?.process,
-            callback: moduleData?.middleware?.callback
+            callback: moduleData?.middleware?.callback,
+            payloadListener: moduleData?.middleware?.payloadListener
         },
         renderComponent: moduleData?.renderComponent,
         initOrder: moduleData?.initOrder,

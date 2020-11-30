@@ -34,6 +34,7 @@ export declare namespace TrebleGSM {
     disableMiddleware?: boolean;
     sideEffectOnly?: boolean;
     renderGuard?: boolean;
+    allowPayloadListeners?: boolean;
   }
 
   export interface DispatchPayload {

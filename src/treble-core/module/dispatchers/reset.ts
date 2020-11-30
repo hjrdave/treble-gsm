@@ -23,6 +23,7 @@ const reset: IReset = (dispatch, action, options) => {
             reducerAction: 'resetToInitialState',
             options: {
                 disableMiddleware: true,
+                allowPayloadListeners: true,
                 ...options
             }
         })
