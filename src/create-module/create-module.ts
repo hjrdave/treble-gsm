@@ -30,7 +30,8 @@ const createModule: ICreateModule = (moduleData) => {
         renderComponent: moduleData?.renderComponent,
         initOrder: moduleData?.initOrder,
         namespaceDispatchers: moduleData?.namespaceDispatchers,
-        namespaceFeatureKeys: moduleData?.namespaceFeatureKeys
+        namespaceFeatureKeys: moduleData?.namespaceFeatureKeys,
+        importModules: moduleData?.importModules
     }
 };
 

@@ -81,7 +81,8 @@ export declare namespace TrebleGSM {
     namespaceDispatchers?: string,
     namespaceFeatureKeys?: {
       [key: string]: string
-    }
+    },
+    importModules?: ModuleData[]
   }
 
   export interface ModuleDispatchers<T> { }
