@@ -59,6 +59,8 @@ function Treble({ children, store }: ITreble) {
     return []
   }
 
+
+
   //makes sure modules are not duplicated (makes sure store modules takes precedence over inherited modules)
   const noDuplicateModules = (inheritedModules: any, storeModules: any) => {
     if (inheritedModules.length > 0) {
@@ -79,7 +81,7 @@ function Treble({ children, store }: ITreble) {
     Store = useMemo(() => store.data, [store.data]),
 
     //store modules
-    Modules = [TrebleCore, ...noDuplicateModules(noDuplicateModules(inheritedModules, storeModules), importedModules())],
+    Modules = [TrebleCore, ...noDuplicateModules(importedModules(), noDuplicateModules(inheritedModules, storeModules))],
 
     //builds reducer from Store
     Reducer = buildReducer([...Store], Modules),
