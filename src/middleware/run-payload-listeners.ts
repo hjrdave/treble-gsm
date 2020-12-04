@@ -13,9 +13,7 @@ const runPayloadListeners = (payload: TrebleGSM.DispatchPayload, modules: Treble
             //run module side effects
             modules?.map((module) => {
                 const payLoadListener = module.middleware?.payloadListener
-                console.log(payLoadListener);
                 if (payLoadListener) {
-
                     payLoadListener(payload);
                 }
             })

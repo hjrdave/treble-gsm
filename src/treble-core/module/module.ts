@@ -35,8 +35,6 @@ const TrebleCore = createModule({
 
 });
 
-console.log(TrebleCore)
-
 export { reducerActionKeys }
 export default TrebleCore
 
