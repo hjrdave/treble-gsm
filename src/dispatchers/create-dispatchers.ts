@@ -33,12 +33,17 @@ const createDispatchers: ICreateDispatchers = (dispatch, modules) => {
     //add module suscribe methods
     modules?.map((module) => {
         const moduleMethods = module?.dispatchers;
+        const namespaceString = module?.namespace;
+        const namespaceDispatchers = module?.namespaceDispatchers;
+
         if (moduleMethods !== undefined) {
             const methodArray = Object.entries(moduleMethods);
             methodArray?.map((method) => {
+                //will abbreviate dispatcher methods if namepsaceDispatcher prop is set to true (for collision resolution)
+                const dispatcherKey = (namespaceDispatchers) ? `${namespaceString}_${method[0]}` : method[0];
                 dispatcherMethods = {
                     ...dispatcherMethods,
-                    [method[0]]: (...params: any) => method[1](dispatch, ...params)
+                    [dispatcherKey]: (...params: any) => method[1](dispatch, ...params)
                 }
             })
 

@@ -1,5 +1,6 @@
 import { TrebleGSM } from '../../../interfaces';
 import { trebleError } from '../../../globals';
+import { reducerActionKeys } from '../reducer-actions';
 interface IReset {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
@@ -20,7 +21,7 @@ const reset: IReset = (dispatch, action, options) => {
         dispatch({
             type: action,
             [action]: null,
-            reducerAction: 'resetToInitialState',
+            reducerAction: reducerActionKeys.reset,
             options: {
                 disableMiddleware: true,
                 allowPayloadListeners: true,

@@ -17,6 +17,7 @@ const runDispatchPipeline: Reducer.DispatchPipeline = (storeItem, state, payload
   const middlewareData = createMiddlewareData(dispatchValue, payload, storeItem, state, store, modules);
 
   //runs payload listeners (used for dispatchers that have middleware disabled)
+
   if (allowPayloadListeners) {
     runPayloadListeners(payload, modules);
   }

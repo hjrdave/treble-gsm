@@ -1,5 +1,6 @@
 import { TrebleGSM } from '../../../interfaces';
 import { trebleError } from '../../../globals';
+import { reducerActionKeys } from '../reducer-actions';
 interface IUpdate {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
@@ -21,7 +22,7 @@ const update: IUpdate = (dispatch, action, dispatchValue, options) => {
         dispatch({
             type: action,
             [action]: dispatchValue,
-            reducerAction: 'updateState',
+            reducerAction: reducerActionKeys.update,
             options: {
                 disableMiddleware: (options?.disableMiddleware) ? true : false
             }

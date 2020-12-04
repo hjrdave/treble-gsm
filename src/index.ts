@@ -5,6 +5,7 @@ import createModule from './create-module';
 import withTreble from './with-treble';
 import { useTreble, useScopedTreble } from './hooks';
 import { TrebleGSM } from './interfaces';
+import { reducerActionKeys } from './treble-core'
 
 export {
     useTreble,
@@ -13,7 +14,8 @@ export {
     useScopedTreble,
     withTreble,
     Provider,
-    TrebleGSM
+    TrebleGSM,
+    reducerActionKeys
 };
 
 export default Treble;

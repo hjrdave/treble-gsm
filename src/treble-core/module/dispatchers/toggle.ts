@@ -1,5 +1,6 @@
 import { TrebleGSM } from '../../../interfaces';
 import { trebleError } from '../../../globals';
+import { reducerActionKeys } from '../reducer-actions';
 interface IToggle {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
@@ -20,7 +21,7 @@ const toggle: IToggle = (dispatch, action, dispatchValue) => {
         dispatch({
             type: action,
             [action]: dispatchValue,
-            reducerAction: 'toggleState',
+            reducerAction: reducerActionKeys.toggle,
             options: {
                 disableMiddleware: true
             }

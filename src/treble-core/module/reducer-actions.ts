@@ -3,6 +3,16 @@
 */
 import { TrebleGSM } from '../../interfaces';
 
+const NS = 'TREBLE_CORE_';
+
+export const reducerActionKeys = {
+    update: `${NS}update`,
+    toggle: `${NS}toggle`,
+    run: `${NS}run`,
+    reset: `${NS}reset`,
+    resetAll: `${NS}resetAll`
+}
+
 //simple dispatcher that returns dispatch value
 export const updateState = (data: TrebleGSM.MiddlewareData) => data.dispatchValue;
 

@@ -1,5 +1,6 @@
 import { TrebleGSM } from '../../../interfaces';
 import { trebleError } from '../../../globals';
+import { reducerActionKeys } from '../reducer-actions';
 interface IRun {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
@@ -16,7 +17,7 @@ const run: IRun = (dispatch, action) => {
         dispatch({
             type: action,
             [action]: false,
-            reducerAction: 'runSideEffect',
+            reducerAction: reducerActionKeys.run,
             options: {
                 disableMiddleware: false,
                 renderGuard: false

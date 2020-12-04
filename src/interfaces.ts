@@ -78,10 +78,9 @@ export declare namespace TrebleGSM {
     middleware?: MiddlewareTypes,
     renderComponent?: React.ReactNode,
     initOrder?: number,
-    namespaceDispatchers?: string,
-    namespaceFeatureKeys?: {
-      [key: string]: string
-    },
+    namespace?: string,
+    namespaceDispatchers?: boolean,
+    namespaceFeatureKeys?: boolean,
     importModules?: ModuleData[]
   }
 
