@@ -2,15 +2,11 @@
     createStore
     This is imported into app to create new store and provide proper typings.
 */
-import errorHandling from './error-handling';
 import { TrebleGSM } from '../interfaces';
 
 
 
 const createStore = <A = string, F = {}>(storeData: TrebleGSM.StoreItem<A, F>[], options?: TrebleGSM.StoreOptions) => {
-
-    //error handles storeItems
-    // errorHandling(storeData);
 
     //handle extendStore array
     const handleExtendStore = (extendStoreProp: { data: TrebleGSM.StoreItem[] }[]) => {
