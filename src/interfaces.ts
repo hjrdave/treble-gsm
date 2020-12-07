@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-import { TrebleCore } from './treble-core/module/interfaces';
+import { ITrebleCore } from './treble-core/module/interfaces';
 
 export declare namespace TrebleGSM {
 
@@ -13,13 +13,13 @@ export declare namespace TrebleGSM {
   }
 
   //Store Item Features Model
-  export interface StoreFeatures extends MiddlewareTypes { [key: string]: any }
+  export interface StoreFeatures extends MiddlewareTypes { }
 
   //Store Item Model
-  export interface StoreItem {
+  export interface StoreItem<S extends StoreState = StoreState, F extends StoreFeatures = StoreFeatures> {
     action: string,
-    state: StoreState
-    features?: StoreFeatures
+    state: S,
+    features?: F
   }
 
   //Store Options Model
@@ -63,7 +63,7 @@ export declare namespace TrebleGSM {
     storeItems: StoreItem[],
     storeState: State,
     storeModules: ModuleData[],
-    dispatchers: SubscribeAPI.Dispatchers<{}>
+    dispatchers: TrebleGSM.SubscribeAPI.Dispatchers
   }
 
   export interface ModuleData {
@@ -88,9 +88,12 @@ export declare namespace TrebleGSM {
 
   export namespace SubscribeAPI {
 
-    export type Dispatchers<T extends {}> = T & {
-      dispatch: (payload: DispatchPayload) => DispatchPayload
-    } & TrebleCore.Dispatchers
+    export interface State {
+      [key: string]: any
+    }
+    export interface Dispatchers extends ITrebleCore.Dispatchers {
+      dispatch: (payload: DispatchPayload) => DispatchPayload;
+    }
 
     export interface Utilities<T = void> {
       actions: T | { [key: string]: string };
@@ -102,7 +105,7 @@ export declare namespace TrebleGSM {
 
   }
 
-  export type UseTreble<State, Actions = void, Dispatchers = void> = [State, SubscribeAPI.Dispatchers<Dispatchers>, SubscribeAPI.Utilities<Actions>];
+  export type UseTreble<State, Actions = void, Dispatchers = void> = [State, SubscribeAPI.Dispatchers, SubscribeAPI.Utilities<Actions>];
 
 }
 

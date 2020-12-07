@@ -9,6 +9,7 @@ import TrebleCoreComp from './render-comp';
 import renderGuard from './middleware/render-guard';
 import { update as updateStore, run as runStoreSideEffect, toggle as toggleStore, reset as resetStore, resetAll as resetAllStore } from './dispatchers';
 import { updateState, toggleState, resetToInitialState, resetAllToInitialState, runSideEffect, reducerActionKeys } from './reducer-actions';
+import { ITrebleCore } from './interfaces';
 
 const TrebleCore = createModule({
     name: 'treble-core',
@@ -35,6 +36,6 @@ const TrebleCore = createModule({
 
 });
 
-export { reducerActionKeys }
+export { reducerActionKeys, ITrebleCore }
 export default TrebleCore
 

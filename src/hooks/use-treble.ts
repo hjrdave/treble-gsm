@@ -6,9 +6,14 @@
 import { useContext } from "react";
 import defaultContext from "../context";
 import { TrebleGSM } from "../interfaces";
-import {Hooks} from './interface';
+import { ITrebleCore } from '../treble-core';
 
-const useTreble: Hooks.UseTreble = (context) => {
+
+export interface State extends TrebleGSM.SubscribeAPI.State { };
+export interface Dispatchers extends TrebleGSM.SubscribeAPI.Dispatchers, ITrebleCore.Dispatchers { };
+export interface Actions { [key: string]: string }
+
+const useTreble = <S extends State = State, A extends Actions = Actions, D extends Dispatchers = Dispatchers>(context?: any) => {
   try {
     if (context) {
       if (typeof context !== "object") {
@@ -19,7 +24,7 @@ const useTreble: Hooks.UseTreble = (context) => {
     const trebleContext = context !== undefined ? context : defaultContext;
 
     //would like to figure out how to type trebleContext something other then 'any' without breaking everything
-    const storeSubscription: [{ [key: string]: any }, TrebleGSM.SubscribeAPI.Dispatchers<{}>, TrebleGSM.SubscribeAPI.Utilities] = useContext(
+    const storeSubscription: any[] = useContext(
       trebleContext as any
     );
 
@@ -42,3 +47,5 @@ const useTreble: Hooks.UseTreble = (context) => {
 };
 
 export default useTreble;
+
+

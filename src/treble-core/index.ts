@@ -1,4 +1,4 @@
-import TrebleCore, { reducerActionKeys } from './module/module';
+import TrebleCore, { reducerActionKeys, ITrebleCore } from './module/module';
 
-export { reducerActionKeys };
+export { reducerActionKeys, ITrebleCore };
 export default TrebleCore;
