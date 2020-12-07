@@ -105,7 +105,7 @@ export declare namespace TrebleGSM {
 
   }
 
-  export type UseTreble<State, Actions = void, Dispatchers = void> = [State, SubscribeAPI.Dispatchers, SubscribeAPI.Utilities<Actions>];
+
 
 }
 

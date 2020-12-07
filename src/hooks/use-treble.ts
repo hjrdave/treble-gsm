@@ -13,7 +13,7 @@ export interface State extends TrebleGSM.SubscribeAPI.State { };
 export interface Dispatchers extends TrebleGSM.SubscribeAPI.Dispatchers, ITrebleCore.Dispatchers { };
 export interface Actions { [key: string]: string }
 
-const useTreble = <S extends State = State, A extends Actions = Actions, D extends Dispatchers = Dispatchers>(context?: any) => {
+function useTreble<S = State, D = Dispatchers, A = void>(context?: any) {
   try {
     if (context) {
       if (typeof context !== "object") {
@@ -24,7 +24,7 @@ const useTreble = <S extends State = State, A extends Actions = Actions, D exten
     const trebleContext = context !== undefined ? context : defaultContext;
 
     //would like to figure out how to type trebleContext something other then 'any' without breaking everything
-    const storeSubscription: any[] = useContext(
+    const storeSubscription: [S, D, TrebleGSM.SubscribeAPI.Utilities<A>] = useContext(
       trebleContext as any
     );
 
@@ -38,7 +38,7 @@ const useTreble = <S extends State = State, A extends Actions = Actions, D exten
     const utilities = storeSubscription[2];
 
     //returns an Array [StoreItems (Global state object), Dispatchers (dispatch methods to interact with Store), Utilities (helpers for subscribing) ]
-    return [storeItems, dispatchers, utilities];
+    return storeSubscription;
 
   } catch (error) {
     throw new Error(error);
