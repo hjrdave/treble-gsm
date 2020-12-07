@@ -11,11 +11,11 @@ const createStore = <A = string, F = {}>(storeData: TrebleGSM.StoreItem<A, F>[],
     //handle extendStore array
     const handleExtendStore = (extendStoreProp: { data: TrebleGSM.StoreItem[] }[]) => {
         //created multidimensional array from extendStore property array
-        const array = extendStoreProp.map((data: { data: TrebleGSM.StoreItem[] }) => {
+        const array = extendStoreProp.map((data) => {
             return data;
         });
         //flattens array so it can be passed to store.data prop
-        const flattenedArray: TrebleGSM.StoreItem[] = array.reduce((arr: any, elem: any) => [...arr, ...elem.data], []);
+        const flattenedArray: TrebleGSM.StoreItem[] = array.reduce((arr: any[], elem) => [...arr, ...elem.data], []);
         return flattenedArray;
     }
 
