@@ -13,7 +13,7 @@ import { ITrebleCore } from './interfaces';
 
 const TrebleCore = createModule({
     name: 'treble-core',
-    extendStore: TrebleCoreStore,
+    extendStore: TrebleCoreStore as any,
     renderComponent: TrebleCoreComp,
     namespace: 'core',
     middleware: {
