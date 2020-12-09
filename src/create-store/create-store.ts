@@ -6,7 +6,7 @@ import { TrebleGSM } from '../interfaces';
 
 
 
-const createStore = <A = string, F = {}>(storeData: TrebleGSM.StoreItem<A, F>[], options?: TrebleGSM.StoreOptions) => {
+const createStore = <S = TrebleGSM.StoreState, F = TrebleGSM.StoreFeatures>(storeData: TrebleGSM.StoreItem<S, F>[], options?: TrebleGSM.StoreOptions) => {
 
     //handle extendStore array
     const handleExtendStore = (extendStoreProp: { data: TrebleGSM.StoreItem[] }[]) => {
