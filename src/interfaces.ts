@@ -13,10 +13,10 @@ export declare namespace TrebleGSM {
   }
 
   //Store Item Features Model
-  export interface StoreFeatures<S = StoreState, D = SubscribeAPI.Dispatchers> extends MiddlewareTypes<S, D> { }
+  export interface StoreFeatures<S = StoreState, D = SubscribeAPI.Dispatchers, F = {}> extends MiddlewareTypes<MiddlewareData<S, D, F>> { }
 
   //Store Item Model (this is the problem interface, for state inheritance issues)
-  export interface StoreItem<S extends StoreState = StoreState, F extends StoreFeatures<S> = StoreFeatures<S>> {
+  export interface StoreItem<S = StoreState, F = StoreFeatures> {
     action: string,
     state: S,
     features?: F
@@ -44,20 +44,20 @@ export declare namespace TrebleGSM {
     options?: DispatcherOptions
   }
 
-  export interface MiddlewareTypes<S = StoreState, D = SubscribeAPI.Dispatchers> {
-    log?: (middlewareData: MiddlewareData<S, D>) => void,
-    check?: (middlewareData: MiddlewareData<S, D>) => boolean,
-    run?: (middlewareData: MiddlewareData<S, D>) => void,
-    process?: (middlewareData: MiddlewareData<S, D>) => any,
-    callback?: (middlewareData: MiddlewareData<S, D>) => void,
+  export interface MiddlewareTypes<M = MiddlewareData> {
+    log?: (middlewareData: M) => void,
+    check?: (middlewareData: M) => boolean,
+    run?: (middlewareData: M) => void,
+    process?: (middlewareData: M) => any,
+    callback?: (middlewareData: M) => void,
     payloadListener?: (payload: DispatchPayload) => void
   }
-  export interface MiddlewareData<S = StoreState, D = SubscribeAPI.Dispatchers> {
+  export interface MiddlewareData<S = StoreState, D = SubscribeAPI.Dispatchers, F = StoreFeatures> {
     dispatchValue: any,
     dispatchPayload: DispatchPayload,
     initialDispatchValue: any,
     action: string,
-    features: StoreFeatures<S> | undefined,
+    features: StoreFeatures<S, D, F> | undefined,
     currentState: any,
     initialState: any,
     storeItems: StoreItem<S>[],
