@@ -24,7 +24,7 @@ const createStore = <S = TrebleGSM.StoreState, F = TrebleGSM.StoreFeatures>(stor
 
     //store object that will be used by Treble
     const store = {
-        data: (extendedStoreData) ? [...storeData, ...extendedStoreData] : storeData,
+        data: (extendedStoreData) ? [...storeData, ...extendedStoreData] : storeData as any,
         scope: options?.context,
         modules: options?.modules,
         options: options
