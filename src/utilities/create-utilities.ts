@@ -11,7 +11,7 @@ const createUtilities = (store: TrebleGSM.StoreItem[], modules: TrebleGSM.Module
     const returnedStateKeys = getStateKeys(store);
     const returnedStoreData = getCurrentStoreData(store);
 
-    const utiltiesObject: TrebleGSM.SubscribeAPI.Utilities = {
+    const utiltiesObject: TrebleGSM.Utilities = {
         actions: {
             ...createActionHelpers(store)
         },

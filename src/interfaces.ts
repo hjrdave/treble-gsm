@@ -13,10 +13,12 @@ export declare namespace TrebleGSM {
   }
 
   //Store Item Features Model
-  export interface StoreFeatures<S = StoreState, D = SubscribeAPI.Dispatchers, F = {}> extends MiddlewareTypes<S, D, F> { }
+  export interface StoreFeatures<S = StoreState, D = Dispatchers, F = { [key: string]: any }> extends MiddlewareTypes<S, D, F> {
+    [key: string]: any
+  }
 
   //Store Item Model (this is the problem interface, for state inheritance issues)
-  export interface StoreItem<S = StoreState, F = StoreFeatures> {
+  export interface StoreItem<S = StoreState, F = { [key: string]: any }> {
     action: string,
     state: S,
     features?: F
@@ -44,7 +46,7 @@ export declare namespace TrebleGSM {
     options?: DispatcherOptions
   }
 
-  export interface MiddlewareTypes<S = StoreState, D = SubscribeAPI.Dispatchers, F = StoreFeatures> {
+  export interface MiddlewareTypes<S = StoreState, D = Dispatchers, F = StoreFeatures> {
     log?: (middlewareData: MiddlewareData<S, D, F>) => void,
     check?: (middlewareData: MiddlewareData<S, D, F>) => boolean,
     run?: (middlewareData: MiddlewareData<S, D, F>) => void,
@@ -52,7 +54,7 @@ export declare namespace TrebleGSM {
     callback?: (middlewareData: MiddlewareData<S, D, F>) => void,
     payloadListener?: (payload: DispatchPayload) => void
   }
-  export interface MiddlewareData<S = StoreState, D = SubscribeAPI.Dispatchers, F = StoreFeatures> {
+  export interface MiddlewareData<S = StoreState, D = Dispatchers, F = StoreFeatures> {
     dispatchValue: any,
     dispatchPayload: DispatchPayload,
     initialDispatchValue: any,
@@ -84,27 +86,20 @@ export declare namespace TrebleGSM {
     importModules?: ModuleData[]
   }
 
-  export interface ModuleDispatchers<T> { }
-
-  export namespace SubscribeAPI {
-
-    export interface State {
-      [key: string]: any
-    }
-    export interface Dispatchers extends ITrebleCore.Dispatchers {
-      dispatch: (payload: DispatchPayload) => DispatchPayload;
-    }
-
-    export interface Utilities<T = void> {
-      actions: T | { [key: string]: string };
-      stateKeys: string[];
-      actionKeys: string[];
-      storeData: any,
-      moduleData: TrebleGSM.ModuleData[]
-    }
-
+  export interface State {
+    [key: string]: any
+  }
+  export interface Dispatchers extends ITrebleCore.Dispatchers {
+    dispatch: (payload: DispatchPayload) => DispatchPayload;
   }
 
+  export interface Utilities<T = void> {
+    actions: T | { [key: string]: string };
+    stateKeys: string[];
+    actionKeys: string[];
+    storeData: any,
+    moduleData: TrebleGSM.ModuleData[]
+  }
 
 
 }
