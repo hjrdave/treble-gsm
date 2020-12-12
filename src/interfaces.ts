@@ -77,7 +77,6 @@ export declare namespace TrebleGSM {
     reducerActions?: { [key: string]: (middlewareData: MiddlewareData) => any }
     middleware?: MiddlewareTypes,
     renderComponent?: React.ReactNode,
-    initOrder?: number,
     namespace?: string,
     namespaceDispatchers?: boolean,
     namespaceFeatureKeys?: boolean,

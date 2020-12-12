@@ -28,7 +28,6 @@ const createModule: ICreateModule = (moduleData) => {
             payloadListener: moduleData?.middleware?.payloadListener
         },
         renderComponent: moduleData?.renderComponent,
-        initOrder: moduleData?.initOrder,
         namespaceDispatchers: moduleData?.namespaceDispatchers,
         namespaceFeatureKeys: moduleData?.namespaceFeatureKeys,
         namespace: moduleData?.namespace,
