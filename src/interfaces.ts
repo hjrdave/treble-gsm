@@ -13,12 +13,10 @@ export declare namespace TrebleGSM {
   }
 
   //Store Item Features Model
-  export interface StoreFeatures<S = StoreState, D = Dispatchers, F = { [key: string]: any }> extends MiddlewareTypes<S, D, F> {
-    [key: string]: any
-  }
+  export interface StoreFeatures<S = StoreState, D = Dispatchers, F = {}> extends MiddlewareTypes<S, D, F> { }
 
   //Store Item Model (this is the problem interface, for state inheritance issues)
-  export interface StoreItem<S = StoreState, F = { [key: string]: any }> {
+  export interface StoreItem<S = StoreState, F = StoreFeatures> {
     action: string,
     state: S,
     features?: F
