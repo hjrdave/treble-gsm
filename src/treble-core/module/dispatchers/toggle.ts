@@ -14,7 +14,7 @@ const toggle: IToggle = (dispatch, action, dispatchValue) => {
         if (typeof action !== 'string') {
             throw TypeError('action prop must be a string');
         }
-        if (dispatchValue !== undefined || typeof dispatchValue !== 'boolean') {
+        if (dispatchValue !== undefined && typeof dispatchValue !== 'boolean') {
             throw TypeError('dispatchValue must be a boolean');
         }
 

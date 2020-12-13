@@ -15,7 +15,7 @@ const createMiddlewareData: ICreateMiddlewareData = (dispatchValue, payload, sto
 
     const handleInitialState = () => {
         const stateObject = store.find((item) => item.action === storeItem.action)?.state;
-        if (stateObject) {
+        if (stateObject !== undefined) {
             const stateKey = Object.keys(stateObject)[0]
             return stateObject[stateKey]
         }
