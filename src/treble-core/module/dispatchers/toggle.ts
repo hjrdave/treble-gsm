@@ -5,24 +5,22 @@ interface IToggle {
     (
         dispatch: (payload: TrebleGSM.DispatchPayload) => void,
         action: string,
-        dispatchValue?: boolean
+        options?: TrebleGSM.DispatcherOptions
     ): void
 }
-const toggle: IToggle = (dispatch, action, dispatchValue) => {
+const toggle: IToggle = (dispatch, action, options) => {
 
     try {
         if (typeof action !== 'string') {
             throw TypeError('action prop must be a string');
         }
-        if (dispatchValue !== undefined && typeof dispatchValue !== 'boolean') {
-            throw TypeError('dispatchValue must be a boolean');
-        }
 
         dispatch({
             type: action,
-            [action]: dispatchValue,
+            [action]: false,
             reducerAction: reducerActionKeys.toggle,
             options: {
+                ...options,
                 disableMiddleware: true
             }
         })

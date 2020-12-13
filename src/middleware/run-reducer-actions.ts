@@ -28,9 +28,10 @@ const runReducerActions: IRunReducerActions = (middlewareData) => {
                 }
             });
         }
-    })
-    const processedDispatchValue = reducerActions[dispatchPayload.reducerAction]();
-    console.log(processedDispatchValue);
+    });
+
+    const processedDispatchValue = (dispatchPayload?.reducerAction !== undefined) ? reducerActions[dispatchPayload?.reducerAction]() : dispatchPayload[dispatchPayload.type];
+
     if (processedDispatchValue !== null && processedDispatchValue !== undefined) {
         return processedDispatchValue;
     }

@@ -22,23 +22,25 @@ const runDispatchPipeline: Reducer.DispatchPipeline = (storeItem, state, payload
     runPayloadListeners(payload, modules);
   }
 
-  //run middleware if not disabled
-  if (!(disableMiddleware)) {
+  if (payload?.reducerAction !== undefined) {
+    //run middleware if not disabled
+    if (!(disableMiddleware)) {
 
-    const middlewareValue = runMiddleware(middlewareData);
+      const middlewareValue = runMiddleware(middlewareData);
 
-    //makes sure dispatchValue passes check middleware
-    if (middlewareValue !== null) {
-      return {
-        ...state,
-        [stateName]: middlewareValue,
-      };
+      //makes sure dispatchValue passes check middleware
+      if (middlewareValue !== null) {
+        return {
+          ...state,
+          [stateName]: middlewareValue,
+        };
+      }
+      return { ...state };
     }
-    return { ...state };
   }
 
   //runs reducer actions only
-  const reducerActionValue = runReducerActions(middlewareData);
+  const reducerActionValue = (payload?.reducerAction !== undefined) ? runReducerActions(middlewareData) : dispatchValue;
 
   //if middleware is disabled dispatchValue middleware pipeline will be bypassed
   return {

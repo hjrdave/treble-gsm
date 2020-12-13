@@ -40,7 +40,7 @@ export declare namespace TrebleGSM {
   export interface DispatchPayload {
     type: string;
     [key: string]: any;
-    reducerAction: string;
+    reducerAction?: string;
     options?: DispatcherOptions
   }
 

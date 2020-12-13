@@ -28,11 +28,7 @@ export const resetAllToInitialState = (data: TrebleGSM.MiddlewareData) => {
 
 //toggles state from true to false
 export const toggleState = (data: TrebleGSM.MiddlewareData) => {
-
-    const { dispatchValue, currentState } = data;
-    if (dispatchValue !== undefined) {
-        return (dispatchValue) ? false : true;
-    }
+    const { currentState } = data;
     return (currentState) ? false : true;
 }
 
