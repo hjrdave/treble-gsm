@@ -90,10 +90,11 @@ export declare namespace TrebleGSM {
     dispatch: (payload: DispatchPayload) => DispatchPayload;
   }
 
-  export interface Utilities<T = void> {
-    actions: T | { [key: string]: string };
+  export interface Utilities<A = void, AR = void> {
+    actions: A | { [key: string]: string };
     stateKeys: string[];
     actionKeys: string[];
+    reducerActions: AR | { [key: string]: string };
     storeData: any,
     moduleData: TrebleGSM.ModuleData[]
   }

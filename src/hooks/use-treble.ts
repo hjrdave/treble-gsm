@@ -6,7 +6,7 @@
 import { useContext } from "react";
 import defaultContext from "../context";
 import { TrebleGSM } from "../interfaces";
-import { ITrebleCore } from '../treble-core';
+import { ITrebleCore, reducerActionKeys } from '../treble-core';
 
 
 export interface State extends TrebleGSM.State { };
@@ -24,7 +24,7 @@ function useTreble<S = State, D = Dispatchers, A = void>(context?: any) {
     const trebleContext = context !== undefined ? context : defaultContext;
 
     //would like to figure out how to type trebleContext something other then 'any' without breaking everything
-    const storeSubscription: [S, D, TrebleGSM.Utilities<A>] = useContext(
+    const storeSubscription: [S, D, TrebleGSM.Utilities<A, typeof reducerActionKeys>] = useContext(
       trebleContext as any
     );
 
