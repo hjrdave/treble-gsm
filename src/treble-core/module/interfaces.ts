@@ -1,4 +1,5 @@
 import { TrebleGSM } from '../../interfaces';
+import { reducerActionKeys } from './reducer-actions';
 
 export declare namespace ITrebleCore {
 
@@ -9,4 +10,6 @@ export declare namespace ITrebleCore {
         resetAll: (options?: TrebleGSM.DispatcherOptions) => void,
         run: (action: string, options?: TrebleGSM.DispatcherOptions) => void,
     }
+
+    export type ReducerActions = typeof reducerActionKeys;
 }
