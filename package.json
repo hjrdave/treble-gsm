@@ -1,6 +1,6 @@
 {
   "name": "treble-gsm",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Hook based React global state management",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
