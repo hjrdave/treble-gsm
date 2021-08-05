@@ -22,7 +22,7 @@ const renderGuard = (data: TrebleGSM.MiddlewareData) => {
                 if (Array.isArray(dispatchValue)) {
 
                     //makes sure consecutive empty array dispatch values do not trigger rerenders
-                    if (!(dispatchValue.length > 0 && currentState.length > 0)) {
+                    if (dispatchValue.length === 0 && currentState.length === 0) {
                         return false
                     }
                     return true
