@@ -5,8 +5,8 @@
 */
 
 import { createContext } from 'react';
-import { ISubscribeAPI } from './subscribe/interfaces';
+import { TrebleGSM } from './interfaces';
 
-const DefaultContext = createContext<Partial<[any, ISubscribeAPI]> | null>(null);
+const DefaultContext = createContext<Partial<[any, TrebleGSM.Dispatchers]> | null>(null);
 
 export default DefaultContext;

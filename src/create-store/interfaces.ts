@@ -1,11 +1,12 @@
 /*
     interface for createStore and error-handling
 */
-import {IStoreItem, IStoreOptions} from '../interfaces';
+import { TrebleGSM } from '../interfaces';
 
 export interface IErrorHandling {
-    (
-        storeData: IStoreItem[],
-        options?: IStoreOptions
-    ): void
+  (
+    storeData: TrebleGSM.StoreItem[],
+    options?: TrebleGSM.StoreOptions
+  ): void
 }
+

@@ -1,93 +1,62 @@
 /*
-    Middleware
-    Note: Middleware function runs before state gets to Reducer.
+    Runs Middleware 
+    Note: Middleware functions run before state gets to Reducer.
 */
-import listManagement from './list-management';
-import staticKeys from './static-keys';
 import checkDispatchValue from './check-dispatch-value';
-import callSideEffect from './call-side-effect';
-import manageLists from './manage-lists';
-import isSubscribeAPIListMethod from './is-subscribe-list-method';
-import { IMiddleware, IMiddlewareData, IStoreState } from '../interfaces';
+import runSideEffect from './run-side-effect';
+import processDispatchValue from './process-dispatch-value';
+import runReducerActions from './run-reducer-actions';
+import { TrebleGSM } from '../interfaces';
+import createMiddlewareData from './create-middleware-data';
 
-const runMiddleware: IMiddleware = (dispatchValue, storeItem, state, action, store) => {
+export interface IRunMiddleware {
+  (
+    middlewareData: TrebleGSM.MiddlewareData
+  ): any
+}
 
-    //store features middleware
-    let callMiddleware = storeItem?.features?.call || null;
-    let checkMiddleware = storeItem?.features?.check || null;
-    let processMiddleware = storeItem?.features?.process || null;
-    let callback = storeItem?.features?.callback || null;
-    let keys = storeItem?.features?.keys || null;
-    
-    //store data object for middleware (this object holds dispatch and store data that can get passed to middleware functions)
-    let middlewareData: IMiddlewareData = {
-        dispatchValue: dispatchValue,
-        dispatchAction: {...action, dispatchTime: new Date()},
-        processedValue: null,
-        action: storeItem.action,
-        features: storeItem.features,
-        currentState: state[Object.keys(storeItem.state)[0]],
-        storeItems: store,
-        storeState: state
+const runMiddleware: IRunMiddleware = (middlewareData) => {
+
+
+
+  //checks state agianst criteria then returns boolean
+  const doesDispatchValuePass = checkDispatchValue(middlewareData);
+
+  //runs a non-blocking function as soon as a value is dispatched to Store (failed checks will not cause it to fail)
+  runSideEffect(middlewareData, 'log');
+
+  //Makes sure state passes check and then will continue middleware pipeline and then return a value
+  if (doesDispatchValuePass) {
+
+    //runs a non-blocking function
+    runSideEffect(middlewareData, 'run');
+
+    //run module reducer actions
+    const dispatchValue = runReducerActions(middlewareData);
+
+    middlewareData = {
+      ...middlewareData,
+      dispatchValue: dispatchValue
     }
 
-    //subscribeAPI type
-    let subscribeType = action?.subscribeType;
+    //passes dispatchValue through module and feature process middleware
+    const processedDispatchValue = processDispatchValue(middlewareData);
 
-    //checks state agianst criteria then returns boolean
-    let doesDispatchValuePass = checkDispatchValue(middlewareData, checkMiddleware)
-
-    //calls a non-blocking function as soon as a value is dispatched to Store
-    callSideEffect(middlewareData, callMiddleware)
-
-    //Makes sure state passes check and then will continue middleware pipeline and then return a value
-    if (doesDispatchValuePass) {
-
-        //list management middleware
-        if (isSubscribeAPIListMethod(subscribeType)) {
-            return manageLists(middlewareData.dispatchValue, storeItem, state, action);
-        }
-
-        //returns a processed dispatchValue
-
-        if (processMiddleware !== null) {
-
-            const processedState = processMiddleware(middlewareData);
-
-            //runs callback if it exists with processedValue
-            if (callback !== null) {
-                middlewareData = {
-                    ...middlewareData,
-                    processedValue: processedState
-                }
-                setTimeout(() => { (callback !== null) ? callback(middlewareData) : null }, 0);
-            }
-
-            //if feature.keys are set to true returns state with keys
-            if (keys) {
-                let stateWithKeys = staticKeys(processedState);
-                return stateWithKeys;
-            }
-
-            return processedState;
-        }
-
-
-        //runs a non-blocking callback function as soon as other middleware runs
-        if (callback !== null) {
-            setTimeout(() => { (callback !== null) ? callback(middlewareData) : null }, 0);
-        }
-
-        //gives static keys to objects in list if keys feature is set to true
-        if (keys) {
-            let stateWithKeys = staticKeys(middlewareData.dispatchValue);
-            return stateWithKeys;
-        }
-
-        return dispatchValue
+    //updates middleware data if data is processed
+    if (processDispatchValue !== dispatchValue) {
+      middlewareData = {
+        ...middlewareData,
+        dispatchValue: processedDispatchValue
+      }
     }
 
-    return null
+    //runs callback if it exists with processedValue
+    runSideEffect(middlewareData, 'callback');
+
+    return middlewareData.dispatchValue;
+  }
+
+  return null
 }
 
 export default runMiddleware;

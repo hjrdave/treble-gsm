@@ -3,18 +3,46 @@
   Provider that consumes Reducer hook and provides state to wrapped children.  
 */
 import React, { useReducer } from "react";
-import subscribeAPI from "../subscribe";
-import storeUtilities from '../store-utilities'
+import createDispatchers from "../dispatchers";
+import createUtilities from '../utilities';
+import { TrebleGSM } from '../interfaces';
 
-const Provider = ({ reducer, data, children, scope, store }: any) => {
+interface Props {
+  reducer: any,
+  initialState: { [key: string]: any },
+  children: JSX.Element[] | JSX.Element,
+  scope: any,
+  store: TrebleGSM.StoreItem[],
+  modules: TrebleGSM.ModuleData[]
+}
+
+const Provider = ({ reducer, initialState, children, scope, store, modules }: Props) => {
+
   const Context = scope;
-  const trebleStore = useReducer(reducer, data);
-  const storeItems = trebleStore[0];
-  const dispatch = trebleStore[1];
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  //SubcribeAPI (store items, dispatchers, and utilities that will be made accessible via the useTreble hook)
+  const subscribeAPI = [state, createDispatchers(dispatch, modules), createUtilities(store, modules)]
 
   return (
     <>
-      <Context.Provider value={[storeItems, subscribeAPI(dispatch, store), storeUtilities(store)]}>
+      <Context.Provider value={subscribeAPI}>
+
+        {/** Render Module Components */}
+        {
+          modules?.map((module, index: number) => {
+            const RenderComponent: any = module.renderComponent;
+            return (
+              <React.Fragment key={index}>
+                {
+                  (RenderComponent) ?
+                    <RenderComponent /> : null
+                }
+              </React.Fragment>
+            )
+          })
+        }
+
         {children}
       </Context.Provider>
     </>

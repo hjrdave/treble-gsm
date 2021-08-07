@@ -5,15 +5,14 @@
 */
 
 import React from 'react';
-import useTreble from '../hooks/treble-hook';
+import useTreble from '../hooks/use-treble';
 import Treble from '../treble';
-import {IWithTreble} from '../interfaces';
-import errorHandling from './error-handling';
+import { IWithTreble } from './interfaces';
 
 export const withTreble: IWithTreble = (Component, options) => {
-  
+
   //handle errors
-  errorHandling(Component, options);
+  // errorHandling(Component, options);
 
   //checks to see if passed component is a class component
   if (Component.prototype instanceof React.Component) {
@@ -24,7 +23,7 @@ export const withTreble: IWithTreble = (Component, options) => {
         storeItems,
         Store
       ]
-      return(
+      return (
         <>
           <Component {...props} getTreble={getTreble} />
         </>
@@ -39,7 +38,7 @@ export const withTreble: IWithTreble = (Component, options) => {
         {
           (options?.store !== undefined) ?
             <Treble store={options?.store}>
-              <Component {...props}/>
+              <Component {...props} />
             </Treble>
             : null
         }

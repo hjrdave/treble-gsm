@@ -3,34 +3,40 @@
   Consumes treble store and dynamically builds global state reducer.
 */
 
-import { IBuildReducer, IReducer, IReducerActions } from '../interfaces';
-import dispatchPipeline from './dispatch-pipeline';
-import coreActions from './core-actions';
+import { Reducer } from './interfaces';
+import runDispatchPipeline from './run-dispatch-pipeline';
+import { trebleError } from '../globals';
 
+const buildReducer: Reducer.Build = (store, modules) => {
 
-const buildReducer: IBuildReducer = (store) => {
+  const Reducer: Reducer.TrebleReducer = (state, payload) => {
 
-  let Reducer: IReducer = (state, action) => {
+    let reducerActions: Reducer.ReducerActions = {}
 
-    //built in reducer actions
-    let reducerActions: IReducerActions = {
-      ...coreActions
-    }
-
-    //dynamically builds reducer actions
+    //adds reducer actions from store
     store.map((storeItem) => {
       reducerActions = {
         ...reducerActions,
-        [storeItem.action]: () => dispatchPipeline(storeItem, state, action, store)
+        [storeItem.action]: () => runDispatchPipeline(storeItem, state, payload, store, modules)
       }
-    })
+    });
+
+    //adds reducer actions from module.extendStore (if exists)
+    modules.map((module) => {
+      module.extendStore?.data.map((storeItem) => {
+        reducerActions = {
+          ...reducerActions,
+          [storeItem.action]: () => runDispatchPipeline(storeItem, state, payload, store, modules)
+        }
+      })
+    });
 
     //checks to makes sure action key exists and throws error if it doesnt
     try {
-      return reducerActions[action.type]();
+      return reducerActions[payload.type]();
     }
     catch (err) {
-      throw Error(`Store Action: ${action.type} - ${err}`);
+      throw Error(`${trebleError} Store action key "${payload.type}" does not exist`);
     }
 
   };

@@ -1,4 +1,4 @@
-import useTreble from './treble-hook';
-import useScopedTreble from './scoped-treble';
+import useTreble from './use-treble';
+import useScopedTreble from './use-scoped-treble';
 
 export {useTreble, useScopedTreble};

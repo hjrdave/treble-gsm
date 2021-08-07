@@ -1,202 +1,106 @@
 /*
-    Shared Interfaces
+    TrebleGSM Namespace
 */
 
 import React from 'react';
-import { ISubscribeAPI } from './subscribe/interfaces';
-import { IStoreUtilities } from './store-utilities/interfaces';
+import { ITrebleCore } from './treble-core/module/interfaces';
 
-// #region Shared Interfaces 
+export declare namespace TrebleGSM {
 
-//Store State model
-export interface IStoreState {
-  [key: string]: any
-}
-
-//Store Item Features Model
-export interface IStoreFeatures {
-  persist?: boolean,
-  keys?: boolean,
-  call?: (storeData: IMiddlewareData) => void,
-  check?: (storeData: IMiddlewareData) => boolean,
-  process?: (storeData: IMiddlewareData) => any,
-  callback?: (storeData: IMiddlewareData) => void
-}
-
-//Store Item Model
-export interface IStoreItem {
-  action: string,
-  state: IStoreState
-  features?: IStoreFeatures
-}
-
-//Store Options Model
-export interface IStoreOptions {
-  context?: React.Context<never[]>,
-  extendStore?: { data: IStoreItem[] }[],
-  modules?: any[]
-}
-
-export interface IReducerAction {
-  type: string,
-  [key: string]: any,
-  subscribeType: 'prepend' | 'remove' | 'orderBy' | 'append' | 'edit' | 'removeBatch';
-  options?: {
-    disableMiddleware?: boolean,
-    limit?: number,
-  }
-}
-
-// #endregion 
-
-// #region Provider Interfaces 
-
-//Treble Provider Model
-export interface ITreble {
-  children: JSX.Element | JSX.Element[];
-  store: {
-    data: IStoreItem[],
-    scope?: React.Context<never[]>,
-    modules?: any[]
-  }
-}
-// #endregion 
-
-// #region State Interfaces 
-
-//BuildState Interface
-export interface IBuildState {
-  (
-    store: IStoreItem[]
-  ): {
+  //Store State model
+  export interface StoreState {
     [key: string]: any
   }
-}
 
-// #endregion 
+  //Store Item Features Model
+  export interface StoreFeatures<S = StoreState, D = Dispatchers, F = {}> extends MiddlewareTypes<S, D, F> { }
 
-// #region Reducer Interfaces 
-
-//BuildReducer Interface
-export interface IBuildReducer {
-  (
-    store: IStoreItem[]
-  ): any
-}
-
-//Main Reducer Interface
-export interface IReducer {
-  (
-    state: {
-      [key: string]: any,
-      subscribeID: number
-    },
-    action: IReducerAction
-  ): {
-    [key: string]: any
+  //Store Item Model (this is the problem interface, for state inheritance issues)
+  export interface StoreItem<S = StoreState, F = StoreFeatures> {
+    action: string,
+    state: S,
+    features?: F
   }
-}
 
-//Reducer Actions Model
-export interface IReducerActions {
-  'updateSubscribeID'?: () => object,
-  [key: string]: any | undefined
-}
-
-export interface IDispatchPipeline {
-  (
-    storeItem: {
-      action: string;
-      state: {
-        [key: string]: any;
-      };
-    },
-    state: any,
-    action: IReducerAction,
-    store: any
-  ): { [key: string]: any };
-}
-
-// #endregion 
-
-// #region Store Interfaces
-
-//CreateStore Interface
-export interface ICreateStore {
-  (
-    storeData: IStoreItem[],
-    options?: IStoreOptions
-  ): {
-    data: IStoreItem[],
-    options?: IStoreOptions
+  //Store Options Model
+  export interface StoreOptions {
+    context?: any,
+    extendStore?: { data: StoreItem[] }[],
+    modules?: ModuleData[],
+    inheritModules?: boolean
   }
-}
 
-//#endregion
+  export interface DispatcherOptions {
+    disableMiddleware?: boolean;
+    sideEffectOnly?: boolean;
+    renderGuard?: boolean;
+    allowPayloadListeners?: boolean;
+  }
 
-//#region Middleware Interfaces
+  export interface DispatchPayload {
+    type: string;
+    [key: string]: any;
+    reducerAction?: string;
+    options?: DispatcherOptions
+  }
 
-//Main Middleware Interface
-export interface IMiddleware {
-  (
+  export interface MiddlewareTypes<S = StoreState, D = Dispatchers, F = StoreFeatures> {
+    log?: (middlewareData: MiddlewareData<S, D, F>) => void,
+    check?: (middlewareData: MiddlewareData<S, D, F>) => boolean,
+    run?: (middlewareData: MiddlewareData<S, D, F>) => void,
+    process?: (middlewareData: MiddlewareData<S, D, F>) => any,
+    callback?: (middlewareData: MiddlewareData<S, D, F>) => void,
+    payloadListener?: (payload: DispatchPayload) => void
+  }
+  export interface MiddlewareData<S = StoreState, D = Dispatchers, F = StoreFeatures> {
     dispatchValue: any,
-    storeItem: {
-      action: string,
-      state: IStoreState,
-      features?: IStoreFeatures
+    dispatchPayload: DispatchPayload,
+    initialDispatchValue: any,
+    action: string,
+    features: F | undefined,
+    currentState: any,
+    initialState: any,
+    storeItems: StoreItem<S>[],
+    storeState: S,
+    storeModules: ModuleData[],
+    dispatchers: D
+  }
+
+  export interface ModuleData {
+    name: string,
+    extendStore?: {
+      data: StoreItem[],
+      options?: StoreOptions
     },
-    state: IStoreState,
-    action: IReducerAction,
-    store: any
-  ): any
+    featureKeys?: string[],
+    dispatchers?: { [key: string]: (...params: any) => void },
+    reducerActions?: { [key: string]: (middlewareData: MiddlewareData) => any }
+    middleware?: MiddlewareTypes,
+    renderComponent?: React.ReactNode,
+    namespace?: string,
+    namespaceDispatchers?: boolean,
+    namespaceFeatureKeys?: boolean,
+    importModules?: ModuleData[]
+  }
+
+  export interface State {
+    [key: string]: any
+  }
+  export interface Dispatchers extends ITrebleCore.Dispatchers {
+    dispatch: (payload: DispatchPayload) => DispatchPayload;
+  }
+
+  export interface Utilities<A = void, AR = void> {
+    actions: A | { [key: string]: string };
+    stateKeys: string[];
+    actionKeys: string[];
+    reducerActions: AR | { [key: string]: string };
+    storeData: any,
+    moduleData: TrebleGSM.ModuleData[]
+  }
+
+
 }
 
-//#endregion
 
-//#region Hooks
-export interface IUseTreble {
-  (
-    context?: React.Context<Partial<{ [key: string]: any } | null>>
-  ): [{ [key: string]: any }, ISubscribeAPI, IStoreUtilities]
-}
-
-//#endregion
-
-//#region User Exported Interfaces and Types
-
-//useTreble hook type (used to get state intelisense)
-export type TUseTreble<State, Actions = void> = [State, ISubscribeAPI, IStoreUtilities<Actions>];
-
-//data object that gets passed to middleware functions 
-export interface IMiddlewareData<State = void & any>{
-  dispatchValue: any,
-  dispatchAction: IReducerAction & {
-    dispatchTime: Date
-  },
-  processedValue: any,
-  action: string,
-  features: IStoreFeatures | undefined,
-  currentState: any,
-  storeItems: IStoreItem[],
-  storeState: State
-}
-
-//#endregion
-
-//#region Higher Order Functions
-
-//withTreble
-
-export interface IWithTreble {
-  (Component: React.ComponentClass | React.FunctionComponent | any,
-    options?: {
-      store?:
-      {
-        data: IStoreItem[],
-        scope?: React.Context<never[]>
-      }
-    }): any
-}
-
-//#endregion
 
