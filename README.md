@@ -42,6 +42,7 @@ const Store = createStore([
 export default Store;
 ```
 
+
 #### Treble Container Component
 
 Import the `Treble` container component and `Store.js` into your App.js or index.js and wrap it around the components you wish to have access to your store. Pass the `Store` into the `Treble` `store` prop. Your app now has global state management!
