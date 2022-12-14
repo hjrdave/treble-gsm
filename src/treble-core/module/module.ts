@@ -14,7 +14,7 @@ import { ITrebleCore } from './interfaces';
 const TrebleCore = createModule({
     name: 'treble-core',
     extendStore: TrebleCoreStore as any,
-    renderComponent: TrebleCoreComp,
+    renderComponent: TrebleCoreComp as any,
     namespace: 'core',
     middleware: {
         check: renderGuard

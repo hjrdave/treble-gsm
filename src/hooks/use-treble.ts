@@ -37,7 +37,7 @@ function useTreble<S = State, D = Dispatchers, U = TrebleGSM.Utilities<{ [key: s
     return storeSubscription;
 
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error as any);
   }
 
 };
