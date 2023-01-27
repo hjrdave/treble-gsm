@@ -2,6 +2,7 @@
  * This is the new API for TrebleGSM V5
  * */
 import React from 'react';
+import Provider from './Provider';
 
 export default class TrebleGSM {
     public Store: (props: React.ComponentProps<any>) => JSX.Element;
@@ -10,11 +11,15 @@ export default class TrebleGSM {
 
     public constructor() {
 
-        const Context = React.createContext(null);
+        const Context = React.createContext([]);
 
-        this.Store = (props) => <>{props.children} </>;
+        this.Store = (props) => <><p>This is a Store</p> </>;
         this.Provider = (props: { children: JSX.Element | JSX.Element[] }) => (
-            <>{/*Provider comp*/}</>
+            <>
+                <Provider Context={Context as any} reducer={[]} initialState={this.Store}>
+                    {props.children}
+                </Provider>
+            </>
         );
         this.useStore = () => null;
     }
