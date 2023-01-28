@@ -3,7 +3,7 @@
 <p>&nbsp;</p>
 
 [![npm version](https://badge.fury.io/js/treble-gsm.svg)](https://badge.fury.io/js/treble-gsm) 
-[![Build Status](https://mediafish.visualstudio.com/Treble-GSM/_apis/build/status/hjrdave.treble-gsm?branchName=master)](https://mediafish.visualstudio.com/Treble-GSM/_build/latest?definitionId=5&branchName=master)
+[![Build Status](![example workflow](https://github.com/hjrdave/React.Cork/actions/workflows/npm-publish.yml/badge.svg)](https://mediafish.visualstudio.com/Treble-GSM/_build/latest?definitionId=5&branchName=master)
 
 
 ## Treble Global State Management
