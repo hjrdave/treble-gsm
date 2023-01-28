@@ -3,7 +3,7 @@
 <p>&nbsp;</p>
 
 [![npm version](https://badge.fury.io/js/treble-gsm.svg)](https://badge.fury.io/js/treble-gsm) 
-![example workflow](https://github.com/hjrdave/TrebleGSM/actions/workflows/npm-publish.yml/badge.svg)]
+![example workflow](https://github.com/hjrdave/TrebleGSM/actions/workflows/npm-publish.yml/badge.svg)
 
 
 ## Treble Global State Management
