@@ -1,6 +1,5 @@
 import { ITrebleGSM } from "./interfaces";
 import { default as Emitter } from "events";
-import TrebleGSM from "./TrebleGSM";
 
 export default class Dispatcher {
 
