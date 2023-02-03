@@ -1,12 +1,16 @@
-import { ITrebleGSM } from "./interfaces";
 import { default as Emitter } from "events";
 
+export interface DispatchItem {
+    key: string,
+    currentState: any;
+    newState: any;
+}
 export default class Dispatcher {
 
     private EventEmitter: Emitter;
-    private dispatchItem?: ITrebleGSM.DispatchItem;
+    private dispatchItem?: DispatchItem;
 
-    listen = (key: any, callbackfn: (item: ITrebleGSM.DispatchItem) => void) => {
+    listen = (key: any, callbackfn: (item: DispatchItem) => void) => {
         this.EventEmitter.on(key, () => {
             callbackfn(this.dispatchItem as any)
         });
@@ -14,7 +18,7 @@ export default class Dispatcher {
     stopListening = (key: string) => {
         this.EventEmitter.removeListener(key, () => null);
     }
-    dispatch = (item: ITrebleGSM.DispatchItem) => {
+    dispatch = (item: DispatchItem) => {
         this.dispatchItem = item;
         this.EventEmitter.emit(item.key);
     }
