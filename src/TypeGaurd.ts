@@ -1,6 +1,6 @@
 
 
-export type Types = 'number' | 'string' | 'boolean' | 'object' | 'array' | 'null' | 'undefined' | 'symbol' | 'bigint' | 'Map' | 'Set'
+export type Types = 'number' | 'string' | 'boolean' | 'object' | 'array' | 'null' | 'symbol' | 'bigint' | 'Map' | 'Set'
 
 export default class TypeGuard {
 
@@ -17,7 +17,7 @@ export default class TypeGuard {
     }
 
     isObject = (value: any) => {
-        return typeof value === 'object';
+        return typeof value === 'object' && value !== null;
     }
 
     isArray = (value: any) => {
@@ -28,41 +28,39 @@ export default class TypeGuard {
         return value === null;
     }
 
-    isUndefined = (value: any) => {
-        return value === null;
-    }
-
     isSymbol = (value: any) => {
-        return value === null;
+        return typeof value === 'symbol';
     }
 
     isBigint = (value: any) => {
-        return value === null;
+        return typeof value === 'bigint';
     }
 
     isMap = (value: any) => {
-        return value === null;
+        return value instanceof Map;
     }
 
     isSet = (value: any) => {
-        return value === null;
+        return value instanceof Set;
     }
 
-    doesTypePass = (value: any, type: Types) => {
-        const types = {
-            'number': () => (this.isNumber(value)),
-            'string': () => (this.isString(value)),
-            'boolean': () => (this.isBoolean(value)),
-            'object': () => (this.isObject(value)),
-            'array': () => (this.isArray(value)),
-            'null': () => (this.isNull(value)),
-            'undefined': () => (this.isUndefined(value)),
-            'symbol': () => (this.isSymbol(value)),
-            'bigint': () => (this.isBigint(value)),
-            'Map': () => (this.isMap(value)),
-            'Set': () => (this.isSet(value)),
+    doesTypePass = (value: any, type?: Types) => {
+        if (type) {
+            const types = {
+                'number': () => (this.isNumber(value)),
+                'string': () => (this.isString(value)),
+                'boolean': () => (this.isBoolean(value)),
+                'object': () => (this.isObject(value)),
+                'array': () => (this.isArray(value)),
+                'null': () => (this.isNull(value)),
+                'symbol': () => (this.isSymbol(value)),
+                'bigint': () => (this.isBigint(value)),
+                'Map': () => (this.isMap(value)),
+                'Set': () => (this.isSet(value)),
+            }
+            return types[type]();
         }
-        return types[type]();
+        return true;
     }
 
     public constructor() {

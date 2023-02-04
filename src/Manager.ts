@@ -1,16 +1,14 @@
 import Inventory from "./Inventory";
-import Middleware from "./Middleware";
 
-export default class Manager {
+export default class Manager<T> {
 
-    private inventory: Inventory;
-    private middleware: Middleware;
+    private inventory: Inventory<T>;
 
     get = (key: string) => {
         if (this.inventory.has(key)) {
             return this.inventory.get(key);
         }
-        console.warn('TrebleGSM: State does not exist.')
+        console.error(`TrebleGSM: State "${key}" does not exist.`);
         return undefined;
     }
 
@@ -18,16 +16,15 @@ export default class Manager {
         if (!this.inventory.has(key)) {
             this.inventory.set(key, value);
         } else {
-            console.warn('TrebleGSM: A State with this key already exists.')
+            console.error(`TrebleGSM: A State with key "${key}" already exists.`);
         }
     }
 
     update = (key: string, value: any) => {
         if (this.inventory.has(key)) {
-            //middleware should go here.
             this.inventory.set(key, value);
         } else {
-            console.warn('TrebleGSM: State does not exist.')
+            console.error(`TrebleGSM: State with key "${key}" does not exists.`);
         }
     }
 
@@ -47,13 +44,12 @@ export default class Manager {
         return this.inventory.has(key);
     }
 
-    process = (predicateFN: (value: any, key: string) => void) => {
+    forEach = (predicateFN: (value: any, key: string) => void) => {
         this.inventory.forEach(predicateFN);
     }
 
-    public constructor(inventory: Inventory) {
+    public constructor(inventory: Inventory<T>) {
         this.inventory = inventory;
-        this.middleware = new Middleware(this.inventory)
     }
 };
 
