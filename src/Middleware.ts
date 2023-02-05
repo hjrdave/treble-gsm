@@ -17,19 +17,23 @@ export default class Middleware {
         return this.dispatchItem.state;
     }
 
+    doesTypePass = (state: any, type?: Types) => {
+        return this.typeGaurd.doesTypePass(state, type)
+    }
+
     //runs middleware pipeline
     runPipeline = () => {
         const dispatchItem = this.dispatchItem;
         const dispatchState = dispatchItem.dispatchState;
         const type = dispatchItem.type;
         const features = dispatchItem.features;
+        const doesTypePass = this.doesTypePass(dispatchState, type);
         let pipelineItem = {
             doesPass: false,
             dispatchItem: this.dispatchItem,
         };
-
         //makes sure state is accepted type
-        if (this.typeGaurd.doesTypePass(dispatchState, type)) {
+        if (doesTypePass) {
 
             //runs log middleware fn
             if (features?.log) {
@@ -50,10 +54,13 @@ export default class Middleware {
                     }
                 }
                 return { ...pipelineItem, doesPass: true }
+            } else {
+                return { ...pipelineItem, doesPass: true }
             }
+        } else {
+            console.error(`TrebleGSM: State must be of type ${dispatchItem.type}`);
+            return pipelineItem;
         }
-        console.error(`TrebleGSM: State must be of type ${dispatchItem.type}`);
-        return pipelineItem;
     }
 
     public constructor(dispatchItem: DispatchItem) {

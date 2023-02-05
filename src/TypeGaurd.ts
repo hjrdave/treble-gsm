@@ -1,6 +1,6 @@
 
 
-export type Types = 'number' | 'string' | 'boolean' | 'object' | 'array' | 'null' | 'symbol' | 'bigint' | 'Map' | 'Set'
+export type Types = 'number' | 'string' | 'boolean' | 'object' | 'array' | 'null';
 
 export default class TypeGuard {
 
@@ -28,39 +28,20 @@ export default class TypeGuard {
         return value === null;
     }
 
-    isSymbol = (value: any) => {
-        return typeof value === 'symbol';
-    }
-
-    isBigint = (value: any) => {
-        return typeof value === 'bigint';
-    }
-
-    isMap = (value: any) => {
-        return value instanceof Map;
-    }
-
-    isSet = (value: any) => {
-        return value instanceof Set;
-    }
-
     doesTypePass = (value: any, type?: Types) => {
-        if (type) {
+        if (type !== undefined) {
             const types = {
                 'number': () => (this.isNumber(value)),
                 'string': () => (this.isString(value)),
                 'boolean': () => (this.isBoolean(value)),
                 'object': () => (this.isObject(value)),
                 'array': () => (this.isArray(value)),
-                'null': () => (this.isNull(value)),
-                'symbol': () => (this.isSymbol(value)),
-                'bigint': () => (this.isBigint(value)),
-                'Map': () => (this.isMap(value)),
-                'Set': () => (this.isSet(value)),
+                'null': () => (this.isNull(value))
             }
             return types[type]();
+        } else {
+            return true;
         }
-        return true;
     }
 
     public constructor() {

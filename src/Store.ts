@@ -21,6 +21,7 @@ export default class Store {
 
     //Managers
     private stateManager: Manager<any>;
+    private typeManager: Manager<Types>;
     private featureManager: Manager<Features>;
 
     //Dispatcher
@@ -30,18 +31,27 @@ export default class Store {
         return this.stateManager.getItems().map((item) => ({
             key: item[0],
             state: item[1],
+            type: this.typeManager.get(item[0]),
             features: this.featureManager.get(item[0])
         }));
     }
-    new = ({ key, state, features }: StoreItem) => {
-        this.stateManager.add(key, state);
-        this.featureManager.add(key, features);
+    new = ({ key, state, type, features }: StoreItem) => {
+        const middleware = new Middleware({ key: key });
+        if (middleware.doesTypePass(state, type)) {
+            this.stateManager.add(key, state);
+            this.typeManager.add(key, type);
+            this.featureManager.add(key, features);
+        } else {
+            console.error(`TrebleGSM: Initial State must be of type ${type}`);
+        }
     }
     get = (key: string) => {
         if (this.stateManager.has(key)) {
+            const type = this.typeManager.get(key);
             const state = this.stateManager.get(key);
             const features = this.featureManager.get(key);
             const storeItem = {
+                type: type,
                 key: key,
                 state: state,
                 features: features
@@ -55,13 +65,16 @@ export default class Store {
         if (this.stateManager.has(key)) {
             const middleware = new Middleware({
                 key: key,
+                type: this.typeManager.get(key),
                 currentState: this.get(key)?.state,
                 dispatchState: state,
                 state: state,
                 features: this.featureManager.get(key)
             });
-            this.dispatcher.dispatch(middleware.getDispatchItem());
-            this.stateManager.update(middleware.getKey(), middleware.getState());
+            if (middleware.runPipeline().doesPass) {
+                this.dispatcher.dispatch(middleware.getDispatchItem());
+                this.stateManager.update(middleware.getKey(), middleware.getState());
+            }
         } else {
             console.error(`TrebleGSM: State "${key}" does not exist.`);
         }
@@ -73,6 +86,7 @@ export default class Store {
 
     public constructor() {
         this.stateManager = new Manager(new Inventory);
+        this.typeManager = new Manager(new Inventory);
         this.featureManager = new Manager(new Inventory);
         this.dispatcher = new Dispatcher();
     }
