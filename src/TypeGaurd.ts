@@ -1,42 +1,43 @@
 
 
-export type Types = 'number' | 'string' | 'boolean' | 'object' | 'array' | 'null';
+export type Types = 'number' | 'string' | 'boolean' | 'object' | 'deepObject' | 'array' | 'null';
 
 export default class TypeGuard {
 
-    isNumber = (value: any) => {
+    public static isNumber = (value: any) => {
         return typeof value === 'number';
     }
 
-    isString = (value: any) => {
+    public static isString = (value: any) => {
         return typeof value === 'string';
     }
 
-    isBoolean = (value: any) => {
+    public static isBoolean = (value: any) => {
         return typeof value === 'boolean';
     }
 
-    isObject = (value: any) => {
+    public static isObject = (value: any) => {
         return typeof value === 'object' && value !== null;
     }
 
-    isArray = (value: any) => {
+    public static isArray = (value: any) => {
         return Array.isArray(value);
     }
 
-    isNull = (value: any) => {
+    public static isNull = (value: any) => {
         return value === null;
     }
 
     doesTypePass = (value: any, type?: Types) => {
         if (type !== undefined) {
             const types = {
-                'number': () => (this.isNumber(value)),
-                'string': () => (this.isString(value)),
-                'boolean': () => (this.isBoolean(value)),
-                'object': () => (this.isObject(value)),
-                'array': () => (this.isArray(value)),
-                'null': () => (this.isNull(value))
+                'number': () => (TypeGuard.isNumber(value)),
+                'string': () => (TypeGuard.isString(value)),
+                'boolean': () => (TypeGuard.isBoolean(value)),
+                'object': () => (TypeGuard.isObject(value)),
+                'deepObject': () => (TypeGuard.isObject(value)),
+                'array': () => (TypeGuard.isArray(value)),
+                'null': () => (TypeGuard.isNull(value))
             }
             return types[type]();
         } else {
