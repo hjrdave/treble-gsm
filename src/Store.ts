@@ -42,7 +42,7 @@ export default class Store {
             this.typeManager.add(key, type);
             this.featureManager.add(key, features);
         } else {
-            console.error(`TrebleGSM: Initial State must be of type ${type}`);
+            console.error(`TrebleGSM: Initial State "${key}" must be of type "${type}".`);
         }
     }
     get = (key: string) => {

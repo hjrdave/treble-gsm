@@ -58,7 +58,7 @@ export default class Middleware {
                 return { ...pipelineItem, doesPass: true }
             }
         } else {
-            console.error(`TrebleGSM: State must be of type ${dispatchItem.type}`);
+            console.error(`TrebleGSM: State "${dispatchItem.key}" must be of type "${dispatchItem.type}".`);
             return pipelineItem;
         }
     }
