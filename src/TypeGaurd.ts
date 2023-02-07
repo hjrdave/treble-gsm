@@ -28,7 +28,7 @@ export default class TypeGuard {
         return value === null;
     }
 
-    doesTypePass = (value: any, type?: Types) => {
+    public static isCorrectType = (value: any, type?: Types) => {
         if (type !== undefined) {
             const types = {
                 'number': () => (TypeGuard.isNumber(value)),
@@ -43,10 +43,6 @@ export default class TypeGuard {
         } else {
             return true;
         }
-    }
-
-    public constructor() {
-
     }
 };
 

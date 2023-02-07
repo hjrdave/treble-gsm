@@ -1,6 +1,7 @@
 /**
  * This is the new API for TrebleGSM V5
  * */
+//import './TrebleGSM';
 import Store, { StoreItem } from "./Store";
 import { DispatchItem } from "./Dispatcher";
 

@@ -3,7 +3,7 @@ export default class RenderGuard {
 
     //primitive compare
     public static isEquals = (value: any, value2: any) => {
-        return value === value2;
+        return value !== value2;
     }
 
     //compares two arrays to see if they are equal (works even if item order is different)
@@ -56,17 +56,17 @@ export default class RenderGuard {
         return true;
     }
 
-    doesRenderPass = (value?: any, value2?: any, type?: Types) => {
+    public static stateCanRender = (value?: any, value2?: any, type?: Types) => {
+        const gaurds = {
+            'object': () => (RenderGuard.shallowCompare(value, value2)),
+            'deepObject': () => (RenderGuard.deepCompare(value, value2)),
+            'array': () => (RenderGuard.compareArrays(value, value2)),
+            'default': () => (RenderGuard.isEquals(value, value2))
+        }
         if (type !== undefined) {
-            const gaurds = {
-                'object': () => (RenderGuard.shallowCompare(value, value2)),
-                'deepObject': () => (RenderGuard.deepCompare(value, value2)),
-                'array': () => (RenderGuard.compareArrays(value, value2)),
-                'default': () => (RenderGuard.isEquals(value, value2))
-            }
             return (type === 'object' || type === 'deepObject' || type === 'array') ? gaurds[type]() : gaurds['default']();
         } else {
-            return true;
+            return gaurds['default']();
         }
     }
 

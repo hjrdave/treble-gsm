@@ -1,9 +1,9 @@
 import TypeGuard, { Types } from "./TypeGaurd";
 import { DispatchItem } from "./Dispatcher";
+import RenderGuard from "./RenderGaurd";
 export default class Middleware {
 
     private dispatchItem: DispatchItem;
-    private typeGaurd = new TypeGuard();
 
     getDispatchItem = () => {
         return this.dispatchItem;
@@ -18,7 +18,11 @@ export default class Middleware {
     }
 
     doesTypePass = (state: any, type?: Types) => {
-        return this.typeGaurd.doesTypePass(state, type)
+        return TypeGuard.isCorrectType(state, type)
+    }
+
+    doesRenderPass = (state: any, state2: any, type?: Types) => {
+        return RenderGuard.stateCanRender(state, state2, type);
     }
 
     //runs middleware pipeline
@@ -34,29 +38,35 @@ export default class Middleware {
         };
         //makes sure state is accepted type
         if (doesTypePass) {
+            //Makes sure the dispatch state is not the current state
+            const doesRenderPass = this.doesRenderPass(dispatchItem.currentState, dispatchItem.dispatchState, type);
+            if (doesRenderPass) {
+                //runs log middleware fn
+                if (features?.log) {
+                    features.log(dispatchItem);
+                }
 
-            //runs log middleware fn
-            if (features?.log) {
-                features.log(dispatchItem);
-            }
+                //runs check middleware fn
+                if (features?.check && features?.check(dispatchItem)) {
 
-            //runs check middleware fn
-            if (features?.check && features?.check(dispatchItem)) {
-
-                //runs process middleware fn
-                if (features.process) {
-                    return {
-                        doesPass: true,
-                        dispatchItem: {
-                            ...dispatchItem,
-                            processedState: features.process(dispatchItem)
+                    //runs process middleware fn
+                    if (features.process) {
+                        return {
+                            doesPass: true,
+                            dispatchItem: {
+                                ...dispatchItem,
+                                processedState: features.process(dispatchItem)
+                            }
                         }
                     }
+                    return { ...pipelineItem, doesPass: true }
+                } else {
+                    return { ...pipelineItem, doesPass: true }
                 }
-                return { ...pipelineItem, doesPass: true }
             } else {
-                return { ...pipelineItem, doesPass: true }
+                return pipelineItem;
             }
+
         } else {
             console.error(`TrebleGSM: State "${dispatchItem.key}" must be of type "${dispatchItem.type}".`);
             return pipelineItem;
