@@ -9,6 +9,7 @@ export interface DispatchItem {
     currentState?: any;
     state?: any;
     features?: Features;
+    modules?: [any, any][];
 }
 export default class Dispatcher {
 

@@ -3,7 +3,7 @@ import { Types } from "./TypeGaurd";
 import Inventory from "./Inventory";
 import Manager from "./Manager";
 import Middleware from "./Middleware";
-
+import Module from "./Module";
 export interface Features {
     persist?: boolean;
     log?: (item: DispatchItem) => void;
@@ -23,9 +23,28 @@ export default class Store {
     private stateManager: Manager<any>;
     private typeManager: Manager<Types>;
     private featureManager: Manager<Features>;
+    private moduleManager: Manager<Module>;
 
     //Dispatcher
     private dispatcher: Dispatcher;
+
+    newModule = (module: Module) => {
+        const name = module.getName();
+        if (!this.moduleManager.has(name)) {
+            this.moduleManager.add(name, module.getData());
+        } else {
+            console.error(`TrebleGSM: Module "${name}" is already being used by Store instance.`);
+        }
+    }
+
+    getModule = (name: string) => {
+        if (this.moduleManager.has(name)) {
+            return this.moduleManager.get(name);
+        } else {
+            console.error(`TrebleGSM: Module "${name}" does not exist.`);
+            return undefined;
+        }
+    }
 
     getItems = () => {
         return this.stateManager.getItems().map((item) => ({
@@ -69,7 +88,8 @@ export default class Store {
                 currentState: this.get(key)?.state,
                 dispatchState: state,
                 state: state,
-                features: this.featureManager.get(key)
+                features: this.featureManager.get(key),
+                modules: this.moduleManager.getItems()
             });
             if (middleware.runPipeline().doesPass) {
                 this.dispatcher.dispatch(middleware.getDispatchItem());
@@ -88,6 +108,7 @@ export default class Store {
         this.stateManager = new Manager(new Inventory);
         this.typeManager = new Manager(new Inventory);
         this.featureManager = new Manager(new Inventory);
+        this.moduleManager = new Manager(new Inventory);
         this.dispatcher = new Dispatcher();
     }
 };

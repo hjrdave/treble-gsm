@@ -4,6 +4,7 @@
 //import './TrebleGSM';
 import Store, { StoreItem } from "./Store";
 import { DispatchItem } from "./Dispatcher";
+import Module, { IModule } from "./Module";
 
 export default class TrebleGSM {
 
@@ -33,6 +34,17 @@ export default class TrebleGSM {
     //Listens to state changes and then fires callback everytime a state changes
     onDispatch = (callbackfn: (item: DispatchItem) => void) => {
         this.store.onDispatch(callbackfn);
+    }
+
+    //Used by 3rd party libraies to create a new Module
+    static newModule = (moduleData: IModule) => {
+        const newModule = new Module(moduleData);
+        return newModule;
+    }
+
+    //Allows Store to use external Module to extend itself
+    use = (module: Module) => {
+        this.store.newModule(module);
     }
 
     public constructor() {
