@@ -1,9 +1,12 @@
 import React from 'react';
 import useTreble from '../../../hooks/use-treble';
 
-export default function RenderComp() {
+interface Props {
+    scope?: any;
+}
+export default function RenderComp({ scope }: Props) {
 
-    const [{ trebleCoreData }, Store, Utils] = useTreble();
+    const [{ trebleCoreData }, Store, Utils] = useTreble(scope);
 
 
     React.useEffect(() => {

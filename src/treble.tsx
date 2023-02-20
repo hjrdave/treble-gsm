@@ -33,11 +33,8 @@ function Treble({ children, store }: ITreble) {
     throw error;
   }
   //Allows scoped Stores to inherit modules from main Store
-  const trebleCoreData =
-    (store?.scope) ?
-      (store?.options?.inheritModules !== false) ?
-        useTreble(Context)[0].trebleCoreData :
-        { moduleData: [] } : { moduleData: [] };
+  const trebleCoreData = (store?.options?.inheritModules !== false)
+    ? (useTreble(store?.scope || Context)[0]?.trebleCoreData || { moduleData: [] }) : { moduleData: [] };
 
   //main context modules
   const inheritedModules = (trebleCoreData?.moduleData) ? [...trebleCoreData.moduleData] : [];

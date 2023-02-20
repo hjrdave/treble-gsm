@@ -36,7 +36,7 @@ const Provider = ({ reducer, initialState, children, scope, store, modules }: Pr
               <React.Fragment key={index}>
                 {
                   (RenderComponent) ?
-                    <RenderComponent /> : null
+                    <RenderComponent scope={Context} /> : null
                 }
               </React.Fragment>
             )

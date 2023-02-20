@@ -27,7 +27,6 @@ function useTreble<S = State, D = Dispatchers, U = TrebleGSM.Utilities<{ [key: s
     const storeSubscription: [S, D, U] = useContext(
       trebleContext as any
     );
-
     //checks to make sure React is installed
     if (storeSubscription === null) {
       throw new Error('TrebleGSM: StoreSubscription is null. Dependency React might be missing.');

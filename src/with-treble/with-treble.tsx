@@ -17,8 +17,8 @@ export const withTreble: IWithTreble = (Component, options) => {
   //checks to see if passed component is a class component
   if (Component.prototype instanceof React.Component) {
     return function ClassComponent(props: any) {
-      const storeItems = useTreble()[0];
-      const Store = useTreble()[1];
+      const storeItems = useTreble(options?.store?.scope)[0];
+      const Store = useTreble(options?.store?.scope)[1];
       const getTreble = [
         storeItems,
         Store
