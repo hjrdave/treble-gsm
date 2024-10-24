@@ -1,6 +1,7 @@
 <div><img src='https://hjrdave.github.io/get-treble-gsm/static/bd3520df0df3356f8a53c4588b0b285c/f3583/banner-readme.png' /></div>
 <p>&nbsp;</p>
-> **WARNING**: This library is deprecated. It will receive maintenance updates but it is no longer in active development. I am working on a successor library as of now to replace.
+
+> **WARNING**: This library is deprecated. It will receive maintenance updates but it is no longer in active development. I am working on a successor library as of now to replace.  
 
 [![npm version](https://badge.fury.io/js/treble-gsm.svg)](https://badge.fury.io/js/treble-gsm) 
 ![example workflow](https://github.com/hjrdave/TrebleGSM/actions/workflows/npm-publish.yml/badge.svg)
